@@ -1,0 +1,1 @@
+export const FetchURL = "http://localhost:3000/"
