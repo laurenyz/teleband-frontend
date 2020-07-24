@@ -34,7 +34,7 @@ function Login(props){
                 } else {
                 localStorage.setItem('jwt', json.token)
                 localStorage.setItem('type', type)
-                props.setCurrentUser(json.teacher)
+                props.setCurrentUser(json) 
                 props.setCurrentUserType(type)
              }}).then(history.push("/"))
         }   

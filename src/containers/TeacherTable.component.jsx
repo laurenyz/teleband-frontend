@@ -2,6 +2,7 @@ import React from 'react'
 import TeacherTableRow from './TeacherTableRow.component'
 
 function TeacherTable ({studentData}) {
+    
     const assignments = {}
     studentData.forEach(student => {
        student.assignments.forEach( assignment => assignments[assignment.id] ?  null : assignments[assignment.id] = assignment.title )
