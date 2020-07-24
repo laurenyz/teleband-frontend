@@ -16,7 +16,7 @@ function App() {
         <Route path="/login" component={Login}/>
         <Route path="/student" component={StudentPage}/>
         <Route path="/teacher" component={TeacherPage}/>
-        <Route path="/assignment" component={StudentAssignment}/>
+        <Route path="/assignment/:id" component={StudentAssignment}/>
       </Switch>
     </BrowserRouter>
   );
