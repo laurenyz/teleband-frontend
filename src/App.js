@@ -60,23 +60,4 @@ function App() {
         <Route path="/teacher" render={(props)=>{
           return < TeacherPage currentUser={currentUser}/>
         }}/>
-        <Route path="/assignment" component={StudentAssignment}/>
-        {/* <Route exact path = "/posts/:id" render= {(props) => {
-            if (this.props.posts.length>0){
-                let postId = parseInt(props.match.params.id)
-                let foundPost = this.props.posts.find(p => p.id === postId)
-                if (foundPost) {
-                  return<PostShowPage post = {foundPost} />
-                } else {
-                  alert("This post has been removed.")
-                  return<Redirect to="/posts" />
-                }
-            } else {
-              return null}
-          }} /> */}
-      </Switch>
-    </BrowserRouter>
-  );
-}
-
-export default App;
+        <Route path="/assignment/:id" component={StudentAssignment}/>
