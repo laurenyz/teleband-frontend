@@ -61,3 +61,9 @@ function App() {
           return < TeacherPage currentUser={currentUser}/>
         }}/>
         <Route path="/assignment/:id" component={StudentAssignment}/>
+        </Switch>
+    </BrowserRouter>
+  );
+}
+
+export default App;
