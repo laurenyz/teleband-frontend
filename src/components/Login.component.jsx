@@ -1,25 +1,24 @@
 import React, {useState} from 'react'
 import {useForm} from 'react-hook-form'
 import {FetchURL} from '../env/url'
+import { useHistory} from 'react-router-dom'
 import './Login.style.css'
 
 
-export default function Login(){
+function Login(props){
     const { handleSubmit: handleSubmitStudent, register: registerStudent, errors: errorsStudent } = useForm();
     const { handleSubmit: handleSubmitTeacher, register: registerTeacher, errors: errorsTeacher} = useForm()
-
-    
-
+    let history = useHistory();
     const onSubmitTeacher = (values) => {
          console.log("teacher", values)
-        loggingIn({email: values["email"], password: values["password"]})
+        loggingIn({email: values["email"], password: values["password"]}, "teacher")
     }
     const onSubmitStudent = (values) => {
         console.log("school-id", values)
-        loggingIn({school_id: values["school-id"]})
+        loggingIn({school_id: values["school-id"]}, "student")
     }
 
-    function loggingIn(payload){
+    function loggingIn(payload, type){
         fetch(`${FetchURL}login`, {
           method: "POST",
           headers: {
@@ -34,7 +33,10 @@ export default function Login(){
                 alert(json.message)
                 } else {
                 localStorage.setItem('jwt', json.token)
-             }})
+                localStorage.setItem('type', type)
+                props.setCurrentUser(json.teacher)
+                props.setCurrentUserType(type)
+             }}).then(history.push("/"))
         }   
   
     
@@ -98,3 +100,4 @@ export default function Login(){
         )
 }
 
+export default Login

@@ -1,8 +1,13 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 function Landing () {
     return(
-        <div>Landing Page</div>
+        <div>
+            Welcome to Teleband!
+
+            Click <Link to="/login">here</Link> to login.
+        </div>
     )
 }
 

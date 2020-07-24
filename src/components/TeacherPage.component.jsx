@@ -1,9 +1,16 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import {FetchURL} from '../env/url'
 
-function TeacherPage () {
+function TeacherPage ({currentUser}) {
+    console.log(currentUser)
     return(
-        <div>Teacher Page</div>
+        <React.Fragment>
+            <div>Teacher Page</div>
+            <div>Logged in as {currentUser.name}</div>
+        </React.Fragment>
     )
 }
+
+
 
 export default TeacherPage
