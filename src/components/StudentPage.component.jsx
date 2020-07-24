@@ -1,13 +1,38 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
+import StudentAssignCont from '../containers/StudentAssignCont.component'
 
 function StudentPage () {
+
+    const [name, setName] = useState('');
+    const [studentId, setStudentId] = useState('');
+    const [assignments, setAssignments] = useState([]);
+
     useEffect(() => {
-       fetch('http://localhost:3000/students/6')
+       fetch('http://localhost:3000/students/5')
        .then(resp => resp.json())
-       .then(student => console.log(student)) 
-    })
+       .then(student => {
+           setName(student.name)
+           setStudentId(student.school_id)
+           setAssignments(student.student_assignments)
+       }) 
+    }, [])
+
+
     return(
-        <div>Student Page</div>
+        <div>
+
+            <h3 id='student-id'>
+                Student Id: {studentId}
+            </h3>
+            <h3 id='student-name'>
+                Name: {name}
+            </h3>
+
+            <div>
+                {assignments.map(assign => <StudentAssignCont key={assign.id} assign={assign}/>)}
+            </div>
+
+        </div>
     )
 }
 
