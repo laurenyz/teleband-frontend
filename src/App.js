@@ -12,7 +12,6 @@ import {FetchURL} from './env/url'
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined)
   const [currentUserType, setCurrentUserType] = useState(undefined)
-  console.log(currentUser)
   useEffect(()=>{
     
     if (localStorage.getItem('jwt') && localStorage.getItem("type") === "teacher") {
@@ -22,9 +21,19 @@ function App() {
         }
       }).then(resp => resp.json())
       .then(teacher => {
-        console.log(teacher)
         setCurrentUser(teacher)
         setCurrentUserType("teacher")
+      })
+    } else if (localStorage.getItem('jwt') && localStorage.getItem("type") === "student") {
+      fetch(`${FetchURL}student/profile`, {
+        headers: {
+          "Authentication": localStorage.getItem('jwt')
+        }
+      }).then(resp => resp.json())
+      .then(student => {
+        console.log(student)
+        setCurrentUser(student)
+        setCurrentUserType("student")
       })
     }
   }
