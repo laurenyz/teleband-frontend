@@ -8,12 +8,11 @@ function TeacherTableRow ({studentData}){
             <tr>
                 <td>{student.name}</td>
                 <td>{student.school_id}</td>
-                {assignments.map((assignment) => 
+                {assignments.map((assignment, i) => 
                 {   
                     const {student_assignment:submission, assignmentDetail} = assignment
-                    console.log(submission)
                     return(
-                    <td>
+                    <td key={i}>
                         <div>
                         {submission.submitted ? <button>Play button</button> : "not complete"}
                         </div>

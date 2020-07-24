@@ -56,7 +56,9 @@ function App() {
         <Route path="/login" render={(props) => {
           return < Login setCurrentUser={setCurrentUser} setCurrentUserType={setCurrentUserType} />
         }}/>
-        <Route path="/student" component={StudentPage}/>
+        <Route path="/student" render={(props)=>{
+          return < StudentPage currentUser={currentUser}/>
+        }}/>
         <Route path="/teacher" render={(props)=>{
           return < TeacherPage currentUser={currentUser}/>
         }}/>
