@@ -17,4 +17,22 @@ function StudentPage () {
        }) 
     }, [])
 
+    return(
+        <div>
 
+            <h3 id='student-id'>
+                Student Id: {studentId}
+            </h3>
+            <h3 id='student-name'>
+                Name: {name}
+            </h3>
+
+            <div>
+                {assignments.map(assign => <StudentAssignCont key={assign.id} assign={assign}/>)}
+            </div>
+
+        </div>
+    )
+}
+
+export default StudentPage
