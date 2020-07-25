@@ -1,24 +1,32 @@
-import React, {useEffect} from 'react'
-import {FetchURL} from '../env/url'
+import React from 'react'
 import TeacherTable from '../containers/TeacherTable.component'
+import { useHistory } from 'react-router-dom'
+import '../style/TeacherPage.style.css'
 
-function TeacherPage ({currentUser}) {
-    useEffect(()=>{
+function TeacherPage({ currentUser, clearUserStates }) {
+    let history = useHistory();
+    function handleLogout() {
+        clearUserStates()
+        history.push('/')
+    }
 
-    },[currentUser])
-    console.log(currentUser)
-    return(
+    return (
         <React.Fragment>
-        {
-            currentUser ? 
-            currentUser.teacher ?
-            <React.Fragment>
-                <div>Teacher Page</div>
-                <div>Logged in as {currentUser.teacher.name}</div>
-                <TeacherTable studentData={currentUser.studentData}/>
-            </React.Fragment> : <div>Loading Page</div> :
-            <div>Loading Page</div>
-        }
+            {
+                currentUser ?
+                    currentUser.teacher ?
+                        <React.Fragment>
+                            <div id="teacher-page">
+                                <div className="header">
+                                    <div>Logged in as {currentUser.teacher.name}</div>
+                                    <div><button className="update-btn">Update Student Grades</button><button className="logout-btn" onClick={handleLogout}>Log Out</button></div>
+                                </div>
+                                <TeacherTable studentData={currentUser.studentData} />
+
+                            </div>
+                        </React.Fragment> : <div>Loading Page</div> :
+                    <div>Loading Page</div>
+            }
         </React.Fragment>
     )
 }

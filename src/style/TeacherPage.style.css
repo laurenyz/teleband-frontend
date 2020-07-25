@@ -1,0 +1,45 @@
+#teacher-page {
+    margin: auto;
+    padding: 10px;
+}
+
+#teacher-page .header{
+    border: solid black 2px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#teacher-page .header > div{
+    margin: 5px 20px;
+    font-weight: 600;
+}
+
+#teacher-table{
+    background-color: blueviolet;
+}
+
+#teacher-table th{
+    background-color: rgb(39, 39, 39);
+    color: white
+}
+
+#teacher-table td{
+    background-color: white;
+}
+
+#teacher-table td{
+    height: 70px;
+    
+}
+
+
+
+.name-col, .school-id-col  {
+    width: 100px;
+}
+
+
+
+td .assignment-col{
+    width: 200px;
+}

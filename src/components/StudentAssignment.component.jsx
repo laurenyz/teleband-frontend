@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 
-function StudentAssignment (props) {
+function StudentAssignment(props) {
 
     const [assignment, setAssignment] = useState({})
     useEffect(() => {
         fetch(`http://localhost:3000/assignments/${props.match.params.id}`)
-        .then(resp => resp.json())
-        .then(assign => setAssignment(assign)) 
-     }, [])
+            .then(resp => resp.json())
+            .then(assign => setAssignment(assign))
+    }, [props.match.params.id])
 
-    return(
+    return (
         <div>
             <h2> {assignment.title} </h2>
             <h3> {assignment.audios} </h3>
