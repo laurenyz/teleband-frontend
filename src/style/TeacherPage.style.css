@@ -15,6 +15,7 @@
     font-weight: 600;
 }
 
+/* Table styling */
 #teacher-table{
     background-color: blueviolet;  
     border: solid red 2px;
@@ -33,24 +34,65 @@
 }
 
 
+/* Mechanic for sticky scrolling */
+table tr th:first-child, table td:first-child{
+  position: sticky;
+  left: 0;
+  z-index: 10;
+}
 
+table tr th:first-child{
+  z-index: 11;
+}
 
-.name-col, .school-id-col  {
-    width: 100px;
+table tr th{
+  position: sticky;
+  top: 0;
+  z-index: 9;
 }
 
 
+.student-col  {
+    /* border: solid red 2px; */
+    text-align: left;
+    font-size: larger;
+    padding: 10px;
+    width: 200px;
+    height: 150px;
+}
+
+
+
+/* Assignment Box Styling */
 #teacher-table-assignment{
     /* border: solid red 2px; */
+    height: 170px;
     width: 200px;
-    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#teacher-table-assignment .audio-player{
+    border: solid red 2px;
+}
+
+#teacher-table-assignment .status-box{
+    /* border: solid red 2px; */
+    height: 25px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    
 }
 
 
 #teacher-table-assignment .slider-box{
-    border: solid red 2px;
-    height: 70px;
+    /* border: solid blue 2px; */
+    padding-bottom: 10px ;
+    height: 60px;
 }
+
 
 #teacher-table-assignment .slider-box > div > div{
     /* border: solid red 2px; */
@@ -59,14 +101,34 @@
 
 #teacher-table-assignment .slider-box .label{
     /* border: solid red 2px; */
+    padding: 0px 10px;
     width: 50px;
-    padding-right: 5px;
-    text-align: right;
+    text-align: center;
 }
 
 #teacher-table-assignment .slider-box .teacher-slider{
-    /* border: solid red 2px; */
+     /* border: solid red 2px; */
     margin-top: -2px;
     margin-left: -20px;
 
+}
+
+/* Assignment Box Status Mechanic */
+#teacher-table-assignment .UNALTERED{
+    color: purple;
+}
+
+#teacher-table-assignment .GRADING{
+    background-color: yellow;
+    color: black;
+}
+
+#teacher-table-assignment .GRADED{
+    background-color: rgb(31, 97, 158);
+    color: rgb(255, 255, 255);
+}
+
+#teacher-table-assignment .SUBMITTED{
+    background-color: green;
+    color: white;
 }

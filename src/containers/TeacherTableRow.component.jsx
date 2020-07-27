@@ -1,17 +1,25 @@
 import React from 'react'
 import TeacherTableAssignment from '../containers/TeacherTableAssignment.Component'
 
-function TeacherTableRow({ studentData }) {
+function TeacherTableRow({ studentData, addAssignment }) {
     let { student, assignments } = studentData
     return (
         <React.Fragment>
             <tr id="student-row">
-                <td>{student.name}</td>
-                <td>{student.school_id}</td>
+                <td >
+                    <div className="student-col">
+                        <div>
+                            Name: {student.name}
+                        </div>
+                        <div>
+                            School ID: {student.school_id}
+                        </div>
+                    </div>
+                </td>
                 {assignments.map((assignment, i) => {
                     return (
                         <td key={i}>
-                            <TeacherTableAssignment assignmentDetail={assignment} />
+                            <TeacherTableAssignment assignmentDetail={assignment} addAssignment={addAssignment} />
                         </td>)
                 }
                 )}
