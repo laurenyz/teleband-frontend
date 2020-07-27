@@ -1,12 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import StudentAssignCont from '../containers/StudentAssignCont.component'
 import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
+import {useHistory} from 'react-router-dom'
 
-function StudentPage () {
+function StudentPage (props) {
 
+    const history = useHistory();
     const [name, setName] = useState('');
     const [studentId, setStudentId] = useState('');
     const [assignments, setAssignments] = useState([]);
+
+    function handleLogout() {
+        props.clearUserStates()
+        history.push('/')
+    }
 
     useEffect(() => {
        fetch('http://localhost:3000/students/5')
@@ -20,6 +28,9 @@ function StudentPage () {
 
     return(
         <div>
+            <Button onClick={handleLogout}>
+                Logout
+            </Button>
             <Grid container>
                 <Grid item xs={3}>
                     <h3 id='student-id'>
