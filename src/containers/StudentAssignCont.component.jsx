@@ -1,5 +1,6 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom'
+import Grid from '@material-ui/core/Grid'
 
 const StudentAssignCont = (props) => {
     const history = useHistory();
@@ -10,10 +11,15 @@ const StudentAssignCont = (props) => {
     }
 
     return (
-        <div onClick={() => handleAssignClick()} id={props.assign.assignment.id}>
-            <h3>{props.assign.assignment.title} {props.assign.submitted.toString()}</h3>
+        <Grid container id={props.assign.assignment.id}>
+            <Grid onClick={() => handleAssignClick()} item xs={8}>
+            <h3>{props.assign.assignment.title} </h3>
             <h4>{props.assign.assignment.excerpts}</h4>
-        </div>
+            </Grid>
+            <Grid item xs={3}>
+             <h3>{props.assign.submitted.toString()}</h3>
+            </Grid>
+        </Grid>
     );
 }
 
