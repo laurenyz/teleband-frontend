@@ -1,6 +1,7 @@
 #teacher-page {
     margin: auto;
     padding: 10px;
+   
 }
 
 #teacher-page .header{
@@ -15,7 +16,11 @@
 }
 
 #teacher-table{
-    background-color: blueviolet;
+    background-color: blueviolet;  
+    border: solid red 2px;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 #teacher-table th{
@@ -27,10 +32,6 @@
     background-color: white;
 }
 
-#teacher-table td{
-    height: 70px;
-    
-}
 
 
 
@@ -39,7 +40,33 @@
 }
 
 
+#teacher-table-assignment{
+    /* border: solid red 2px; */
+    width: 200px;
+    padding: 5px;
+}
 
-td .assignment-col{
-    min-width: 200px;
+
+#teacher-table-assignment .slider-box{
+    border: solid red 2px;
+    height: 70px;
+}
+
+#teacher-table-assignment .slider-box > div > div{
+    /* border: solid red 2px; */
+    height: 30px;
+}
+
+#teacher-table-assignment .slider-box .label{
+    /* border: solid red 2px; */
+    width: 50px;
+    padding-right: 5px;
+    text-align: right;
+}
+
+#teacher-table-assignment .slider-box .teacher-slider{
+    /* border: solid red 2px; */
+    margin-top: -2px;
+    margin-left: -20px;
+
 }
