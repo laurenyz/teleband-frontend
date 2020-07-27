@@ -15,7 +15,9 @@
  .switch-box div{
    width: 100px;
    line-height: 30px;
-  
+   font-size: 20px;
+   -webkit-text-stroke-width: 2px; 
+   -webkit-text-stroke-color: rgba(155, 155, 155, 0.116); 
  }
  
  #login-form{
@@ -28,11 +30,19 @@
 
 
  .highlight {
-  font-weight: 600;
+  font-weight: 700;
  }
 
  .no-highlight{
+  font-weight: 500;
+ }
 
+ .teacher-btn{
+  color: rgb(49, 190, 6)
+ }
+
+ .student-btn{
+  color: #2196F3;
  }
  
  /* The switch - the box around the slider */
@@ -58,7 +68,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgb(241, 56, 56);
+    background-color: rgb(49, 190, 6);
     -webkit-transition: .4s;
     transition: .4s;
   }

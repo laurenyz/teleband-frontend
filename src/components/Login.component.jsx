@@ -49,13 +49,13 @@ function Login(props) {
         <div id="login">
             <h2>Login</h2>
             <div className="switch-box" >
-                <div className={!student ? "highlight" : "no-highlight"}>Teacher</div>
+                <div className={`teacher-btn ${!student ? "highlight" : "no-highlight"}`}>Teacher</div>
                 <label className="switch">
 
                     <input onClick={() => setStudent(student => !student)} type="checkbox" />
                     <span className="slider round"></span>
                 </label>
-                <div className={student ? "highlight" : "no-highlight"}>Student</div>
+                <div className={`student-btn ${student ? "highlight" : "no-highlight"}`}>Student</div>
             </div>
 
 
