@@ -1,29 +1,19 @@
 import React, { useState } from 'react'
 import TeacherTableRow from './TeacherTableRow.component'
 
-function TeacherTable({ studentData }) {
-    const [updateAssignment, updateAssignmentSet] = useState({})
+function TeacherTable({ studentData, updateGrades, updateAssignment, updateAssignmentSet, addAssignment }) {
+
     const assignments = {}
     studentData.forEach(student => {
         student.assignments.forEach(assignment => assignments[assignment.id] ? null : assignments[assignment.id] = assignment.title)
     })
 
 
-    const addAssignment = (data, student_assignment_ID) => {
-        console.log(data, student_assignment_ID)
-        updateAssignment[student_assignment_ID] = data
-        updateAssignmentSet(updateAssignment)
-    }
 
-    const handleSubmitGrades = () => {
-        console.log(updateAssignment)
-    }
+
 
     return (
         <React.Fragment>
-            <div>
-                <button onClick={handleSubmitGrades}>Submit Student Grades</button>
-            </div>
             <table id="teacher-table">
                 <thead className="top">
                     <tr>

@@ -82,10 +82,11 @@ table tr th{
     height: 25px;
     font-weight: 600;
     display: flex;
-    justify-content: space-between;
-    
+    justify-content: center;
 }
-
+#teacher-table-assignment .status-box > div{
+    margin: 0px 10px;
+}
 
 #teacher-table-assignment .slider-box{
     /* border: solid blue 2px; */

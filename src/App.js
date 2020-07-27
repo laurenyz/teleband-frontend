@@ -70,7 +70,7 @@ function App() {
           return < StudentPage currentUser={currentUser} />
         }} />
         <Route path="/teacher" render={(props) => {
-          return < TeacherPage currentUser={currentUser} clearUserStates={clearUserStates} />
+          return < TeacherPage currentUser={currentUser} clearUserStates={clearUserStates} setCurrentUser={setCurrentUser} />
         }} />
         <Route path="/assignment/:id" component={StudentAssignment} />
       </Switch>
