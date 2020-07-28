@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import TeacherTableRow from './TeacherTableRow.component'
 
-function TeacherTable({ studentData, updateGrades, updateAssignment, updateAssignmentSet, addAssignment }) {
+function TeacherTable({ studentData, addAssignment }) {
 
-    const assignments = {}
+    let assignments = []
+    let assignmentTitles = []
+    let allAssignments = []
     studentData.forEach(student => {
-        student.assignments.forEach(assignment => assignments[assignment.id] ? null : assignments[assignment.id] = assignment.title)
+        student.assignments.sort((a, b) => a.id > b.id).forEach(assignment => assignments.includes(assignment.id) ? (null) : (assignments.push(assignment.id), assignmentTitles.push(assignment.title)))
     })
 
+    allAssignments.sort((a, b) => a.id > b.id).forEach(assignment => assignments.includes(assignment.id) ? (null) : (assignments.push(assignment.id), assignmentTitles.push(assignment.title)))
 
 
-    console.log(assignments)
+
 
     return (
         <React.Fragment>
@@ -18,8 +21,8 @@ function TeacherTable({ studentData, updateGrades, updateAssignment, updateAssig
                 <thead className="top">
                     <tr>
                         <th>Student</th>
-                        {Object.keys(assignments).map((key, i) =>
-                            <th key={i} className="assignment-col">{assignments[key]} {key}</th>)
+                        {assignmentTitles.map((title, i) =>
+                            <th key={i} className="assignment-col">{title}</th>)
                         }
                     </tr>
                 </thead>

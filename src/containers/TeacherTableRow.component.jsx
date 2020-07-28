@@ -3,7 +3,19 @@ import TeacherTableAssignment from '../containers/TeacherTableAssignment.Compone
 
 function TeacherTableRow({ studentData, addAssignment, assignmentOrder }) {
     let { student, assignments } = studentData
-    console.log("teacher table row", assignments)
+    let revisedOrder = []
+
+    for (let i = 0; i < assignmentOrder.length; i++) {
+        let current = assignments.find(object => object.id === assignmentOrder[i])
+
+        if (current) {
+            revisedOrder.push(current)
+        } else {
+            revisedOrder.push(undefined)
+        }
+
+    }
+
     return (
         <React.Fragment>
             <tr id="student-row">
@@ -17,12 +29,18 @@ function TeacherTableRow({ studentData, addAssignment, assignmentOrder }) {
                         </div>
                     </div>
                 </td>
-                {/* We're assuming that every student gets the same set of assignments here */}
-                {assignments.sort((a, b) => a.id > b.id).map((assignment, i) => {
-                    return (
-                        <td key={i}>
-                            <TeacherTableAssignment assignmentDetail={assignment} addAssignment={addAssignment} />
-                        </td>)
+
+                {revisedOrder.map((assignment, i) => {
+                    if (!assignment) {
+                        return (
+                            <td key={i}><div className="not-assigned">Not Assigned</div></td>
+                        )
+                    } else {
+                        return (
+                            <td key={i}>
+                                <TeacherTableAssignment assignmentDetail={assignment} addAssignment={addAssignment} />
+                            </td>)
+                    }
                 }
                 )}
             </tr>

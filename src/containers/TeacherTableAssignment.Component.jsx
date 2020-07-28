@@ -9,6 +9,8 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
     const [status, statusSet] = useState("INCOMPLETE")
     const [rhythmState, rhythmStateSet] = useState(undefined)
 
+
+
     const { student_assignment, title, id } = assignmentDetail
     const { expression, rhythm, student_audio, student_id, submitted, tone } = student_assignment
 
@@ -52,9 +54,15 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
 
     return (
         <div id="teacher-table-assignment">
-            <div className="audio-player">
-                Audio Player Here
-                        </div>
+            {
+                student_audio ?
+                    <div className="audio-player">
+                        Audio Player Here
+                    </div> :
+                    <div className="audio-player">
+                        No Audio Available
+                    </div>
+            }
             <div className={`status-box ${status}`}>
                 {status}
             </div>
@@ -70,7 +78,7 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
                             defaultValue={rhythm}
                             onChangeCommitted={(e, value) => handleSliderChange(value, "rhythm")}
                             className="teacher-slider"
-                            disabled={submitted}
+                            disabled={submitted || !student_audio}
                             step={1}
                             marks
                             min={1}
@@ -88,7 +96,7 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
                             defaultValue={expression}
                             onChangeCommitted={(e, value) => handleSliderChange(value, "expression")}
                             className="teacher-slider"
-                            disabled={submitted}
+                            disabled={submitted || !student_audio}
                             step={1}
                             marks
                             min={1}
@@ -106,7 +114,7 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
                             defaultValue={tone}
                             onChangeCommitted={(e, value) => handleSliderChange(value, "tone")}
                             className="teacher-slider"
-                            disabled={submitted}
+                            disabled={submitted || !student_audio}
                             step={1}
                             marks
                             min={1}
