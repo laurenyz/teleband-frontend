@@ -3,6 +3,7 @@ import StudentAssignCont from '../containers/StudentAssignCont.component'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router-dom'
+import '../style/StudentPage.style.css'
 
 function StudentPage({ currentUser, clearUserStates }) {
 
@@ -32,23 +33,22 @@ function StudentPage({ currentUser, clearUserStates }) {
         )
     } else {
         return (
-            <div>
-                < Button onClick={handleLogout} >
-                    Logout
-               </Button >
-                <Grid container>
-                    <Grid item xs={3}>
+            <div id="student-page">
+                <div className="header">
+                    <div className="user-info">
                         <h3 id='student-id'>
                             Student Id: {studentId}
                         </h3>
-                    </Grid>
-                    <Grid item xs={3}>
                         <h3 id='student-name'>
                             Name: {name}
                         </h3>
-                    </Grid>
-                </Grid>
-
+                    </div>
+                    <div>
+                        <Button onClick={handleLogout} >
+                            Logout
+                    </Button >
+                    </div>
+                </div>
                 <div>
                     <Grid container>
                         <Grid item xs={8}>

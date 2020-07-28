@@ -1,0 +1,13 @@
+#student-page {
+    border: solid red 2px;
+}
+
+#student-page .header {
+    border: solid red 2px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#student-page .header .user-info {
+    border: solid red 2px;
+}
