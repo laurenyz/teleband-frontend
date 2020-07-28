@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import ReactAudioPlayer from 'react-audio-player'
+import { Document, Page } from 'react-pdf/dist/entry.webpack'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
+import { FetchURL } from '../env/url'
+
 
 function StudentAssignment(props) {
 
     const [assignment, setAssignment] = useState({})
-    const [file, setFile] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/assignments/${props.match.params.id}`)
+        fetch(`${FetchURL}assignments/${props.match.params.id}`)
             .then(resp => resp.json())
             .then(assign => setAssignment(assign))
     }, [props.match.params.id])
-
-    const fileChange = event => {
-        console.log(event)
-        setFile(event.target.files[0])
-    }
 
     return (
         <div>
@@ -38,7 +34,10 @@ function StudentAssignment(props) {
 
                 <Grid container direction='column'>
                     <Grid item>
-                    <h3> Here is where excerpts go{assignment.excerpts}</h3>
+                        <h3> Here is where excerpts go{assignment.excerpts}</h3>
+                        <div className="pdf-viewer">
+                            <iframe src={'http://africau.edu/images/default/sample.pdf'} />
+                        </div>
                     </Grid>
                     <Grid item>
                         <h3>Here is where 'Other Voices' go</h3>
@@ -53,7 +52,7 @@ function StudentAssignment(props) {
             <Button>
                 PLAY
             </Button>
-                
+
             <Button>
                 DELETE
             </Button>
