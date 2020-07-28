@@ -46,11 +46,6 @@ function StudentAssignment(props) {
                 </Grid>
             </Grid>
 
-            <ReactAudioPlayer src={`${file}`} controls/>
-
-            <input onChange={event => fileChange(event)} type='file' name='file'>
-            </input>
-
             <Button>
                 RECORD
             </Button>
