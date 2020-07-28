@@ -34,7 +34,7 @@ function App() {
         }
       }).then(resp => resp.json())
         .then(student => {
-          console.log(student)
+          console.log("set current user", student)
           setCurrentUser(student)
           setCurrentUserType("student")
         })
@@ -67,7 +67,7 @@ function App() {
           return < Login setCurrentUser={setCurrentUser} setCurrentUserType={setCurrentUserType} />
         }} />
         <Route path="/student" render={(props) => {
-          return < StudentPage currentUser={currentUser} clearUserStates={clearUserStates}/>
+          return < StudentPage currentUser={currentUser} clearUserStates={clearUserStates} />
         }} />
         <Route path="/teacher" render={(props) => {
           return < TeacherPage currentUser={currentUser} clearUserStates={clearUserStates} setCurrentUser={setCurrentUser} />
