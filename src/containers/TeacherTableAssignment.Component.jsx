@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid'
 
 function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
     const [formFill, formFillSet] = useState(undefined)
-    const [status, statusSet] = useState("UNALTERED")
+    const [status, statusSet] = useState("INCOMPLETE")
     const [rhythmState, rhythmStateSet] = useState(undefined)
 
     const { student_assignment, title, id } = assignmentDetail
@@ -21,6 +21,8 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
     useEffect(() => {
         if (formFill && formFill["submitted"]) {
             statusSet("SUBMITTED")
+        } else if (student_audio) {
+            statusSet("COMPLETE")
         }
 
     }, [formFill])
@@ -54,10 +56,7 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
                 Audio Player Here
                         </div>
             <div className={`status-box ${status}`}>
-                <div>
-                    {status === "UNALTERED" ? "" : status}
-                </div>
-                {/* {(status === "UNALTERED" || status === "SUBMITTED") ? null : <div><button onClick={resetForm}>Revert</button></div>} */}
+                {status}
             </div>
             <div className="slider-box">
                 <Grid container spacing={2}>

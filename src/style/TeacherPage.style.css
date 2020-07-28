@@ -65,7 +65,6 @@ table tr th{
 
 /* Assignment Box Styling */
 #teacher-table-assignment{
-    /* border: solid red 2px; */
     height: 170px;
     width: 200px;
     display: flex;
@@ -74,50 +73,29 @@ table tr th{
 }
 
 #teacher-table-assignment .audio-player{
-    border: solid red 2px;
+    height: 100%;
 }
 
 #teacher-table-assignment .status-box{
-    /* border: solid red 2px; */
-    height: 25px;
+    min-height: 25px;
     font-weight: 600;
     display: flex;
     justify-content: center;
-}
-#teacher-table-assignment .status-box > div{
-    margin: 0px 10px;
-}
-
-#teacher-table-assignment .slider-box{
-    /* border: solid blue 2px; */
-    padding-bottom: 10px ;
-    height: 60px;
-}
-
-
-#teacher-table-assignment .slider-box > div > div{
-    /* border: solid red 2px; */
-    height: 30px;
-}
-
-#teacher-table-assignment .slider-box .label{
-    /* border: solid red 2px; */
-    padding: 0px 10px;
-    width: 50px;
-    text-align: center;
-}
-
-#teacher-table-assignment .slider-box .teacher-slider{
-     /* border: solid red 2px; */
-    margin-top: -2px;
-    margin-left: -20px;
-
+    padding-top: 3px;
+    border: 2px rgb(70, 70, 70) solid;
 }
 
 /* Assignment Box Status Mechanic */
-#teacher-table-assignment .UNALTERED{
-    color: purple;
+#teacher-table-assignment .INCOMPLETE{
+    background-color: rgb(231, 4, 4);
+    color: white;
 }
+
+#teacher-table-assignment .COMPLETE{
+    background-color: rgb(33, 224, 8);
+    color: black;
+}
+
 
 #teacher-table-assignment .GRADING{
     background-color: yellow;
@@ -133,3 +111,25 @@ table tr th{
     background-color: green;
     color: white;
 }
+
+#teacher-table-assignment .slider-box{
+    padding-bottom: 10px ;
+    height: 60px;
+}
+
+#teacher-table-assignment .slider-box > div > div{
+    height: 30px;
+}
+
+#teacher-table-assignment .slider-box .label{
+    padding: 0px 10px;
+    width: 50px;
+    text-align: center;
+}
+
+#teacher-table-assignment .slider-box .teacher-slider{
+    margin-top: -2px;
+    margin-left: -20px;
+
+}
+
