@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import TeacherTable from '../containers/TeacherTable.component'
 import { useHistory } from 'react-router-dom'
 import '../style/TeacherPage.style.css'
+import { FetchURL } from '../env/url'
 
 function TeacherPage({ currentUser, clearUserStates, setCurrentUser }) {
     const [updateAssignment, updateAssignmentSet] = useState({})
@@ -12,7 +13,6 @@ function TeacherPage({ currentUser, clearUserStates, setCurrentUser }) {
     }
 
     const addAssignment = (data, student_assignment_ID) => {
-        console.log(data, student_assignment_ID)
         updateAssignment[student_assignment_ID] = data
         updateAssignmentSet(updateAssignment)
     }
@@ -20,6 +20,17 @@ function TeacherPage({ currentUser, clearUserStates, setCurrentUser }) {
     // Update call made here
     const updateGrades = () => {
         console.log(updateAssignment)
+        fetch(`${FetchURL}teacher/updategrades`, {
+            method: "PATCH",
+            headers: {
+                "Authentication": localStorage.getItem('jwt'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ updateAssignment: updateAssignment })
+        }).then(resp => resp.json())
+            .then(teacher => {
+                setCurrentUser(teacher)
+            })
     }
 
     return (

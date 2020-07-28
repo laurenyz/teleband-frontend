@@ -10,7 +10,7 @@ function TeacherTable({ studentData, updateGrades, updateAssignment, updateAssig
 
 
 
-
+    console.log(assignments)
 
     return (
         <React.Fragment>
@@ -19,12 +19,12 @@ function TeacherTable({ studentData, updateGrades, updateAssignment, updateAssig
                     <tr>
                         <th>Student</th>
                         {Object.keys(assignments).map((key, i) =>
-                            <th key={i} className="assignment-col">{assignments[key]}</th>)
+                            <th key={i} className="assignment-col">{assignments[key]} {key}</th>)
                         }
                     </tr>
                 </thead>
                 <tbody>
-                    {studentData.map((student) => { return <TeacherTableRow key={student.student.school_id} studentData={student} addAssignment={addAssignment} /> })}
+                    {studentData.map((student) => { return <TeacherTableRow key={student.student.school_id} studentData={student} addAssignment={addAssignment} assignmentOrder={assignments} /> })}
                 </tbody>
             </table>
         </React.Fragment >
