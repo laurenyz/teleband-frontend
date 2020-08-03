@@ -1,19 +1,53 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
-import AudioRecorder from 'react-audio-recorder'
+import {Recorder} from 'react-voice-recorder'
+import 'react-voice-recorder/dist/index.css'
+
 import { FetchURL } from '../env/url'
 
 
 function StudentAssignment(props) {
 
     const [assignment, setAssignment] = useState({})
+    const [audio, setAudioDetails] = useState({audioDetails: {
+        url: null,
+        blob: null,
+        chunks: null,
+        duration: {
+          h: 0,
+          m: 0,
+          s: 0
+        }
+      }})
 
     useEffect(() => {
         fetch(`${FetchURL}assignments/${props.match.params.id}`)
             .then(resp => resp.json())
             .then(assign => setAssignment(assign))
     }, [props.match.params.id])
+
+    const handleAudioStop = data => {
+        setAudioDetails({audioDetails: data})
+        console.log(audio.audioDetails.url)
+    }
+
+    const handleAudioReset = () => {
+        setAudioDetails({audioDetails: {
+            url: null,
+            blob: null,
+            chunks: null,
+            duration: {
+              h: 0,
+              m: 0,
+              s: 0
+            }
+          }})
+    }
+
+    const handleAudioUpload = data => {
+        console.log(data)
+    }
 
     return (
         <div>
@@ -45,8 +79,15 @@ function StudentAssignment(props) {
                 </Grid>
             </Grid>
 
-            <AudioRecorder downloadable={true}/>
-
+            <Recorder 
+            record={true}
+            showUIAudio
+            title={'Record Your Piece Here'}
+            handleAudioStop={data => handleAudioStop(data)}
+            handleRest={() => handleAudioReset()}
+            handleAudioUpload={data => handleAudioUpload(data)}
+            audioURL={audio.audioDetails.url}
+            />
             <Button>
                 RECORD
             </Button>
