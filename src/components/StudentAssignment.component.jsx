@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Document, Page } from 'react-pdf/dist/entry.webpack'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
+import AudioRecorder from 'react-audio-recorder'
 import { FetchURL } from '../env/url'
 
 
@@ -44,6 +44,8 @@ function StudentAssignment(props) {
                     </Grid>
                 </Grid>
             </Grid>
+
+            <AudioRecorder downloadable={true}/>
 
             <Button>
                 RECORD

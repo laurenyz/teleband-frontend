@@ -10,4 +10,6 @@
 
 #student-page .header .user-info {
     border: solid red 2px;
+
+    width: 400px;
 }
