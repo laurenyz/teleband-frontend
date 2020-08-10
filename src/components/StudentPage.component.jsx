@@ -8,63 +8,51 @@ import '../style/StudentPage.style.css'
 function StudentPage({ currentUser, clearUserStates }) {
 
     const history = useHistory();
-    const [name, setName] = useState(undefined);
-    const [studentId, setStudentId] = useState(undefined);
-    const [assignments, setAssignments] = useState(undefined);
-
     function handleLogout() {
         clearUserStates()
         history.push('/')
     }
 
-    useEffect(() => {
-        if (currentUser) {
-            setName(currentUser.name)
-            setStudentId(currentUser.school_id)
-            setAssignments(currentUser.student_assignments)
-        }
-    }, [currentUser])
-
-    if (!assignments) {
-        return (
-            <div>
-                Loading
-            </div>
-        )
-    } else {
-        return (
-            <div id="student-page">
-                <div className="header">
-                    <div className="user-info">
-                        <h3 id='student-id'>
-                            Student Id: {studentId}
-                        </h3>
-                        <h3 id='student-name'>
-                            Name: {name}
-                        </h3>
-                    </div>
-                    <div>
-                        <Button onClick={handleLogout} >
-                            Logout
+    return (
+        <React.Fragment>
+            {
+                currentUser ?
+                    currentUser.student_assignments ?
+                        <div id="student-page">
+                            <div className="header">
+                                <div className="user-info">
+                                    <h3 id='student-id'>
+                                        Student Id: {currentUser.school_id}
+                                    </h3>
+                                    <h3 id='student-name'>
+                                        Name: {currentUser.name}
+                                    </h3>
+                                </div>
+                                <div>
+                                    <Button onClick={handleLogout} >
+                                        Logout
                     </Button >
-                    </div>
-                </div>
-                <div>
-                    <Grid container>
-                        <Grid item xs={8}>
-                            <h2>Assignments</h2>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <h2>Submitted</h2>
-                        </Grid>
-                    </Grid>
-                    {assignments.map(assign =>
-                        <StudentAssignCont key={assign.id} assign={assign} />
-                    )}
-                </div>
-            </div >
-        )
-    }
+                                </div>
+                            </div>
+                            <div>
+                                <Grid container>
+                                    <Grid item xs={8}>
+                                        <h2>Assignments</h2>
+                                    </Grid>
+                                    <Grid item xs={3}>
+                                        <h2>Submitted</h2>
+                                    </Grid>
+                                </Grid>
+                                {currentUser.student_assignments.map(assign =>
+                                    <StudentAssignCont key={assign.id} assign={assign} />
+                                )}
+                            </div>
+                        </div > : <div>Loading Page no student assignments</div> :
+                    <div>Loading Page current user is null</div>}
+
+        </React.Fragment>
+    )
+
 
 }
 

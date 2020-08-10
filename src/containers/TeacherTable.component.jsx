@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import TeacherTableRow from './TeacherTableRow.component'
 
 function TeacherTable({ studentData, addAssignment }) {
@@ -6,6 +6,7 @@ function TeacherTable({ studentData, addAssignment }) {
     let assignments = []
     let assignmentTitles = []
     let allAssignments = []
+
     studentData.forEach(student => {
         student.assignments.sort((a, b) => a.id > b.id).forEach(assignment => assignments.includes(assignment.id) ? (null) : (assignments.push(assignment.id), assignmentTitles.push(assignment.title)))
     })
