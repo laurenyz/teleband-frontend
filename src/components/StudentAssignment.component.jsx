@@ -88,21 +88,6 @@ function StudentAssignment(props) {
             handleAudioUpload={data => handleAudioUpload(data)}
             audioURL={audio.audioDetails.url}
             />
-            <Button>
-                RECORD
-            </Button>
-
-            <Button>
-                PLAY
-            </Button>
-
-            <Button>
-                DELETE
-            </Button>
-
-            <Button>
-                SUBMIT
-            </Button>
         </div>
     )
 }

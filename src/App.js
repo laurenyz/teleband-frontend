@@ -9,6 +9,7 @@ import TeacherPage from './components/TeacherPage.component'
 import Login from './components/Login.component'
 import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom'
 import { FetchURL } from './env/url'
+import Navbar from './components/Navbar.component'
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Navbar />
       <Switch>
         <Route exact path="/" render={() => {
           if (currentUser && currentUserType === "teacher") {
