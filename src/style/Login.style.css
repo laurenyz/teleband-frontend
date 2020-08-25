@@ -1,109 +1,108 @@
- #login {
-   width: 500px;
-   border: solid red 2px;
+#login-header {
    text-align: center;
+   margin-bottom: 40px;
  }
 
- .switch-box{
-   display: flex;
-   flex-direction: row;
-   width: 50%;
-   margin: auto;
-   justify-content: space-between;
- }
+.switch-box{
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  margin: auto;
+  justify-content: space-between;
+}
 
- .switch-box div{
-   width: 100px;
-   line-height: 30px;
-   font-size: 20px;
-   -webkit-text-stroke-width: 2px; 
-   -webkit-text-stroke-color: rgba(155, 155, 155, 0.116); 
- }
+.switch-box div{
+  width: 100px;
+  line-height: 30px;
+  font-size: 20px;
+  -webkit-text-stroke-width: 2px; 
+  -webkit-text-stroke-color: rgba(155, 155, 155, 0.116); 
+}
  
- #login-form{
-   display: flex;
-   flex-direction: column;
-   height: 150px;
-   border: solid red 2px;
-   justify-content: space-evenly;
- }
+#login-form{
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  border: solid red 2px;
+  justify-content: space-evenly;
+}
 
+.highlight {
+font-weight: 700;
+}
 
- .highlight {
-  font-weight: 700;
- }
+.no-highlight{
+font-weight: 500;
+}
 
- .no-highlight{
-  font-weight: 500;
- }
+.teacher-btn{
+color: rgb(49, 190, 6);
+}
 
- .teacher-btn{
-  color: rgb(49, 190, 6)
- }
+.student-btn{
+color: #2196F3;
+}
 
- .student-btn{
-  color: #2196F3;
- }
- 
- /* The switch - the box around the slider */
- .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgb(49, 190, 6);
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  } 
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  min-width: 60px;
+  height: 34px;
+  margin: 0px 20px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(49, 190, 6);
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+} 
