@@ -28,11 +28,11 @@ function StudentPage({ currentUser, clearUserStates }) {
                                         Name: {currentUser.name}
                                     </h3>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <Button onClick={handleLogout} >
                                         Logout
-                    </Button >
-                                </div>
+                                    </Button >
+                                </div> */}
                             </div>
                             <div>
                                 <Grid container>

@@ -8,9 +8,6 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
     const [formFill, formFillSet] = useState(undefined)
     const [status, statusSet] = useState("INCOMPLETE")
     const [rhythmState, rhythmStateSet] = useState(undefined)
-
-
-
     const { student_assignment, title, id } = assignmentDetail
     const { expression, rhythm, student_audio, student_id, submitted, tone } = student_assignment
 
@@ -26,7 +23,6 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
         } else if (student_audio) {
             statusSet("COMPLETE")
         }
-
     }, [formFill])
 
     function initalFormFill() {

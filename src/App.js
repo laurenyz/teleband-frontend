@@ -50,11 +50,9 @@ function App() {
 
   }
 
-
-
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar currentUserType={currentUserType} currentUser={currentUser} clearUserStates={clearUserStates}/>
       <Switch>
         <Route exact path="/" render={() => {
           if (currentUser && currentUserType === "teacher") {
