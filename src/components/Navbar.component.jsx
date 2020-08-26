@@ -15,6 +15,10 @@ function Navbar({currentUser, clearUserStates, currentUserType}){
     function handleAssignmentLink(){
         history.push('/student')
     }
+
+    function handleLogin(){
+        history.push('/login')
+    }
     console.log(currentUser)
     return(
         <AppBar position="static" style={{height: "60px", padding:"15px"}}>
@@ -24,23 +28,26 @@ function Navbar({currentUser, clearUserStates, currentUserType}){
                 </Grid>
                 <Grid item>
                     <Grid container>
-                    {currentUserType === "student"?
-                    <Grid item>
-                    <Button onClick={handleAssignmentLink} >
-                        Assignments
-                    </Button >
-                </Grid>
-                    :
-                    null
-                    }
-                    {currentUser?
-                    <Grid item>
-                        <Button onClick={handleLogout} >
-                            Logout
-                        </Button >
-                    </Grid>
-                    :
-                    null}
+                        { currentUserType === "student"?
+                        <Grid item>
+                            <Button onClick={handleAssignmentLink} >
+                                Assignments
+                            </Button >
+                        </Grid>
+                        : null }
+                        { currentUser?
+                        <Grid item>
+                            <Button onClick={handleLogout} >
+                                Logout
+                            </Button >
+                        </Grid>
+                        : 
+                        <Grid item>
+                            <Button onClick={handleLogin} >
+                                Login
+                            </Button >
+                        </Grid> 
+                        }
                     </Grid>
                 </Grid>
                 
