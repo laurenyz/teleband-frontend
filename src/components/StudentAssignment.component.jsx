@@ -55,7 +55,7 @@ function StudentAssignment(props) {
     let createFileFromBlob = () => {
         console.log("URL", audioUrl)
         console.log("AudioBlob", [audioBlob])
-        let file = new File([audioBlob], 'audio1.wav', { type: 'audio/wav' })
+        let file = new File([audioBlob], 'audio1.ogg', { type: 'audio/ogg' })
         console.log(file)
         return file
     }
