@@ -61,7 +61,7 @@ function StudentAssignment(props) {
 
     let postRecording = () => {
         let payload = {
-            student_id: localStorage.getItem("jwt"),
+            school_id: localStorage.getItem("jwt"),
             student_recording: createFileFromBlob()
         }
         fetch(`${FetchURL}/student_assignment/${props.match.params.id}/submit_recording`, {
