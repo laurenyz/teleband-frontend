@@ -35,7 +35,6 @@ function App() {
         }
       }).then(resp => resp.json())
         .then(student => {
-          console.log("set current user", student)
           setCurrentUser(student)
           setCurrentUserType("student")
         })
@@ -52,7 +51,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar currentUserType={currentUserType} currentUser={currentUser} clearUserStates={clearUserStates}/>
+      <Navbar currentUserType={currentUserType} currentUser={currentUser} clearUserStates={clearUserStates} />
       <Switch>
         <Route exact path="/" render={() => {
           if (currentUser && currentUserType === "teacher") {
