@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import Grid from '@material-ui/core/Grid'
 import MicIcon from '@material-ui/icons/Mic';
+import StopIcon from '@material-ui/icons/Stop';
 import { FetchURL } from '../env/url'
 import { FilledInput } from '@material-ui/core'
 
@@ -15,6 +16,7 @@ function StudentAssignment(props) {
     const [mediaRecorder, mediaRecorderSet] = useState(null)
     const [audioBlob, audioBlobSet] = useState(null)
     const [audioUrl, audioUrlSet] = useState(null)
+
 
 
     useEffect(() => {
@@ -54,13 +56,22 @@ function StudentAssignment(props) {
         console.log("URL", audioUrl)
         console.log("AudioBlob", audioBlob)
         let file = new File([audioBlob], 'audio1.wav', { type: 'audio/wav' })
-        console.log(file)
         return file
     }
 
     let postRecording = () => {
-        /*This is where we post the file to the backend*/
-        let file = createFileFromBlob()
+        let payload = {
+            student_id: localStorage.getItem("jwt"),
+            student_recording: createFileFromBlob()
+        }
+        fetch(`${FetchURL}/student_assignment/${props.match.params.id}/submit_recording`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
     }
 
     return (
@@ -92,22 +103,26 @@ function StudentAssignment(props) {
                 </Grid>
             </Grid>
             <div>
-                <div>
-                    {active ? "currently recording" : "not recording"}
-                </div>
-                <IconButton onClick={prepareRecording}>
-                    <MicIcon></MicIcon>
-                </IconButton>
-                <Button onClick={startRecording}>
-                    Start Recording
-                </Button>
-                <Button onClick={stopRecording}>
-                    Stop Recording
-                </Button>
-                <Button onClick={postRecording}>
-                    Submit Recording
-                </Button>
-                {audioUrl ? <a href={audioUrl} download>Click to download</a> : null}
+                {
+                    !mediaRecorder ?
+                        <Button onClick={prepareRecording}>
+                            Start Recording
+                        </Button> : active ?
+                            <IconButton onClick={stopRecording}>
+                                <StopIcon></StopIcon>
+                            </IconButton> :
+                            <IconButton onClick={startRecording}>
+                                <MicIcon></MicIcon>
+                            </IconButton>
+                }
+
+                {
+                    audioBlob ?
+                        <Button onClick={postRecording}>
+                            Submit Recording
+                </Button> : null
+                }
+                {audioUrl ? <a href={audioUrl} download>Click to Download Last Recording</a> : null}
             </div>
         </div>
     )
