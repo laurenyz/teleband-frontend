@@ -54,7 +54,7 @@ function StudentAssignment(props) {
 
     let createFileFromBlob = () => {
         console.log("URL", audioUrl)
-        console.log("AudioBlob", audioBlob)
+        console.log("AudioBlob", [audioBlob])
         let file = new File([audioBlob], 'audio1.wav', { type: 'audio/wav' })
         console.log(file)
         return file
@@ -68,10 +68,6 @@ function StudentAssignment(props) {
         console.log(formData)
         fetch(`${FetchURL}student_assignments/${props.match.params.id}/submit_recording`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
             body: formData
         })
     }
