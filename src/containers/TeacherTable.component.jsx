@@ -1,5 +1,12 @@
 import React from 'react'
 import TeacherTableRow from './TeacherTableRow.component'
+import Table from '@material-ui/core/Table'
+import TableRow from '@material-ui/core/TableRow'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import Paper from '@material-ui/core/Paper'
 
 function TeacherTable({ studentData, addAssignment }) {
 
@@ -12,22 +19,32 @@ function TeacherTable({ studentData, addAssignment }) {
     })
 
     allAssignments.sort((a, b) => a.id > b.id).forEach(assignment => assignments.includes(assignment.id) ? (null) : (assignments.push(assignment.id), assignmentTitles.push(assignment.title)))
-
+    console.log(studentData)
     return (
         <React.Fragment>
-            <table id="teacher-table">
-                <thead className="top">
-                    <tr>
-                        <th>Student</th>
-                        {assignmentTitles.map((title, i) =>
-                            <th key={i} className="assignment-col">{title}</th>)
-                        }
-                    </tr>
-                </thead>
-                <tbody>
-                    {studentData.map((student) => { return <TeacherTableRow key={student.student.school_id} studentData={student} addAssignment={addAssignment} assignmentOrder={assignments} /> })}
-                </tbody>
-            </table>
+            <TableContainer>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Student</TableCell>
+                            {assignmentTitles.map(assignment => {
+                            return <TableCell>{assignment}</TableCell>})}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                            {studentData.map(student =>{
+                               return <TableRow>
+                                   <TableCell>{student.student.name} {student.student.school_id}</TableCell>
+                                   
+                                       {student.assignments.map(assignment => {
+                                           return <TableCell>{assignment.student_assignment.assignment_id}</TableCell>
+                                       })}
+                                   
+                                </TableRow>
+                            })}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </React.Fragment >
     )
 }
