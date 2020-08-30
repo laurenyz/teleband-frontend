@@ -56,21 +56,23 @@ function StudentAssignment(props) {
         console.log("URL", audioUrl)
         console.log("AudioBlob", audioBlob)
         let file = new File([audioBlob], 'audio1.wav', { type: 'audio/wav' })
+        console.log(file)
         return file
     }
 
     let postRecording = () => {
-        let payload = {
-            school_id: localStorage.getItem("jwt"),
-            student_recording: createFileFromBlob()
-        }
-        fetch(`${FetchURL}/student_assignment/${props.match.params.id}/submit_recording`, {
+        let formData = new FormData()
+        formData.append("school_id", localStorage.getItem("jwt"))
+        formData.append("student_recording", createFileFromBlob())
+
+        console.log(formData)
+        fetch(`${FetchURL}student_assignments/${props.match.params.id}/submit_recording`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify(payload)
+            body: formData
         })
     }
 
