@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
         borderRadius: 20,
         marginTop: 20,
     }
-  }));
+}));
 
 function Login(props) {
     const { handleSubmit: handleSubmitStudent, register: registerStudent, errors: errorsStudent } = useForm();
@@ -34,11 +34,9 @@ function Login(props) {
     let history = useHistory();
     const classes = useStyles();
     const onSubmitTeacher = (values) => {
-        //console.log("teacher", values)
         loggingIn({ email: values["email"], password: values["password"] }, "teacher")
     }
     const onSubmitStudent = (values) => {
-         //console.log("school-id", values)
         loggingIn({ school_id: values["school-id"] }, "student")
     }
 
@@ -71,6 +69,9 @@ function Login(props) {
 
     const [student, setStudent] = useState(false)
 
+
+
+
     return (
         <Grid container justify="center">
             <Paper className={classes.paper} variant="outlined">
@@ -97,7 +98,7 @@ function Login(props) {
                                     name="school-id"
                                     autoComplete="school-id"
                                     autoFocus
-                                    type = "text" 
+                                    type="text"
                                     inputRef={registerStudent({
                                         required: "Required"
                                     })}
@@ -111,57 +112,63 @@ function Login(props) {
                                 >
                                     Sign In
                                 </Button>
+
+
+
                             </form>
-                        </React.Fragment> 
+                        </React.Fragment>
                         :
                         <React.Fragment>
                             <form className={classes.form} onSubmit={handleSubmitTeacher(onSubmitTeacher)}>
                                 <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
-                                type = "text" 
-                                inputRef={registerTeacher({
-                                    required: "Required",
-                                    pattern: {
-                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                        message: "invalid email address"
-                                    }
-                                })}
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email"
+                                    name="email"
+                                    autoComplete="email"
+                                    autoFocus
+                                    type="text"
+                                    inputRef={registerTeacher({
+                                        required: "Required",
+                                        pattern: {
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                            message: "invalid email address"
+                                        }
+                                    })}
                                 />
                                 <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="password"
-                                label="Password"
-                                name="password"
-                                autoComplete="password"
-                                autoFocus
-                                type = "password" 
-                                inputRef={registerTeacher({
-                                    required: "Required"
-                                })}
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="password"
+                                    label="Password"
+                                    name="password"
+                                    autoComplete="password"
+                                    autoFocus
+                                    type="password"
+                                    inputRef={registerTeacher({
+                                        required: "Required"
+                                    })}
                                 />
+                                {/* teacher input validation error here */}
+                                {errorsTeacher["email"] && <p>{errorsTeacher["email"]["message"]}</p>}
                                 <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.submit}
                                 >
-                                Sign In
+                                    Sign In
                                 </Button>
                             </form>
                         </React.Fragment>
                 }
+
             </Paper>
         </Grid>
     )
