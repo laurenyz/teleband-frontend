@@ -52,7 +52,6 @@ function StudentAssignment(props) {
     return (
         <div>
             <Grid container>
-
                 <Grid container>
                     <Grid item xs={8}>
                         <h2> {assignment.title} </h2>

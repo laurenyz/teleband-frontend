@@ -56,10 +56,15 @@ function Login(props) {
                 if (json.error) {
                     alert(json.message)
                 } else {
-                    localStorage.setItem('jwt', json.token)
+                    if (type === "teacher") {
+                        localStorage.setItem('jwt', json.token)
+                    } else if (type === "student") {
+                        localStorage.setItem('jwt', json.school_id)
+                    }
                     localStorage.setItem('type', type)
                     props.setCurrentUser(json)
                     props.setCurrentUserType(type)
+
                 }
             }).then(history.push("/"))
     }
