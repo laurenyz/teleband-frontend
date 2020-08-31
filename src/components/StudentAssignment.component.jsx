@@ -6,7 +6,7 @@ import MicIcon from '@material-ui/icons/Mic';
 import StopIcon from '@material-ui/icons/Stop';
 import { FetchURL } from '../env/url'
 import { FilledInput } from '@material-ui/core'
-
+import ReactAudioPlayer from 'react-audio-player';
 
 function StudentAssignment(props) {
 
@@ -120,7 +120,14 @@ function StudentAssignment(props) {
                             Submit Recording
                 </Button> : null
                 }
-                {audioUrl ? <a href={audioUrl} download>Click to Download Last Recording</a> : null}
+                {audioUrl ?
+                    <ReactAudioPlayer
+                        src={audioUrl}
+                        autoPlay={false}
+                        controls
+                    />
+
+                    : null}
             </div>
         </div>
     )
