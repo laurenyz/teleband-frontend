@@ -6,6 +6,7 @@ import MicIcon from '@material-ui/icons/Mic';
 import StopIcon from '@material-ui/icons/Stop';
 import { FetchURL } from '../env/url'
 import { FilledInput } from '@material-ui/core'
+import ReactAudioPlayer from 'react-audio-player';
 
 
 function StudentAssignment(props) {
@@ -70,6 +71,14 @@ function StudentAssignment(props) {
             method: "POST",
             body: formData
         })
+        .then(resp => resp.json())
+        .then(json => {
+            console.log(json)
+            if(json.error){
+                alert(json.message)
+            } else {
+                console.log(json)}
+            })
     }
 
     return (
@@ -120,7 +129,11 @@ function StudentAssignment(props) {
                             Submit Recording
                 </Button> : null
                 }
-                {audioUrl ? <a href={audioUrl} download>Click to Download Last Recording</a> : null}
+                <ReactAudioPlayer
+  src={audioUrl}
+  
+  controls
+/>
             </div>
         </div>
     )
