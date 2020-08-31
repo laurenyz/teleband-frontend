@@ -8,7 +8,6 @@ import { FetchURL } from '../env/url'
 import { FilledInput } from '@material-ui/core'
 import ReactAudioPlayer from 'react-audio-player';
 
-
 function StudentAssignment(props) {
 
     const [assignment, setAssignment] = useState({})
@@ -17,8 +16,6 @@ function StudentAssignment(props) {
     const [mediaRecorder, mediaRecorderSet] = useState(null)
     const [audioBlob, audioBlobSet] = useState(null)
     const [audioUrl, audioUrlSet] = useState(null)
-
-
 
     useEffect(() => {
         fetch(`${FetchURL}assignments/${props.match.params.id}`)
@@ -129,11 +126,14 @@ function StudentAssignment(props) {
                             Submit Recording
                 </Button> : null
                 }
-                <ReactAudioPlayer
-  src={audioUrl}
-  
-  controls
-/>
+                {audioUrl ?
+                    <ReactAudioPlayer
+                        src={audioUrl}
+                        autoPlay={false}
+                        controls
+                    />
+
+                    : null}
             </div>
         </div>
     )
