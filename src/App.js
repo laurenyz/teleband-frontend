@@ -67,12 +67,12 @@ function App() {
           return < Login setCurrentUser={setCurrentUser} setCurrentUserType={setCurrentUserType} />
         }} />
         <Route path="/student" render={(props) => {
-          return < StudentPage currentUser={currentUser} clearUserStates={clearUserStates} />
+          return < StudentPage currentUser={currentUser} />
         }} />
         <Route path="/teacher" render={(props) => {
-          return < TeacherPage currentUser={currentUser} clearUserStates={clearUserStates} setCurrentUser={setCurrentUser} />
+          return < TeacherPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
         }} />
-        <Route path="/assignment/:id" component={StudentAssignment} />
+        <Route path="/assignments/:id" component={StudentAssignment} />
       </Switch>
     </BrowserRouter>
   );
