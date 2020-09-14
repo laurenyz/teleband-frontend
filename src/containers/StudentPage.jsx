@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import StudentAssignmentTable from '../containers/StudentAssignmentTable'
+import StudentAssignmentTable from '../components/StudentAssignmentTable'
 import { useHistory } from 'react-router-dom'
 import '../style/StudentPage.css'
 import { Typography, Grid, Button, Paper } from '@material-ui/core/'

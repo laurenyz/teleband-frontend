@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import TeacherTable from '../containers/TeacherTable'
+import TeacherTable from './TeacherTable'
 import { useHistory } from 'react-router-dom'
 import '../style/TeacherPage.css'
 import { FetchURL } from '../env/url'

@@ -3,8 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Landing from './components/Landing'
 import StudentAssignment from './components/StudentAssignment'
-import StudentPage from './components/StudentPage'
-import TeacherPage from './components/TeacherPage'
+import StudentPage from './containers/StudentPage'
+import TeacherPage from './containers/TeacherPage'
 import AdminPanel from './containers/AdminPanel'
 import Login from './components/Login'
 import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom'
