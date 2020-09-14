@@ -1,6 +1,7 @@
 import React from 'react'
 import { TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { FetchURL } from '../env/url'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,24 +21,37 @@ function NewAssignmentForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    fetch('http://localhost:3000/assignments', {
-         method: "POST",
-         headers: {
-             'Content-Type': "application/json",
-             "Accept": "application/json"
-         },
-         body: JSON.stringify({title: title})
-      }).then(resp=>resp.json())
-      .then(json => {
-        setTitle("")
-        console.log(json)
-      })
+    title.length>0?
+      fetch(`${FetchURL}assignments`, {
+          method: "POST",
+          headers: {
+              'Content-Type': "application/json",
+              "Accept": "application/json"
+          },
+          body: JSON.stringify({title})
+        }).then(resp=>resp.json())
+        .then(json => {
+          setTitle("")
+          console.log(json)
+        })
+    : alert("Please enter a title.")
   }
 
   return (
     <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
       <div>
-        <TextField id="standard-name" label="Title" value={title} onChange={handleChange} />
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        name="title"
+        label="Title"
+        type="text"
+        id="title"
+        value={title}
+        onChange = {handleChange} 
+      />
       </div>
         <Button type="submit">Submit</Button>  
     </form>
