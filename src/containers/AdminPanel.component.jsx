@@ -18,6 +18,7 @@ useEffect(() => {
     
     return(
         <div>
+            Admin Panel
             <Typography variant="h4">Add an Assignment</Typography>
             <AddAssignmentForm assignments={assignments} setAssignments={setAssignments}/>
             <Typography variant="h4">Current Assignments</Typography>
