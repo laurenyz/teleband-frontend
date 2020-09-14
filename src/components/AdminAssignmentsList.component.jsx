@@ -1,17 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FetchURL } from '../env/url'
 
-function AdminAssignmentsList(){
-  const [assignments, setAssignments]=useState([])
-
-  useEffect(() => {
-        fetch(`${FetchURL}assignments`)
-        .then(resp => resp.json())
-        .then(assignments => {
-          setAssignments(assignments)
-        })
-      }
-      , [])
+function AdminAssignmentsList({assignments, setAssignments}){
 
   const handleDelete = (assignment) => {
     console.log(assignment.id)

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NewAssignmentForm() {
+function NewAssignmentForm({assignments, setAssignments}) {
   const classes = useStyles();
   const [title, setTitle] = React.useState("");
   const handleChange = (event) => {
@@ -30,9 +30,10 @@ function NewAssignmentForm() {
           },
           body: JSON.stringify({title})
         }).then(resp=>resp.json())
-        .then(json => {
+        .then(newAssignment => {
           setTitle("")
-          console.log(json)
+          const newAssignmentList = [...assignments, newAssignment]
+          setAssignments(newAssignmentList)
         })
     : alert("Please enter a title.")
   }
