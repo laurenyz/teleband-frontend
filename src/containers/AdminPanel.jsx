@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import AddAssignmentForm from '../components/NewAssignmentForm.componenet'
-import AdminAssignmentsList from '../components/AdminAssignmentsList.component'
-import {Typography} from '@material-ui/core'
+import NewAssignmentContainer from './NewAssignmentContainer'
+import AdminAssignmentsList from '../components/AdminAssignmentsList'
+import { Typography } from '@material-ui/core'
 import { FetchURL } from '../env/url'
 
 function AdminPanel(){
@@ -20,7 +20,7 @@ useEffect(() => {
         <div>
             Admin Panel
             <Typography variant="h4">Add an Assignment</Typography>
-            <AddAssignmentForm assignments={assignments} setAssignments={setAssignments}/>
+            <NewAssignmentContainer assignments={assignments} setAssignments={setAssignments} />
             <Typography variant="h4">Current Assignments</Typography>
             <AdminAssignmentsList assignments={assignments} setAssignments={setAssignments}/>
         </div>

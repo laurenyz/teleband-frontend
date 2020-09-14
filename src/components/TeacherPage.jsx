@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import TeacherTable from '../containers/TeacherTable.component'
+import TeacherTable from '../containers/TeacherTable'
 import { useHistory } from 'react-router-dom'
-import '../style/TeacherPage.style.css'
+import '../style/TeacherPage.css'
 import { FetchURL } from '../env/url'
 
 function TeacherPage({ currentUser, clearUserStates, setCurrentUser }) {

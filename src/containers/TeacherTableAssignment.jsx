@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Slider from '@material-ui/core/Slider'
-import Grid from '@material-ui/core/Grid'
-
+import { Slider, Grid } from '@material-ui/core/'
 
 
 function TeacherTableAssignment({ assignmentDetail, addAssignment }) {

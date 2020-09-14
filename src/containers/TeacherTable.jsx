@@ -1,5 +1,5 @@
 import React from 'react'
-import TeacherTableRow from './TeacherTableRow.component'
+import TeacherTableRow from './TeacherTableRow'
 
 function TeacherTable({ studentData, addAssignment }) {
 

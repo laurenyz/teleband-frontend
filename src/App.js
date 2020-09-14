@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import './style/Default.style.css'
-import Landing from './components/Landing.component'
-import StudentAssignment from './components/StudentAssignment.component'
-import StudentPage from './components/StudentPage.component'
-import TeacherPage from './components/TeacherPage.component'
-import AdminPanel from './containers/AdminPanel.component'
-import Login from './components/Login.component'
+import Landing from './components/Landing'
+import StudentAssignment from './components/StudentAssignment'
+import StudentPage from './components/StudentPage'
+import TeacherPage from './components/TeacherPage'
+import AdminPanel from './containers/AdminPanel'
+import Login from './components/Login'
 import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom'
 import { FetchURL } from './env/url'
-import Navbar from './components/Navbar.component'
-
+import Navbar from './components/Navbar'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined)

@@ -1,5 +1,5 @@
 import React from 'react'
-import TeacherTableAssignment from '../containers/TeacherTableAssignment.Component'
+import TeacherTableAssignment from '../containers/TeacherTableAssignment'
 
 function TeacherTableRow({ studentData, addAssignment, assignmentOrder }) {
     let { student, assignments } = studentData

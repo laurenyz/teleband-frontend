@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import StudentAssignmentTable from '../containers/StudentAssignmentTable'
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router-dom'
-import '../style/StudentPage.style.css'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
+import '../style/StudentPage.css'
+import { Typography, Grid, Button, Paper } from '@material-ui/core/'
 
 function StudentPage({ currentUser, clearUserStates }) {
 

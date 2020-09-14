@@ -1,9 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import AppBar from '@material-ui/core/AppBar'
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import { AppBar, Grid, Typography, Button } from '@material-ui/core/'
 
 function Navbar({ currentUser, clearUserStates, currentUserType }) {
     const history = useHistory();
