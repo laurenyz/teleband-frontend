@@ -6,6 +6,7 @@ import Landing from './components/Landing.component'
 import StudentAssignment from './components/StudentAssignment.component'
 import StudentPage from './components/StudentPage.component'
 import TeacherPage from './components/TeacherPage.component'
+import AdminPanel from './containers/AdminPanel.component'
 import Login from './components/Login.component'
 import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom'
 import { FetchURL } from './env/url'
@@ -62,16 +63,17 @@ function App() {
             return <Landing />
           }
         }} />
-        <Route path="/login" render={(props) => {
+        <Route exact path="/login" render={(props) => {
           return < Login setCurrentUser={setCurrentUser} setCurrentUserType={setCurrentUserType} />
         }} />
-        <Route path="/student" render={(props) => {
+        <Route exact path="/student" render={(props) => {
           return < StudentPage currentUser={currentUser} />
         }} />
-        <Route path="/teacher" render={(props) => {
+        <Route exact path="/teacher" render={(props) => {
           return < TeacherPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
         }} />
         <Route path="/assignments/:id" component={StudentAssignment} />
+        <Route exact path="/admin-panel" component={AdminPanel} />
       </Switch>
     </BrowserRouter>
   );
