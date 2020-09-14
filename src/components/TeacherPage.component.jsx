@@ -7,10 +7,6 @@ import { FetchURL } from '../env/url'
 function TeacherPage({ currentUser, clearUserStates, setCurrentUser }) {
     const [updateAssignment, updateAssignmentSet] = useState({})
     let history = useHistory();
-    // function handleLogout() {
-    //     clearUserStates()
-    //     history.push('/')
-    // }
 
     const addAssignment = (data, student_assignment_ID) => {
         updateAssignment[student_assignment_ID] = data
@@ -43,7 +39,6 @@ function TeacherPage({ currentUser, clearUserStates, setCurrentUser }) {
                                 <div className="header">
                                     <div>Logged in as {currentUser.teacher.name}</div>
                                     <div><button onClick={updateGrades} className="update-btn">Update Student Grades</button>
-                                    {/* <button className="logout-btn" onClick={handleLogout}>Log Out</button> */}
                                     </div>
                                 </div>
                                 <TeacherTable studentData={currentUser.studentData} updateAssignmentSet={updateAssignmentSet} addAssignment={addAssignment} />
@@ -55,7 +50,5 @@ function TeacherPage({ currentUser, clearUserStates, setCurrentUser }) {
         </React.Fragment>
     )
 }
-
-
 
 export default TeacherPage
