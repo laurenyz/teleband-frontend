@@ -1,33 +1,3 @@
-// import React from 'react';
-// import { useHistory } from 'react-router-dom'
-// import Grid from '@material-ui/core/Grid'
-
-// const StudentAssignCont = (props) => {
-//     const history = useHistory();
-
-//     const handleAssignClick = () => {
-//         console.log(props.assign.assignment.id)
-//         history.push(`/assignments/${props.assign.assignment.id}`)
-//     }
-
-//     return (
-//         <div>
-
-//             <Grid container id={props.assign.assignment.id}>
-//                 <Grid onClick={() => handleAssignClick()} item xs={8}>
-//                     <h3>{props.assign.assignment.title} </h3>
-//                     <h4>{props.assign.assignment.excerpts}</h4>
-//                 </Grid>
-//                 <Grid item xs={3}>
-//                     <h3>{props.assign.student_audio===""?"False":"True"}</h3>
-//                 </Grid>
-//             </Grid>
-//         </div>
-//     );
-// }
-
-// export default StudentAssignCont;
-
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -47,8 +17,8 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(assignment, submitted, assignmentId) {
-  return { assignment, submitted, assignmentId };
+function createData(assignment, submitted) {
+  return { assignment, submitted};
 }
 
 function StudentAssignmentTable({currentUser}) {
@@ -61,7 +31,7 @@ function StudentAssignmentTable({currentUser}) {
     
   const rows = currentUser.student_assignments.map(a => {
     const submitted = a.student_audio !== ""
-    return createData(a.assignment.title, submitted, a.assignment.id)
+    return createData(a.assignment, submitted)
   })
 
   return (
@@ -76,9 +46,9 @@ function StudentAssignmentTable({currentUser}) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.assignment} style = {{cursor: "pointer"}} onClick={() => handleClickAssignment(row.assignmentId)}>
-                <TableCell component="th" scope="row">{row.assignment}</TableCell>
+            {rows.sort((a,b)=> a.assignment.title.toLowerCase()<b.assignment.title.toLowerCase()? -1 : 1).map((row) => (
+              <TableRow key={row.assignment.id} style = {{cursor: "pointer"}} onClick={() => handleClickAssignment(row.assignment.id)}>
+                <TableCell component="th" scope="row">{row.assignment.title}</TableCell>
                 <TableCell align="center">{row.submitted?<CheckCircleIcon style={{color: "#4caf50"}}/>:<RadioButtonUncheckedIcon />}</TableCell>
               </TableRow>
             ))}
