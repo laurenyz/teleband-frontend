@@ -26,10 +26,11 @@ function NewAssignmentForm({assignments, setAssignments}) {
               'Content-Type': "application/json",
               "Accept": "application/json"
           },
-          body: JSON.stringify({title})
+          body: JSON.stringify({title, instructions})
         }).then(resp=>resp.json())
         .then(newAssignment => {
           setTitle("")
+          setInstructions("")
           const newAssignmentList = [...assignments, newAssignment]
           setAssignments(newAssignmentList)
         })

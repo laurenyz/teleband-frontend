@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
-import Grid from '@material-ui/core/Grid'
+import { Grid, Typography, Paper } from '@material-ui/core/'
 import MicIcon from '@material-ui/icons/Mic';
 import StopIcon from '@material-ui/icons/Stop';
 import { FetchURL } from '../env/url'
@@ -79,22 +79,21 @@ function StudentAssignment(props) {
     }
 
     return (
-        <div>
-            <Grid container>
+        <div style={{margin: "20px"}}>
+            {/* <Grid container>
                 <Grid container>
                     <Grid item xs={8}>
                         <h2> {assignment.title} </h2>
-                        <h3> {assignment.audios} </h3>
-                        <h3> {assignment.excerpts}</h3>
+                        Instructions: {assignment.instructions}
                     </Grid>
                     <Grid item>
                         <h2>
                             Insert Example Here
                         </h2>
                     </Grid>
-                </Grid>
+                </Grid> */}
 
-                <Grid container direction='column'>
+                {/* <Grid container direction='column'>
                     <Grid item>
                         <h3> Here is where excerpts go{assignment.excerpts}</h3>
                         <div className="pdf-viewer">
@@ -104,6 +103,23 @@ function StudentAssignment(props) {
                     <Grid item>
                         <h3>Here is where 'Other Voices' go</h3>
                     </Grid>
+                </Grid>
+            </Grid> */}
+            <Grid container direction="column" spacing={1} style={{width: "100%"}}>
+                <Grid item >
+                    <Typography align="center" variant="h2">{assignment.title}</Typography>
+                </Grid>
+                <Grid item>
+                    <Paper style={{padding:"20px"}}>
+                        <Typography variant="h5" display="inline" style={{fontWeight:"bold"}}>INSTRUCTIONS: </Typography>
+                        <Typography align="justify" variant="h5" display="inline">{assignment.instructions}</Typography>
+                    </Paper>
+                </Grid>
+                <Grid item>
+                    <Button>Click Here for Sample Audio</Button>
+                </Grid>
+                <Grid item>
+                    <Button>Click Here for Notation</Button>
                 </Grid>
             </Grid>
             <div>
