@@ -8,7 +8,7 @@ function NewAssignmentContainer({assignments, setAssignments}){
     const displayForm = () => {
     switch(formType){
         case 'audio':
-            return <NewAssignmentForm assignments={assignments} setAssignments={setAssignments}/>
+            return <NewAssignmentForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
         case 'response':
             return "response"
         case 'creative':

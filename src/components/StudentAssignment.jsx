@@ -7,15 +7,16 @@ import StopIcon from '@material-ui/icons/Stop';
 import { FetchURL } from '../env/url'
 import { FilledInput } from '@material-ui/core'
 import ReactAudioPlayer from 'react-audio-player';
+// import { Document, Page, pdfjs } from 'react-pdf';
+// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function StudentAssignment(props) {
-
     const [assignment, setAssignment] = useState({})
-
     const [active, activeSet] = useState(false)
     const [mediaRecorder, mediaRecorderSet] = useState(null)
     const [audioBlob, audioBlobSet] = useState(null)
     const [audioUrl, audioUrlSet] = useState(null)
+
 
     useEffect(() => {
         fetch(`${FetchURL}assignments/${props.match.params.id}`)
@@ -28,7 +29,7 @@ function StudentAssignment(props) {
             .then(stream => {
                 mediaRecorderSet(new MediaRecorder(stream, { type: 'audio/wav' }))
             }
-            )
+        )
     }
 
     let startRecording = () => {
@@ -119,7 +120,7 @@ function StudentAssignment(props) {
                     <Button>Click Here for Sample Audio</Button>
                 </Grid>
                 <Grid item>
-                    <Button>Click Here for Notation</Button>
+                    <Button onClick={()=>window.open(assignment.notation_url)}>Click Here for Notation</Button>
                 </Grid>
             </Grid>
             <div>

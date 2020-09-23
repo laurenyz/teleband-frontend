@@ -12,10 +12,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NewAssignmentForm({assignments, setAssignments}) {
+function NewAssignmentForm({assignments, setAssignments, formType}) {
   const classes = useStyles();
   const [title, setTitle] = React.useState("");
   const [instructions, setInstructions] = React.useState("");
+  const [notation_url, setNotationUrl] = React.useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -23,10 +24,10 @@ function NewAssignmentForm({assignments, setAssignments}) {
       fetch(`${FetchURL}assignments`, {
           method: "POST",
           headers: {
-              'Content-Type': "application/json",
+              "Content-type": "application/json",
               "Accept": "application/json"
           },
-          body: JSON.stringify({title, instructions})
+          body: JSON.stringify({title, instructions, notation_url, formType})
         }).then(resp=>resp.json())
         .then(newAssignment => {
           setTitle("")
@@ -70,8 +71,18 @@ function NewAssignmentForm({assignments, setAssignments}) {
       />
       </div>
       <div>
-        <InputLabel htmlFor="assignment-notation">Notation PDF:</InputLabel>
-        <Input id="assignment-notation" type="file" accept="application/pdf" name="assignment-notation"></Input>
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        name="notation_url"
+        label="Notation (PDF URL)"
+        type="text"
+        id="notation_url"
+        value={notation_url}
+        onChange = {(e) => setNotationUrl(e.target.value)}
+      />
       </div>
       <div>
         <InputLabel htmlFor="assignment-sample-audio">Sample Audio:</InputLabel>
