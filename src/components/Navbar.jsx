@@ -18,29 +18,29 @@ function Navbar({ currentUser, clearUserStates, currentUserType }) {
     }
 
     return (
-        <AppBar position="static" style={{ height: "60px", padding: "15px" }}>
-            <Grid container direction="row" spacing={3} justify="space-between" alignItems="flex-end">
+        <AppBar position="static" style={{ height: "60px", padding: "10px" }}>
+            <Grid container direction="row" spacing={3} justify="space-between" alignItems="center">
                 <Grid item>
-                    <Typography>Teleband</Typography>
+                    <img alt="" src={require('../assets/images/white_teleband_logo.svg')} style={{height:"2rem"}} />
                 </Grid>
                 <Grid item>
                     <Grid container>
                         {currentUserType === "student" ?
                             <Grid item>
-                                <Button onClick={handleAssignmentLink} >
+                                <Button style={{color:"#ffffff"}} onClick={handleAssignmentLink} >
                                     Assignments
                             </Button >
                             </Grid>
                             : null}
                         {currentUser ?
                             <Grid item>
-                                <Button onClick={handleLogout} >
+                                <Button style={{color:"#ffffff"}} onClick={handleLogout} >
                                     Logout
                             </Button >
                             </Grid>
                             :
                             <Grid item>
-                                <Button onClick={handleLogin} >
+                                <Button style={{color:"#ffffff"}} onClick={handleLogin} >
                                     Login
                             </Button >
                             </Grid>
