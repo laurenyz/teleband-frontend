@@ -16,7 +16,9 @@ const useStyles = makeStyles(theme => ({
     },
     paper: {
         padding: 20,
-        width: 500,
+        minWidth:375,
+        maxWidth:500,
+        width: "50%",
         borderRadius: 20,
         marginTop: 20,
     }
@@ -68,99 +70,104 @@ function Login(props) {
     }
 
     return (
-        <Grid container justify="center">
-            <Paper className={classes.paper} variant="outlined">
-                <Typography variant="h2" id="login-header">Tele.band Login</Typography>
-                <div className="switch-box" >
-                    <div className={`teacher-btn ${!student ? "highlight" : "no-highlight"}`}>Teacher</div>
+            <Paper className={classes.paper} style={{margin:"1em auto"}} variant="outlined">
+                <Typography style={{marginBottom:".25em"}} align="center" variant="h2">Tele.band Login</Typography>
+                <Grid container justify="center" alignItems="center">
+                    <Grid item>
+                        <Typography variant="h5" color="secondary" style={student?{fontWeight:""}:{fontWeight:"bold"}}>Teacher</Typography>
+                    </Grid>
+                    <Grid item>
                         <label className="switch">
                             <input onClick={() => setStudent(student => !student)} type="checkbox" />
                             <span className="slider round"></span>
                         </label>
-                    <div className={`student-btn ${student ? "highlight" : "no-highlight"}`}>Student</div>
-                </div>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="h5" color="primary" style={student?{fontWeight:"bold"}:{fontWeight:""}}>Student</Typography>
+                    </Grid>
+                </Grid>      
                 {
                     student ?
-                        <React.Fragment>
-                            <form className={classes.form} onSubmit={handleSubmitStudent(onSubmitStudent)}>
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="school-id"
-                                    label="School Id"
-                                    name="school-id"
-                                    autoComplete="school-id"
-                                    type="text"
-                                    inputRef={registerStudent({
-                                        required: "Required"
-                                    })}
-                                />
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                >
-                                    Sign In
-                                </Button>
-                            </form>
-                        </React.Fragment>
-                        :
-                        <React.Fragment>
-                            <form className={classes.form} onSubmit={handleSubmitTeacher(onSubmitTeacher)}>
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email"
-                                    name="email"
-                                    autoComplete="email"
-                                    autoFocus
-                                    type="text"
-                                    inputRef={registerTeacher({
-                                        required: "Required",
-                                        pattern: {
-                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                            message: "invalid email address"
-                                        }
-                                    })}
-                                />
-                                <TextField
-                                    variant="outlined"
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="password"
-                                    label="Password"
-                                    name="password"
-                                    autoComplete="password"
-                                    type="password"
-                                    inputRef={registerTeacher({
-                                        required: "Required"
-                                    })}
-                                />
-                                {/* teacher input validation error here */}
-                                {errorsTeacher["email"] && <p>{errorsTeacher["email"]["message"]}</p>}
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                >
-                                    Sign In
-                                </Button>
-                            </form>
-                        </React.Fragment>
+                    <React.Fragment>
+                        <form className={classes.form} onSubmit={handleSubmitStudent(onSubmitStudent)}>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="school-id"
+                                label="School Id"
+                                name="school-id"
+                                autoComplete="school-id"
+                                type="text"
+                                inputRef={registerStudent({
+                                    required: "Required"
+                                })}
+                            />
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                            >
+                                Sign In
+                            </Button>
+                        </form>
+                    </React.Fragment>
+                    :
+                    <React.Fragment>
+                        <form className={classes.form} onSubmit={handleSubmitTeacher(onSubmitTeacher)}>
+                            <TextField
+                                variant="outlined"
+                                color="secondary"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email"
+                                name="email"
+                                autoComplete="email"
+                                autoFocus
+                                type="text"
+                                inputRef={registerTeacher({
+                                    required: "Required",
+                                    pattern: {
+                                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                        message: "invalid email address"
+                                    }
+                                })}
+                            />
+                            <TextField
+                                variant="outlined"
+                                color="secondary"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="password"
+                                label="Password"
+                                name="password"
+                                autoComplete="password"
+                                type="password"
+                                inputRef={registerTeacher({
+                                    required: "Required"
+                                })}
+                            />
+                            {/* teacher input validation error here */}
+                            {errorsTeacher["email"] && <p>{errorsTeacher["email"]["message"]}</p>}
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="secondary"
+                                className={classes.submit}
+                            >
+                                Sign In
+                            </Button>
+                        </form>
+                    </React.Fragment>
                 }
-
             </Paper>
-        </Grid>
     )
 }
 
