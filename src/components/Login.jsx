@@ -17,8 +17,6 @@ const useStyles = makeStyles(theme => ({
     paper: {
         padding: 20,
         width: 500,
-        // backgroundColor: "#dcdcdc",
-        //borderColor: theme.secondary,
         borderRadius: 20,
         marginTop: 20,
     }
@@ -27,8 +25,10 @@ const useStyles = makeStyles(theme => ({
 function Login(props) {
     const { handleSubmit: handleSubmitStudent, register: registerStudent, errors: errorsStudent } = useForm();
     const { handleSubmit: handleSubmitTeacher, register: registerTeacher, errors: errorsTeacher } = useForm()
-    let history = useHistory();
+    const [student, setStudent] = useState(false)
+    const history = useHistory();
     const classes = useStyles();
+
     const onSubmitTeacher = (values) => {
         loggingIn({ email: values["email"], password: values["password"] }, "teacher")
     }
@@ -45,39 +45,38 @@ function Login(props) {
             },
             body: JSON.stringify(payload)
         })
-            .then(resp => resp.json())
-            .then(json => {
-                if (json.error) {
-                    alert(json.message)
-                } else {
-                    if (type === "teacher") {
-                        localStorage.setItem('jwt', json.token)
-                    } else if (type === "student") {
-                        localStorage.setItem('jwt', json.school_id)
-                    }
-                    localStorage.setItem('type', type)
-                    props.setCurrentUser(json)
-                    props.setCurrentUserType(type)
-
+        .then(resp => resp.json())
+        .then(json => {
+            if (json.error) {
+                alert(json.message)
+            } else {
+                if (type === "teacher") {
+                    localStorage.setItem('jwt', json.token)
+                } else if (type === "student") {
+                    localStorage.setItem('jwt', json.school_id)
                 }
-            }).then(history.push("/"))
+                localStorage.setItem('type', type)
+                props.setCurrentUser(json)
+                props.setCurrentUserType(type)
+                if(type==="teacher"){
+                    history.push("/teacher")
+                }else{
+                    history.push("/student")
+                }
+            }
+        })
     }
-
-    const [student, setStudent] = useState(false)
-
-
-
 
     return (
         <Grid container justify="center">
             <Paper className={classes.paper} variant="outlined">
-                <Typography variant="h2" id="login-header">Teleband Login</Typography>
+                <Typography variant="h2" id="login-header">Tele.band Login</Typography>
                 <div className="switch-box" >
                     <div className={`teacher-btn ${!student ? "highlight" : "no-highlight"}`}>Teacher</div>
-                    <label className="switch">
-                        <input onClick={() => setStudent(student => !student)} type="checkbox" />
-                        <span className="slider round"></span>
-                    </label>
+                        <label className="switch">
+                            <input onClick={() => setStudent(student => !student)} type="checkbox" />
+                            <span className="slider round"></span>
+                        </label>
                     <div className={`student-btn ${student ? "highlight" : "no-highlight"}`}>Student</div>
                 </div>
                 {
@@ -93,7 +92,6 @@ function Login(props) {
                                     label="School Id"
                                     name="school-id"
                                     autoComplete="school-id"
-                                    autoFocus
                                     type="text"
                                     inputRef={registerStudent({
                                         required: "Required"
@@ -108,9 +106,6 @@ function Login(props) {
                                 >
                                     Sign In
                                 </Button>
-
-
-
                             </form>
                         </React.Fragment>
                         :
@@ -144,7 +139,6 @@ function Login(props) {
                                     label="Password"
                                     name="password"
                                     autoComplete="password"
-                                    autoFocus
                                     type="password"
                                     inputRef={registerTeacher({
                                         required: "Required"
