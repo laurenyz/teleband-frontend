@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import NewAssignmentContainer from './NewAssignmentContainer'
 import AdminAssignmentsList from '../components/AdminAssignmentsList'
-import { Typography } from '@material-ui/core'
+import { Paper, Typography, Grid } from '@material-ui/core'
 import { FetchURL } from '../env/url'
 
 function AdminPanel(){
@@ -17,13 +17,25 @@ useEffect(() => {
     , [])
     
     return(
-        <div>
-            Admin Panel
-            <Typography variant="h4">Add an Assignment</Typography>
-            <NewAssignmentContainer assignments={assignments} setAssignments={setAssignments} />
-            <Typography variant="h4">Current Assignments</Typography>
-            <AdminAssignmentsList assignments={assignments} setAssignments={setAssignments}/>
-        </div>
+        <Grid container direction="column" spacing={2}>
+            <Grid item>
+                <Paper style={{padding:"20px"}}>
+                    <Typography align="center"variant="h2">Admin Panel</Typography>
+                </Paper>
+            </Grid>
+            <Grid item>
+                <Paper style={{padding:"20px"}}>
+                    <Typography align="center" variant="h4">Add an Assignment</Typography>
+                    <NewAssignmentContainer assignments={assignments} setAssignments={setAssignments} />
+                </Paper>
+            </Grid>
+            <Grid item>
+                <Paper style={{padding:"20px"}}>
+                    <Typography align="center" variant="h4">Current Assignments</Typography>
+                    <AdminAssignmentsList assignments={assignments} setAssignments={setAssignments}/>
+                </Paper>
+            </Grid>
+        </Grid>
     )
 }
 

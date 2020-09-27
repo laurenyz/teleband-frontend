@@ -16,23 +16,29 @@ function NewAssignmentForm({assignments, setAssignments, formType}) {
   const classes = useStyles();
   const [title, setTitle] = React.useState("");
   const [instructions, setInstructions] = React.useState("");
-  const [notation_url, setNotationUrl] = React.useState("");
+  const [notationPdf, setNotationPDF] = React.useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const formData=new FormData()
+    formData.append('title', title)
+    formData.append('instructions', instructions)
+    formData.append('notationPdf', notationPdf)
     title.length>0 && instructions.length>0 ?
       fetch(`${FetchURL}assignments`, {
           method: "POST",
-          headers: {
-              "Content-type": "application/json",
-              "Accept": "application/json"
-          },
-          body: JSON.stringify({title, instructions, notation_url, formType})
+          // headers: {
+          //     "Content-type": false,
+          //     // "Accept": "application/json"
+          // },
+          // body: JSON.stringify({title, instructions, notationUrl, formType})
+          body: formData
         }).then(resp=>resp.json())
-        .then(newAssignment => {
+        .then(json => {
+          console.log(json)
           setTitle("")
           setInstructions("")
-          const newAssignmentList = [...assignments, newAssignment]
+          const newAssignmentList = [...assignments, json.assignment]
           setAssignments(newAssignmentList)
         })
     : alert("Please fill in all required fields.")
@@ -71,18 +77,8 @@ function NewAssignmentForm({assignments, setAssignments, formType}) {
       />
       </div>
       <div>
-      <TextField
-        variant="outlined"
-        margin="normal"
-        required
-        fullWidth
-        name="notation_url"
-        label="Notation (PDF URL)"
-        type="text"
-        id="notation_url"
-        value={notation_url}
-        onChange = {(e) => setNotationUrl(e.target.value)}
-      />
+        <InputLabel htmlFor="assignment-notation-pdf">Upload Notation</InputLabel>
+        <Input id="assignment-notation-pdf" type="file" accept="application/pdf" name="assignment-notation-pdf" onChange={(e) => setNotationPDF(e.target.files[0])}></Input>
       </div>
       <div>
         <InputLabel htmlFor="assignment-sample-audio">Sample Audio:</InputLabel>
