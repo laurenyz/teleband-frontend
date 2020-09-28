@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import NewAssignmentForm from '../components/NewAssignmentForm'
-import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Grid } from '@material-ui/core'
+import NewAssignmentResponseForm from '../components/NewAssignmentResponseForm'
+import NewAssignmentCreativeForm from '../components/NewAssignmentCreativeForm'
+import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Grid, Typography } from '@material-ui/core'
 
 function NewAssignmentContainer({assignments, setAssignments}){
     const [formType, setFormType] = useState('audio')
@@ -10,17 +12,19 @@ function NewAssignmentContainer({assignments, setAssignments}){
         case 'audio':
             return <NewAssignmentForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
         case 'response':
-            return "response"
+            return <NewAssignmentResponseForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
         case 'creative':
-            return "creative"
+            return <NewAssignmentCreativeForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
         default:
-            return <NewAssignmentForm assignments={assignments} setAssignments={setAssignments}/>
+            return <NewAssignmentForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
         }
     }
 
     return(
-        <div>
-            <Grid container direction="column" alignItems="center"> 
+            <Grid container direction="column" alignItems="center" spacing={2}> 
+                <Grid item>
+                <Typography align="center" variant="h4">Create an Assignment</Typography>
+                </Grid>
                 <Grid item>
                     <FormControl component="fieldset">
                         <FormLabel component="legend">Assignment Type</FormLabel>
@@ -35,8 +39,6 @@ function NewAssignmentContainer({assignments, setAssignments}){
                     {displayForm()}
                 </Grid>
             </Grid>
-            
-        </div>
     )
 }
 

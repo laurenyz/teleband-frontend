@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NewAssignmentForm({assignments, setAssignments, formType}) {
+function NewAssignmentCreativeForm({assignments, setAssignments, formType}) {
   const classes = useStyles();
   const [title, setTitle] = React.useState("");
   const [instructions, setInstructions] = React.useState("");
@@ -91,4 +91,4 @@ function NewAssignmentForm({assignments, setAssignments, formType}) {
   );
 }
 
-export default NewAssignmentForm
+export default NewAssignmentCreativeForm

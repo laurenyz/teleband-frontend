@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import TeacherTable from './TeacherTable'
-import { useHistory } from 'react-router-dom'
 import '../style/TeacherPage.css'
 import { FetchURL } from '../env/url'
 
-function TeacherPage({ currentUser, clearUserStates, setCurrentUser }) {
+function TeacherPage({ currentUser, setCurrentUser }) {
     const [updateAssignment, updateAssignmentSet] = useState({})
-    let history = useHistory();
 
     const addAssignment = (data, student_assignment_ID) => {
         updateAssignment[student_assignment_ID] = data

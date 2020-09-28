@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Landing from './components/Landing'
 import StudentAssignment from './components/StudentAssignment'
@@ -45,7 +44,6 @@ function App() {
     window.localStorage.clear()
     setCurrentUser(undefined);
     setCurrentUserType(undefined)
-
   }
 
   return (

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NewAssignmentForm({assignments, setAssignments, formType}) {
+function NewAssignmentResponseForm({assignments, setAssignments, formType}) {
   const classes = useStyles();
   const [title, setTitle] = React.useState("");
   const [instructions, setInstructions] = React.useState("");
@@ -74,16 +74,8 @@ function NewAssignmentForm({assignments, setAssignments, formType}) {
         />
         </div>
         <div>
-          <InputLabel htmlFor="assignment-notation-pdf">Upload Notation</InputLabel>
+          <InputLabel htmlFor="assignment-notation-pdf">Upload Instructional PDF</InputLabel>
           <Input id="assignment-notation-pdf" type="file" accept="application/pdf" name="assignment-notation-pdf" onChange={(e) => setNotationPDF(e.target.files[0])}></Input>
-        </div>
-        <div>
-          <InputLabel htmlFor="assignment-sample-audio">Sample Audio:</InputLabel>
-          <Input id="assignment-sample-audio" type="file" accept="audio/mp3" name="assignment-sample-audio"></Input>
-        </div>
-        <div>
-          <InputLabel htmlFor="assignment-accompaniment">Accompaniment Audio:</InputLabel>
-          <Input id="assignment-accompaniment" type="file" accept="audio/mp3" name="assignment-accompaniment"></Input>
         </div>
           <Button variant="contained" color="primary" type="submit">Submit</Button>  
       </form>
@@ -91,4 +83,4 @@ function NewAssignmentForm({assignments, setAssignments, formType}) {
   );
 }
 
-export default NewAssignmentForm
+export default NewAssignmentResponseForm

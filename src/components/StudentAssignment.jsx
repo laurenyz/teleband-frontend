@@ -5,7 +5,6 @@ import { Grid, Typography, Paper } from '@material-ui/core/'
 import MicIcon from '@material-ui/icons/Mic';
 import StopIcon from '@material-ui/icons/Stop';
 import { FetchURL } from '../env/url'
-import { FilledInput } from '@material-ui/core'
 import ReactAudioPlayer from 'react-audio-player';
 // import { Document, Page, pdfjs } from 'react-pdf';
 // pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -16,8 +15,6 @@ function StudentAssignment(props) {
     const [mediaRecorder, mediaRecorderSet] = useState(null)
     const [audioBlob, audioBlobSet] = useState(null)
     const [audioUrl, audioUrlSet] = useState(null)
-    const [viewRecorder, setViewRecorder] = useState(false)
-
 
     useEffect(() => {
         fetch(`${FetchURL}assignments/${props.match.params.id}`)
@@ -26,7 +23,6 @@ function StudentAssignment(props) {
     }, [props.match.params.id])
 
     let prepareRecording = () => {
-        setViewRecorder(true)
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then(stream => {
                 mediaRecorderSet(new MediaRecorder(stream, { type: 'audio/wav' }))
@@ -86,7 +82,7 @@ function StudentAssignment(props) {
             <Grid container direction="column" spacing={1} style={{width: "100%"}}>
                 <Grid item >
                     <Paper style={{padding:"20px"}}>
-                        <Typography align="center" variant="h2">{assignment.title}</Typography>
+                        <Typography align="center" variant="h2">{`${assignment.title}-${assignment.assignment_type}`}</Typography>
                     </Paper>
                 </Grid>
                 <Grid item>

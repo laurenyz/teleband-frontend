@@ -25,7 +25,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Login(props) {
-    const { handleSubmit: handleSubmitStudent, register: registerStudent, errors: errorsStudent } = useForm();
+    // const { handleSubmit: handleSubmitStudent, register: registerStudent, errors: errorsStudent } = useForm();
+    const { handleSubmit: handleSubmitStudent, register: registerStudent } = useForm();
     const { handleSubmit: handleSubmitTeacher, register: registerTeacher, errors: errorsTeacher } = useForm()
     const [student, setStudent] = useState(false)
     const history = useHistory();

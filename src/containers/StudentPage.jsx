@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import StudentAssignmentTable from '../components/StudentAssignmentTable'
-import { useHistory } from 'react-router-dom'
 import '../style/StudentPage.css'
-import { Typography, Grid, Button, Paper } from '@material-ui/core/'
+import { Typography, Grid, Paper } from '@material-ui/core/'
 
-function StudentPage({ currentUser, clearUserStates }) {
-
-    const history = useHistory();
+function StudentPage({ currentUser }) {
 
     return (
         <div style={{width: "70%", margin:"auto"}}>
