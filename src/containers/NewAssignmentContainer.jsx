@@ -21,9 +21,9 @@ function NewAssignmentContainer({assignments, setAssignments}){
     }
 
     return(
-            <Grid container direction="column" alignItems="center" spacing={2}> 
-                <Grid item>
-                <Typography align="center" variant="h4">Create an Assignment</Typography>
+            <Grid container direction="column" alignItems="center" style={{padding: "2em"}}> 
+                <Grid item style={{marginBottom:"1em"}}>
+                    <Typography align="center" variant="h4">Create an Assignment</Typography>
                 </Grid>
                 <Grid item>
                     <FormControl component="fieldset">
