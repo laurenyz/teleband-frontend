@@ -24,7 +24,7 @@ useEffect(() => {
                 onClose={() => setOpen(false)}
                 aria-label="create a new assignment"
             >
-                <NewAssignmentContainer assignments={assignments} setAssignments={setAssignments} />
+                <NewAssignmentContainer setOpen={setOpen} assignments={assignments} setAssignments={setAssignments} />
             </Dialog>
             <Grid item>
                 <Paper style={{padding:"20px"}}>
@@ -38,7 +38,7 @@ useEffect(() => {
             </Grid>
             <Grid item>
                 <Paper style={{padding:"20px"}}>
-                    <Typography align="center" variant="h4" style={{margin:"1em"}}>Current Assignments</Typography>
+                    <Typography align="center" variant="h4" style={{marginBottom:"1em"}}>Current Assignments</Typography>
                     <Grid container direction="row" justify = "flex-start" alignItems="flex-start" spacing= {2}>
                         {assignments.sort((a,b)=> a.title.toLowerCase()<b.title.toLowerCase()? -1 : 1).map(assignment=> <Grid item xs={6} md={4} xl={4} key={assignment.id}><AdminAssignmentCard key={assignment.id} assignment={assignment} assignments={assignments} setAssignments={setAssignments} /></Grid>)}
                     </Grid>

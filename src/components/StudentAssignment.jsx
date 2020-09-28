@@ -99,6 +99,9 @@ function StudentAssignment(props) {
                                 <Button variant="contained" color="secondary" onClick={()=>window.open(assignment.pdf_url)}>View Notation</Button>
                             </Grid>
                             <Grid item>
+                                <Button variant="contained" color="secondary">Play Accompaniment</Button>
+                            </Grid>
+                            <Grid item>
                                 <Button variant="contained" color="secondary" disabled={mediaRecorder} onClick={prepareRecording}>
                                     Start Recording
                                 </Button> 

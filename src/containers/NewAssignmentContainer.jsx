@@ -1,24 +1,9 @@
 import React, { useState } from 'react'
-import NewAssignmentAudioForm from '../components/NewAssignmentAudioForm'
-import NewAssignmentResponseForm from '../components/NewAssignmentResponseForm'
-import NewAssignmentCreativeForm from '../components/NewAssignmentCreativeForm'
+import NewAssignmentForm from '../components/NewAssignmentForm'
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Grid, Typography } from '@material-ui/core'
 
-function NewAssignmentContainer({assignments, setAssignments}){
+function NewAssignmentContainer({assignments, setAssignments, setOpen}){
     const [formType, setFormType] = useState('audio')
-
-    const displayForm = () => {
-    switch(formType){
-        case 'audio':
-            return <NewAssignmentAudioForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
-        case 'response':
-            return <NewAssignmentResponseForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
-        case 'creative':
-            return <NewAssignmentCreativeForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
-        default:
-            return <NewAssignmentAudioForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
-        }
-    }
 
     return(
             <Grid container direction="column" alignItems="center" style={{padding: "2em"}}> 
@@ -36,7 +21,7 @@ function NewAssignmentContainer({assignments, setAssignments}){
                     </FormControl>
                 </Grid>
                 <Grid item>
-                    {displayForm()}
+                    <NewAssignmentForm setOpen={setOpen} formType={formType} assignments={assignments} setAssignments={setAssignments}/>
                 </Grid>
             </Grid>
     )
