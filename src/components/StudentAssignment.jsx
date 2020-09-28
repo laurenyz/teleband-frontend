@@ -6,8 +6,6 @@ import MicIcon from '@material-ui/icons/Mic';
 import StopIcon from '@material-ui/icons/Stop';
 import { FetchURL } from '../env/url'
 import ReactAudioPlayer from 'react-audio-player';
-// import { Document, Page, pdfjs } from 'react-pdf';
-// pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function StudentAssignment(props) {
     const [assignment, setAssignment] = useState({})
@@ -82,7 +80,7 @@ function StudentAssignment(props) {
             <Grid container direction="column" spacing={1} style={{width: "100%"}}>
                 <Grid item >
                     <Paper style={{padding:"20px"}}>
-                        <Typography align="center" variant="h2">{`${assignment.title}-${assignment.assignment_type}`}</Typography>
+                        <Typography align="center" variant="h2">{`${assignment.title}-${assignment.category}`}</Typography>
                     </Paper>
                 </Grid>
                 <Grid item>
@@ -98,7 +96,7 @@ function StudentAssignment(props) {
                                 <Button variant="contained" color="secondary">Play Sample Audio</Button>
                             </Grid>
                             <Grid item>
-                                <Button variant="contained" color="secondary" onClick={()=>window.open(assignment.notation_url)}>View Notation</Button>
+                                <Button variant="contained" color="secondary" onClick={()=>window.open(assignment.pdf_url)}>View Notation</Button>
                             </Grid>
                             <Grid item>
                                 <Button variant="contained" color="secondary" disabled={mediaRecorder} onClick={prepareRecording}>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import NewAssignmentForm from '../components/NewAssignmentForm'
+import NewAssignmentAudioForm from '../components/NewAssignmentAudioForm'
 import NewAssignmentResponseForm from '../components/NewAssignmentResponseForm'
 import NewAssignmentCreativeForm from '../components/NewAssignmentCreativeForm'
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Grid, Typography } from '@material-ui/core'
@@ -10,13 +10,13 @@ function NewAssignmentContainer({assignments, setAssignments}){
     const displayForm = () => {
     switch(formType){
         case 'audio':
-            return <NewAssignmentForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
+            return <NewAssignmentAudioForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
         case 'response':
             return <NewAssignmentResponseForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
         case 'creative':
             return <NewAssignmentCreativeForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
         default:
-            return <NewAssignmentForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
+            return <NewAssignmentAudioForm formType={formType} assignments={assignments} setAssignments={setAssignments}/>
         }
     }
 

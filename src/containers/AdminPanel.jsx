@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import NewAssignmentContainer from './NewAssignmentContainer'
-import AdminAssignmentsList from '../components/AdminAssignmentsList'
+import AdminAssignmentCard from '../components/AdminAssignmentCard'
 import { Paper, Typography, Grid, Dialog, Button } from '@material-ui/core'
 import { FetchURL } from '../env/url'
 
@@ -38,8 +38,10 @@ useEffect(() => {
             </Grid>
             <Grid item>
                 <Paper style={{padding:"20px"}}>
-                    <Typography align="center" variant="h4">Current Assignments</Typography>
-                    <AdminAssignmentsList assignments={assignments} setAssignments={setAssignments}/>
+                    <Typography align="center" variant="h4" style={{margin:"1em"}}>Current Assignments</Typography>
+                    <Grid container direction="row" justify = "flex-start" alignItems="flex-start" spacing= {2}>
+                        {assignments.sort((a,b)=> a.title.toLowerCase()<b.title.toLowerCase()? -1 : 1).map(assignment=> <Grid item xs={6} md={4} xl={4} key={assignment.id}><AdminAssignmentCard key={assignment.id} assignment={assignment} assignments={assignments} setAssignments={setAssignments} /></Grid>)}
+                    </Grid>
                 </Paper>
             </Grid>
         </Grid>

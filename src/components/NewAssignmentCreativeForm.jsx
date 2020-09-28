@@ -5,14 +5,14 @@ import { FetchURL } from '../env/url'
 function NewAssignmentCreativeForm({assignments, setAssignments, formType}) {
   const [title, setTitle] = React.useState("");
   const [instructions, setInstructions] = React.useState("");
-  const [notationPdf, setNotationPDF] = React.useState("");
+  const [instructionalPdf, setInstructionalPdf] = React.useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const formData=new FormData()
     formData.append('title', title)
     formData.append('instructions', instructions)
-    formData.append('notationPdf', notationPdf)
+    formData.append('pdf', instructionalPdf)
     formData.append('formType', formType)
     title.length>0 && instructions.length>0 ?
       fetch(`${FetchURL}assignments`, {
@@ -65,7 +65,7 @@ function NewAssignmentCreativeForm({assignments, setAssignments, formType}) {
           </Grid>
           <Grid item>
             <InputLabel htmlFor="assignment-pdf">Instructional PDF:</InputLabel>
-            <Input id="assignment-pdf" type="file" accept="application/pdf" name="assignment-pdf" onChange={(e) => setNotationPDF(e.target.files[0])}></Input>
+            <Input id="assignment-pdf" type="file" accept="application/pdf" name="assignment-pdf" onChange={(e) => setInstructionalPdf(e.target.files[0])}></Input>
           </Grid>
           <Grid item>
             <InputLabel htmlFor="assignment-sample-audio">Sample Audio:</InputLabel>
@@ -76,7 +76,7 @@ function NewAssignmentCreativeForm({assignments, setAssignments, formType}) {
             <Input id="assignment-accompaniment" type="file" accept="audio/mp3" name="assignment-accompaniment"></Input>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary" type="submit">Submit</Button>  
+            <Button fullWidth variant="contained" color="primary" type="submit">Submit</Button>  
           </Grid> 
         </Grid>
       </form>

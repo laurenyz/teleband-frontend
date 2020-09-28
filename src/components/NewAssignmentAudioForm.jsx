@@ -2,17 +2,17 @@ import React from 'react'
 import { TextField, Button, Input, InputLabel, DialogContent, Grid } from '@material-ui/core';
 import { FetchURL } from '../env/url'
 
-function NewAssignmentForm({assignments, setAssignments, formType}) {
+function NewAssignmentAudioForm({assignments, setAssignments, formType}) {
   const [title, setTitle] = React.useState("");
   const [instructions, setInstructions] = React.useState("");
-  const [notationPdf, setNotationPDF] = React.useState("");
+  const [notationPdf, setNotationPdf] = React.useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const formData=new FormData()
     formData.append('title', title)
     formData.append('instructions', instructions)
-    formData.append('notationPdf', notationPdf)
+    formData.append('pdf', notationPdf)
     formData.append('formType', formType)
     title.length>0 && instructions.length>0 ?
       fetch(`${FetchURL}assignments`, {
@@ -65,7 +65,7 @@ function NewAssignmentForm({assignments, setAssignments, formType}) {
           </Grid>
           <Grid item>
             <InputLabel htmlFor="assignment-pdf">Notation PDF:</InputLabel>
-            <Input id="assignment-pdf" type="file" accept="application/pdf" name="assignment-pdf" onChange={(e) => setNotationPDF(e.target.files[0])}></Input>
+            <Input id="assignment-pdf" type="file" accept="application/pdf" name="assignment-pdf" onChange={(e) => setNotationPdf(e.target.files[0])}></Input>
           </Grid>
           <Grid item>
             <InputLabel htmlFor="assignment-sample-audio">Sample Audio:</InputLabel>
@@ -84,4 +84,4 @@ function NewAssignmentForm({assignments, setAssignments, formType}) {
   );
 }
 
-export default NewAssignmentForm
+export default NewAssignmentAudioForm
