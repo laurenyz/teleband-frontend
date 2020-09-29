@@ -1,13 +1,13 @@
 import React from 'react'
-import { TextField, Button, Input, InputLabel, DialogContent, Grid } from '@material-ui/core';
+import { TextField, Button, Input, InputLabel, DialogContent, Grid, Typography } from '@material-ui/core';
 import { FetchURL } from '../env/url'
 
-function NewAssignmentForm({ assignments, setAssignments, formType, setOpen }) {
-  const [title, setTitle] = React.useState("");
-  const [instructions, setInstructions] = React.useState("");
-  const [pdf, setPdf] = React.useState("");
-  const [accompanimentFile, setAccompanimentFile] = React.useState("")
-  const [playingSampleFile, setPlayingSampleFile] = React.useState("")
+function EditAssignmentForm({ activeAssignment, handleCloseEditForm, assignments, setAssignments, formType }) {
+  const [title, setTitle] = React.useState(activeAssignment.title);
+  const [instructions, setInstructions] = React.useState(activeAssignment.instructions);
+  const [pdf, setPdf] = React.useState(null);
+  const [accompanimentFile, setAccompanimentFile] = React.useState(null)
+  const [playingSampleFile, setPlayingSampleFile] = React.useState(null)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -25,14 +25,20 @@ function NewAssignmentForm({ assignments, setAssignments, formType, setOpen }) {
           formData.append('accompaniment', accompanimentFile)
           formData.append('playing_sample', playingSampleFile)
         }
-      fetch(`${FetchURL}assignments`, {
-          method: "POST",
+      fetch(`${FetchURL}assignments/${activeAssignment.id}`, {
+          method: "PATCH",
           body: formData
         }).then(resp=>resp.json())
         .then(json => {
-          const newAssignmentList = [...assignments, json.assignment]
+          const newAssignmentList = assignments.map(a=>{
+            if(a.id===json.assignment.id){
+              return json.assignment
+            }else{
+              return a
+            }
+          })
           setAssignments(newAssignmentList)
-          setOpen(false)
+          handleCloseEditForm()
         })
       }
   }
@@ -72,7 +78,7 @@ function NewAssignmentForm({ assignments, setAssignments, formType, setOpen }) {
             />
           </Grid>
           <Grid item>
-            <InputLabel htmlFor="assignment-pdf">Notation/Instructional PDF:</InputLabel>
+            <InputLabel htmlFor="assignment-pdf"><Typography style={{textDecoration:"underline", cursor:"pointer"}} onClick={()=>window.open(activeAssignment.pdf_url)}>View Current Pdf</Typography></InputLabel>
             <Input id="assignment-pdf" type="file" accept="application/pdf" name="assignment-pdf" onChange={(e) => setPdf(e.target.files[0])}></Input>
           </Grid>
           {formType==="response"?
@@ -80,11 +86,11 @@ function NewAssignmentForm({ assignments, setAssignments, formType, setOpen }) {
           :
           <>
             <Grid item>
-              <InputLabel htmlFor="assignment-sample-audio">Playing Sample:</InputLabel>
+              <InputLabel htmlFor="assignment-sample-audio"><Typography style={{textDecoration:"underline", cursor:"pointer"}} onClick={()=>window.open(activeAssignment.playing_sample_url)}>View Current Playing Sample</Typography></InputLabel>
               <Input id="assignment-sample-audio" type="file" accept="audio/mp3" name="assignment-playing-sample" onChange={(e) => setPlayingSampleFile(e.target.files[0])}></Input>
             </Grid>
             <Grid item>
-              <InputLabel htmlFor="assignment-accompaniment">Accompaniment Audio:</InputLabel>
+              <InputLabel htmlFor="assignment-accompaniment"><Typography style={{textDecoration:"underline", cursor:"pointer"}} onClick={()=>window.open(activeAssignment.accompaniment_url)}>View Current Accompaniment</Typography></InputLabel>
               <Input id="assignment-accompaniment" type="file" accept="audio/mp3" name="assignment-accompaniment" onChange={(e) => setAccompanimentFile(e.target.files[0])}></Input>
             </Grid>
           </>
@@ -98,4 +104,4 @@ function NewAssignmentForm({ assignments, setAssignments, formType, setOpen }) {
   );
 }
 
-export default NewAssignmentForm
+export default EditAssignmentForm

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import NewAssignmentForm from '../components/NewAssignmentForm'
+import EditAssignmentForm from '../components/EditAssignmentForm'
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Grid, Typography } from '@material-ui/core'
 
-function NewAssignmentContainer({assignments, setAssignments, setOpen}){
-    const [formType, setFormType] = useState('audio')
+function EditAssignmentContainer({ activeAssignment, handleCloseEditForm, assignments, setAssignments }){
+    const [formType, setFormType] = useState(activeAssignment.category)
 
     return(
         <Grid container direction="column" alignItems="center" style={{padding: "2em"}}> 
             <Grid item style={{marginBottom:"1em"}}>
-                <Typography align="center" variant="h4">Create an Assignment</Typography>
+                <Typography align="center" variant="h4">Edit Assignment</Typography>
             </Grid>
             <Grid item>
                 <FormControl component="fieldset">
@@ -21,10 +21,10 @@ function NewAssignmentContainer({assignments, setAssignments, setOpen}){
                 </FormControl>
             </Grid>
             <Grid item>
-                <NewAssignmentForm setOpen={setOpen} formType={formType} assignments={assignments} setAssignments={setAssignments}/>
+                <EditAssignmentForm  activeAssignment={activeAssignment} handleCloseEditForm={handleCloseEditForm} formType={formType} assignments={assignments} setAssignments={setAssignments}/>
             </Grid>
         </Grid>
     )
 }
 
-export default NewAssignmentContainer
+export default EditAssignmentContainer
