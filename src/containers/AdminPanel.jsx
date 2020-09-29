@@ -30,7 +30,7 @@ const [activeAssignment, setActiveAssignment]=useState(null) //choose and assign
     }
     
     return(
-        <Grid container direction="column" spacing={2}>
+        <Grid container direction="column" spacing={2} style={{marginTop: "1em"}}>
             <Dialog
                 open={open}
                 onClose={() => setOpen(false)}
@@ -52,12 +52,23 @@ const [activeAssignment, setActiveAssignment]=useState(null) //choose and assign
             </Grid>
             <Grid item>
                 <Paper style={{padding:"20px"}}>
-                    <Button variant="contained" color="secondary" onClick={()=>setOpen(true)}>Create Assignment</Button>
+                    <Grid container justify="flex-start" spacing={2}>
+                        <Grid item>
+                            <Button variant="contained" color="secondary" onClick={()=>setOpen(true)}>Create Assignment</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="secondary" onClick={()=>alert("Feature in Development")}>Add Teacher</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button variant="contained" color="secondary" onClick={()=>alert("Feature in Development")}>Export Student Grades</Button>
+                        </Grid>
+                    </Grid>
+                    
                 </Paper>
             </Grid>
             <Grid item>
                 <Paper style={{padding:"20px"}}>
-                    <Typography align="center" variant="h4" style={{marginBottom:"1em"}}>Current Assignments</Typography>
+                    <Typography align="left" variant="h4" style={{marginBottom:".5em"}}>All Assignments</Typography>
                     <Grid container direction="row" justify = "flex-start" alignItems="flex-start" spacing= {2}>
                         {assignments.sort((a,b)=> a.title.toLowerCase()<b.title.toLowerCase()? -1 : 1).map(assignment=> <Grid item xs={6} md={4} xl={4} key={assignment.id}><AdminAssignmentCard key={assignment.id} assignment={assignment} assignments={assignments} setAssignments={setAssignments} handleClickEdit={handleClickEdit} /></Grid>)}
                     </Grid>
