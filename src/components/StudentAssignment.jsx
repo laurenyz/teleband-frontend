@@ -4,6 +4,8 @@ import IconButton from '@material-ui/core/IconButton'
 import { Grid, Typography, Paper } from '@material-ui/core/'
 import MicIcon from '@material-ui/icons/Mic';
 import StopIcon from '@material-ui/icons/Stop';
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
+import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import { FetchURL } from '../env/url'
 import ReactAudioPlayer from 'react-audio-player';
 
@@ -93,13 +95,13 @@ function StudentAssignment(props) {
                     <Paper style={{padding: "20px"}}>
                         <Grid container justify="space-around">
                             <Grid item>
-                                <Button variant="contained" color="secondary">Play Sample Audio</Button>
+                                <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />}>Recording</Button>
                             </Grid>
                             <Grid item>
-                                <Button variant="contained" color="secondary" onClick={()=>window.open(assignment.pdf_url)}>View Notation</Button>
+                                <Button variant="contained" color="secondary" endIcon={<LibraryMusicIcon />} onClick={()=>window.open(assignment.pdf_url)}>Notation</Button>
                             </Grid>
                             <Grid item>
-                                <Button variant="contained" color="secondary">Play Accompaniment</Button>
+                                <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />}>Accompaniment</Button>
                             </Grid>
                             <Grid item>
                                 <Button variant="contained" color="secondary" disabled={mediaRecorder} onClick={prepareRecording}>
