@@ -73,7 +73,7 @@ function NewAssignmentForm({ assignments, setAssignments, formType, setOpen }) {
           </Grid>
           <Grid item>
             <InputLabel htmlFor="assignment-pdf">Notation/Instructional PDF:</InputLabel>
-            <Input id="assignment-pdf" type="file" accept="application/pdf" name="assignment-pdf" onChange={(e) => setPdf(e.target.files[0])}></Input>
+            <Input id="assignment-pdf" type="file" accept="application/pdf" name="assignment-pdf" onChange={(e) => setPdf(e.target.files[0])} />
           </Grid>
           {formType==="response"?
           null
@@ -81,11 +81,11 @@ function NewAssignmentForm({ assignments, setAssignments, formType, setOpen }) {
           <>
             <Grid item>
               <InputLabel htmlFor="assignment-sample-audio">Playing Sample:</InputLabel>
-              <Input id="assignment-sample-audio" type="file" accept="audio/mp3" name="assignment-playing-sample" onChange={(e) => setPlayingSampleFile(e.target.files[0])}></Input>
+              <Input id="assignment-sample-audio" type="file" accept="audio/mp3" name="assignment-playing-sample" onChange={(e) => setPlayingSampleFile(e.target.files[0])} />
             </Grid>
             <Grid item>
               <InputLabel htmlFor="assignment-accompaniment">Accompaniment Audio:</InputLabel>
-              <Input id="assignment-accompaniment" type="file" accept="audio/mp3" name="assignment-accompaniment" onChange={(e) => setAccompanimentFile(e.target.files[0])}></Input>
+              <Input id="assignment-accompaniment" type="file" accept="audio/mp3" name="assignment-accompaniment" onChange={(e) => setAccompanimentFile(e.target.files[0])} />
             </Grid>
           </>
         }

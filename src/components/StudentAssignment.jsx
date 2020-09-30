@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
-import { Grid, Typography, Paper } from '@material-ui/core/'
+import { Grid, Typography, Paper, Input, InputLabel, Button, IconButton } from '@material-ui/core/'
 import MicIcon from '@material-ui/icons/Mic';
 import StopIcon from '@material-ui/icons/Stop';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
@@ -15,14 +13,21 @@ function StudentAssignment(props) {
     const [mediaRecorder, mediaRecorderSet] = useState(null)
     const [audioBlob, audioBlobSet] = useState(null)
     const [audioUrl, audioUrlSet] = useState(null)
+    const [sampleAudio, setSampleAudio] = useState(null)
+    const [accompanimentAudio, setAccompanimentAudio] = useState(null)
+    const [studentNotationPdf, setStudentNotationPdf] = useState(null)
 
     useEffect(() => {
         fetch(`${FetchURL}assignments/${props.match.params.id}`)
             .then(resp => resp.json())
-            .then(assign => setAssignment(assign))
+            .then(assign => {
+                setAssignment(assign)
+                setSampleAudio(new Audio(assign.playing_sample_url))
+                setAccompanimentAudio(new Audio(assign.accompaniment_url))
+            })
     }, [props.match.params.id])
 
-    let prepareRecording = () => {
+    const prepareRecording = () => {
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then(stream => {
                 mediaRecorderSet(new MediaRecorder(stream, { type: 'audio/wav' }))
@@ -30,8 +35,9 @@ function StudentAssignment(props) {
         )
     }
 
-    let startRecording = () => {
+    const startRecording = () => {
         mediaRecorder.start()
+        accompanimentAudio.play()
         activeSet(true)
         mediaRecorder.addEventListener('dataavailable', e => {
             console.log("Current Blob", e.data)
@@ -41,15 +47,17 @@ function StudentAssignment(props) {
         })
     }
 
-    let stopRecording = () => {
+    const stopRecording = () => {
         mediaRecorder.stop()
+        accompanimentAudio.pause()
+        accompanimentAudio.currentTime = 0
         mediaRecorder.addEventListener('stop', () => {
             console.log("stopping recording")
         })
         activeSet(false)
     }
 
-    let createFileFromBlob = () => {
+    const createFileFromBlob = () => {
         console.log("URL", audioUrl)
         console.log("AudioBlob", [audioBlob])
         let file = new File([audioBlob], 'audio1.ogg', { type: 'audio/ogg' })
@@ -57,7 +65,7 @@ function StudentAssignment(props) {
         return file
     }
 
-    let postRecording = () => {
+    const postRecording = () => {
         let formData = new FormData()
         formData.append("school_id", localStorage.getItem("jwt"))
         formData.append("student_recording", createFileFromBlob())
@@ -77,40 +85,72 @@ function StudentAssignment(props) {
             })
     }
 
+    const handleSubmitStudentNotation = (e) => {
+        e.preventDefault()
+        if(!studentNotationPdf){
+            alert("Please select a file to upload.")
+        }else{
+            console.log("submitting",studentNotationPdf)
+        }
+    }
+    
     return (
-        <div style={{margin: "20px"}}>
-            <Grid container direction="column" spacing={1} style={{width: "100%"}}>
+        <div style={{margin: "1em"}}>
+            {
+            localStorage.getItem("jwt")
+            ?
+                <Grid container direction="column" spacing={1} style={{width: "100%"}}>
                 <Grid item >
-                    <Paper style={{padding:"20px"}}>
+                    <Paper style={{padding:"1em"}}>
                         <Typography align="center" variant="h2">{`${assignment.title}-${assignment.category}`}</Typography>
                     </Paper>
                 </Grid>
                 <Grid item>
-                    <Paper style={{padding:"20px"}}>
+                    <Paper style={{padding:"1em"}}>
                         <Typography variant="h5" display="inline" style={{fontWeight:"bold"}}>INSTRUCTIONS: </Typography>
                         <Typography align="justify" variant="h5" display="inline">{assignment.instructions}</Typography>
                     </Paper>
                 </Grid>
                 <Grid item>
-                    <Paper style={{padding: "20px"}}>
+                    <Paper style={{padding: "1em"}}>
                         <Grid container justify="space-around">
-                            <Grid item>
-                                <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />}>Recording</Button>
-                            </Grid>
-                            <Grid item>
-                                <Button variant="contained" color="secondary" endIcon={<LibraryMusicIcon />} onClick={()=>window.open(assignment.pdf_url)}>Notation</Button>
-                            </Grid>
-                            <Grid item>
-                                <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />}>Accompaniment</Button>
-                            </Grid>
-                            <Grid item>
-                                <Button variant="contained" color="secondary" disabled={mediaRecorder} onClick={prepareRecording}>
-                                    Start Recording
-                                </Button> 
-                            </Grid>
+                            {
+                                assignment.category==='response'?
+                                "Response- should there be an instructional pdf, also? Right now, there is an option to upload that in the admin-panel. Do we want a free-response section as well as 3 dropdowns? Can we get a mockup of the form?"
+                                :
+                                <>
+                                <Grid item>
+                                    <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />} onClick={() => sampleAudio.play()}>Recording</Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button variant="contained" color="secondary" endIcon={<LibraryMusicIcon />} onClick={()=>window.open(assignment.pdf_url)}>Notation</Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />} onClick={() => accompanimentAudio.play()}>Accompaniment</Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button variant="contained" color="secondary" disabled={mediaRecorder?true:false} onClick={prepareRecording}>
+                                        Start Recording
+                                    </Button> 
+                                </Grid>
+                                </>
+                            }
                         </Grid>
                     </Paper>
                 </Grid>
+                {
+                    assignment.category==='creative'?
+                    <Grid item>
+                        <form noValidate autoComplete="off" onSubmit={handleSubmitStudentNotation}>
+                            <Paper style={{padding: "1em"}}>
+                                <InputLabel htmlFor="assignment-student-pdf">Notation:</InputLabel>
+                                <Input id="assignment-student-pdf" type="file" accept="application/pdf" name="assignment-student-pdf" onChange={(e) => setStudentNotationPdf(e.target.files[0])} />
+                                <Button variant="contained" color="primary" type="submit">Submit Notation</Button>
+                            </Paper>
+                        </form>
+                    </Grid>  
+                    :null
+                }
                 {
                     mediaRecorder ?
                          active ?
@@ -136,8 +176,9 @@ function StudentAssignment(props) {
 
                     : null}
                 </Grid>
-            <div>
-            </div>
+            :
+            <Typography>Please sign in!</Typography>
+        }
         </div>
     )
 }
