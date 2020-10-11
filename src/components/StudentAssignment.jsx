@@ -6,6 +6,7 @@ import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import { FetchURL } from '../env/url'
 import ReactAudioPlayer from 'react-audio-player';
+import StarIcon from '@material-ui/icons/Star';
 
 function StudentAssignment(props) {
     const [assignment, setAssignment] = useState({})
@@ -113,27 +114,92 @@ function StudentAssignment(props) {
                 </Grid>
                 <Grid item>
                     <Paper style={{padding: "1em"}}>
+                        {
+                            assignment.category==='response'?
+                            <>
+                            <Grid item>
+                                <Button variant="contained" color="secondary" endIcon={<StarIcon />} onClick={()=>window.open(assignment.pdf_url)}>Rating Scale</Button>
+                            </Grid>
+                            {/* <form noValidate autoComplete="off" onSubmit={handleSubmit}> */}
+                            <form>
+        <Grid container direction="column" spacing={1}>
+          {/* <Grid item>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="title"
+              label="Title"
+              type="text"
+              id="title"
+              value={title}
+              onChange = {(e) => setTitle(e.target.value)} 
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            multiline
+            rows={10}
+            name="instructions"
+            label="Instructions"
+            type="text"
+            id="instructions"
+            value={instructions}
+            onChange = {(e) => setInstructions(e.target.value)}
+            />
+          </Grid>
+          <Grid item>
+            <InputLabel htmlFor="assignment-pdf">Notation/Instructional PDF:</InputLabel>
+            <Input id="assignment-pdf" type="file" accept="application/pdf" name="assignment-pdf" onChange={(e) => setPdf(e.target.files[0])} />
+          </Grid>
+          {formType==="response"?
+          null
+          :
+          <>
+            <Grid item>
+              <InputLabel htmlFor="assignment-sample-audio">Playing Sample:</InputLabel>
+              <Input id="assignment-sample-audio" type="file" accept="audio/mp3" name="assignment-playing-sample" onChange={(e) => setPlayingSampleFile(e.target.files[0])} />
+            </Grid>
+            <Grid item>
+              <InputLabel htmlFor="assignment-accompaniment">Accompaniment Audio:</InputLabel>
+              <Input id="assignment-accompaniment" type="file" accept="audio/mp3" name="assignment-accompaniment" onChange={(e) => setAccompanimentFile(e.target.files[0])} />
+            </Grid>
+          </>
+        }
+          <Grid item>
+            <Button fullWidth variant="contained" color="primary" type="submit">Submit</Button>  
+          </Grid> */}
+        </Grid>
+      </form>
+                            </>
+                            : null
+                        }
                         <Grid container justify="space-around">
                             {
-                                assignment.category==='response'?
-                                "Response- should there be an instructional pdf, also? Right now, there is an option to upload that in the admin-panel. Do we want a free-response section as well as 3 dropdowns? Can we get a mockup of the form?"
-                                :
+                                (assignment.category==='audio' || assignment.category==='creative') ?
                                 <>
-                                <Grid item>
-                                    <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />} onClick={() => sampleAudio.play()}>Recording</Button>
-                                </Grid>
-                                <Grid item>
-                                    <Button variant="contained" color="secondary" endIcon={<LibraryMusicIcon />} onClick={()=>window.open(assignment.pdf_url)}>Notation</Button>
-                                </Grid>
-                                <Grid item>
-                                    <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />} onClick={() => accompanimentAudio.play()}>Accompaniment</Button>
-                                </Grid>
-                                <Grid item>
-                                    <Button variant="contained" color="secondary" disabled={mediaRecorder?true:false} onClick={prepareRecording}>
-                                        Start Recording
-                                    </Button> 
-                                </Grid>
+                                    <Grid item>
+                                        <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />} onClick={() => sampleAudio.play()}>Recording</Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button variant="contained" color="secondary" endIcon={<LibraryMusicIcon />} onClick={()=>window.open(assignment.pdf_url)}>Notation</Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />} onClick={() => accompanimentAudio.play()}>Accompaniment</Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button variant="contained" color="secondary" disabled={mediaRecorder?true:false} onClick={prepareRecording}>
+                                            Start Recording
+                                        </Button> 
+                                    </Grid>
                                 </>
+                                :
+                                null
                             }
                         </Grid>
                     </Paper>
@@ -177,7 +243,9 @@ function StudentAssignment(props) {
                     : null}
                 </Grid>
             :
-            <Typography>Please sign in!</Typography>
+            <Paper style={{padding:"1em"}}>
+                <Typography align="center" variant="h4">Please sign in to view this assignment!</Typography>
+            </Paper>
         }
         </div>
     )

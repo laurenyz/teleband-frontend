@@ -16,7 +16,7 @@ function Navbar({ currentUser, clearUserStates, currentUserType }) {
     function handleLogin() {
         history.push('/login')
     }
-    console.log(history)
+    
     return (
         <AppBar position="static" style={{ height: "60px", padding: "10px" }}>
             <Grid container direction="row" spacing={3} justify="space-between" alignItems="center">
