@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Typography, Paper, Input, InputLabel, Button, IconButton } from '@material-ui/core/'
+import { Button, IconButton, Grid, Input, InputLabel, Paper, TextField, Typography } from '@material-ui/core/'
 import MicIcon from '@material-ui/icons/Mic';
 import StopIcon from '@material-ui/icons/Stop';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
@@ -17,6 +17,10 @@ function StudentAssignment(props) {
     const [sampleAudio, setSampleAudio] = useState(null)
     const [accompanimentAudio, setAccompanimentAudio] = useState(null)
     const [studentNotationPdf, setStudentNotationPdf] = useState(null)
+    const [responseText, setResponseText] = useState("")
+    const [rhythm, setRhythm] = useState(1)
+    const [tone, setTone] = useState(1)
+    const [expression, setExpression] = useState(1)
 
     useEffect(() => {
         fetch(`${FetchURL}assignments/${props.match.params.id}`)
@@ -94,6 +98,21 @@ function StudentAssignment(props) {
             console.log("submitting",studentNotationPdf)
         }
     }
+
+    const handleSubmitResponseForm = (e) => {
+        e.preventDefault()
+        console.log('submitting response form')
+    }
+
+    const adjustRatingforRange = (num) => {
+        let score = parseInt(num);
+        if (score < 0) {
+            score = 0
+        } else if (score > 5) {
+            score = 5
+        }
+        return score
+    }
     
     return (
         <div style={{margin: "1em"}}>
@@ -112,77 +131,91 @@ function StudentAssignment(props) {
                         <Typography align="justify" variant="h5" display="inline">{assignment.instructions}</Typography>
                     </Paper>
                 </Grid>
-                <Grid item>
-                    <Paper style={{padding: "1em"}}>
-                        {
-                            assignment.category==='response'?
-                            <>
-                            <Grid item>
-                                <Button variant="contained" color="secondary" endIcon={<StarIcon />} onClick={()=>window.open(assignment.pdf_url)}>Rating Scale</Button>
-                            </Grid>
-                            {/* <form noValidate autoComplete="off" onSubmit={handleSubmit}> */}
+                {
+                    assignment.category==='response'?
+                    <Grid item noValidate autoComplete="off" onSubmit={handleSubmitResponseForm}>
+                        <Paper style={{padding: "1em"}}>
+                            <Button variant="contained" color="secondary" endIcon={<StarIcon />} onClick={()=>window.open(assignment.pdf_url)}>Rating Scale</Button>
                             <form>
-        <Grid container direction="column" spacing={1}>
-          {/* <Grid item>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="title"
-              label="Title"
-              type="text"
-              id="title"
-              value={title}
-              onChange = {(e) => setTitle(e.target.value)} 
-            />
-          </Grid>
-          <Grid item>
-            <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            multiline
-            rows={10}
-            name="instructions"
-            label="Instructions"
-            type="text"
-            id="instructions"
-            value={instructions}
-            onChange = {(e) => setInstructions(e.target.value)}
-            />
-          </Grid>
-          <Grid item>
-            <InputLabel htmlFor="assignment-pdf">Notation/Instructional PDF:</InputLabel>
-            <Input id="assignment-pdf" type="file" accept="application/pdf" name="assignment-pdf" onChange={(e) => setPdf(e.target.files[0])} />
-          </Grid>
-          {formType==="response"?
-          null
-          :
-          <>
-            <Grid item>
-              <InputLabel htmlFor="assignment-sample-audio">Playing Sample:</InputLabel>
-              <Input id="assignment-sample-audio" type="file" accept="audio/mp3" name="assignment-playing-sample" onChange={(e) => setPlayingSampleFile(e.target.files[0])} />
-            </Grid>
-            <Grid item>
-              <InputLabel htmlFor="assignment-accompaniment">Accompaniment Audio:</InputLabel>
-              <Input id="assignment-accompaniment" type="file" accept="audio/mp3" name="assignment-accompaniment" onChange={(e) => setAccompanimentFile(e.target.files[0])} />
-            </Grid>
-          </>
-        }
-          <Grid item>
-            <Button fullWidth variant="contained" color="primary" type="submit">Submit</Button>  
-          </Grid> */}
-        </Grid>
-      </form>
-                            </>
-                            : null
-                        }
-                        <Grid container justify="space-around">
-                            {
-                                (assignment.category==='audio' || assignment.category==='creative') ?
-                                <>
+                                <Grid container direction="column" spacing={1}>
+                                    <Grid item>
+                                        <TextField
+                                        variant="outlined"
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        multiline
+                                        rows={6}
+                                        name="response-text"
+                                        label="Response"
+                                        type="text"
+                                        id="response-text"
+                                        value={responseText}
+                                        onChange = {(e) => setResponseText(e.target.value)} 
+                                        />
+                                    </Grid>
+                                    <Grid item>
+                                        <Grid container justify="space-around" style={{padding:"5px"}}>
+                                            <Grid item>
+                                                <TextField
+                                                    variant="outlined"
+                                                    margin="normal"
+                                                    id="response-rhythm"
+                                                    label="Rhythm"
+                                                    name="response-rhythm"
+                                                    autoComplete="response-rhythm"
+                                                    InputProps={{ inputProps: { min: 1, max: 5, step:1 } }}
+                                                    type = "number" 
+                                                    onChange = {(e)=>setRhythm(adjustRatingforRange(e.target.value))} 
+                                                    value = {rhythm}
+                                                />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField
+                                                    variant="outlined"
+                                                    margin="normal"
+                                                    id="response-tone"
+                                                    label="Tone"
+                                                    name="response-tone"
+                                                    autoComplete="response-tone"
+                                                    InputProps={{ inputProps: { min: 1, max: 5, step:1 } }}
+                                                    type = "number" 
+                                                    onChange = {(e)=>setTone(adjustRatingforRange(e.target.value))} 
+                                                    value = {tone}
+                                                />
+                                            </Grid>
+                                            <Grid item>
+                                                <TextField
+                                                    variant="outlined"
+                                                    margin="normal"
+                                                    id="response-expression"
+                                                    label="Expression"
+                                                    name="response-expression"
+                                                    autoComplete="response-expression"
+                                                    InputProps={{ inputProps: { min: 1, max: 5, step:1 } }}
+                                                    type = "number" 
+                                                    onChange = {(e)=>setExpression(adjustRatingforRange(e.target.value))} 
+                                                    value = {expression}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button fullWidth variant="contained" color="primary" type="submit">Submit</Button>
+                                    </Grid>
+                                </Grid>
+                            </form>
+                        </Paper>
+                    </Grid>
+                    : null
+                }
+                        
+                {
+                    (assignment.category==='audio' || assignment.category==='creative') ?
+                    <>
+                        <Grid item>
+                            <Paper style={{padding: "1em"}}>
+                                <Grid container justify="space-around">
                                     <Grid item>
                                         <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />} onClick={() => sampleAudio.play()}>Recording</Button>
                                     </Grid>
@@ -197,13 +230,13 @@ function StudentAssignment(props) {
                                             Start Recording
                                         </Button> 
                                     </Grid>
-                                </>
-                                :
-                                null
-                            }
+                                </Grid>
+                            </Paper>
                         </Grid>
-                    </Paper>
-                </Grid>
+                    </>
+                    :
+                    null
+                }          
                 {
                     assignment.category==='creative'?
                     <Grid item>
