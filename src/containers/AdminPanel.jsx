@@ -11,6 +11,7 @@ function AdminPanel(){
 const [assignments, setAssignments]=useState([])
 const [teachers, setTeachers]=useState([])
 const [openAssignmentForm, setOpenAssignmentForm]=useState(false) //new assignment modal
+const [openTeacherForm, setOpenTeacherForm]=useState(false)
 const [openAssignmentFormEdit, setOpenAssignmentFormEdit] = useState(false)
 const [activeAssignment, setActiveAssignment]=useState(null) //choose and assignment for editing
 
@@ -20,15 +21,6 @@ const [activeAssignment, setActiveAssignment]=useState(null) //choose and assign
         .then(assignments => {
         setAssignments(assignments)
         })
-        // fetch(`${FetchURL}teachers`)
-        // .then(resp => resp.json())
-        // .then(teachers => {
-        // setTeachers(teachers)
-        // })
-    }
-    , [])
-
-    useEffect(() => {
         fetch(`${FetchURL}teachers`)
         .then(resp => resp.json())
         .then(teachers => {
@@ -64,9 +56,16 @@ const [activeAssignment, setActiveAssignment]=useState(null) //choose and assign
             <Dialog
                 open={openAssignmentFormEdit}
                 onClose={() => handleCloseEditAssignmentForm()}
-                aria-label="edit an assignment"
+                aria-label="edit assignment"
             >
                 <EditAssignmentContainer activeAssignment={activeAssignment} handleCloseEditAssignmentForm={handleCloseEditAssignmentForm} assignments={assignments} setAssignments={setAssignments} />
+            </Dialog>
+            <Dialog
+                open={openTeacherForm}
+                onClose={() => setOpenTeacherForm(false)}
+                aria-label="add a new teacher"
+            >
+                <NewTeacherForm setOpenTeacherForm={setOpenTeacherForm} teachers={teachers} setTeachers={setTeachers} />
             </Dialog>
             <Grid item>
                 <Paper style={{padding:"20px"}}>
@@ -80,7 +79,7 @@ const [activeAssignment, setActiveAssignment]=useState(null) //choose and assign
                             <Button variant="contained" color="secondary" onClick={()=>setOpenAssignmentForm(true)}>Create Assignment</Button>
                         </Grid>
                         <Grid item>
-                            <Button variant="contained" color="secondary" onClick={()=>alert("Feature in Development")}>Add Teacher</Button>
+                            <Button variant="contained" color="secondary" onClick={()=>setOpenTeacherForm(true)}>Add Teacher</Button>
                         </Grid>
                         <Grid item>
                             <Button variant="contained" color="secondary" onClick={()=>alert("Feature in Development")}>Export Student Grades</Button>

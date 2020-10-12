@@ -11,7 +11,7 @@ const AdminTeacherCard = ({ teacher, teachers, setTeachers, handleClickEditTeach
     const handleDeleteTeacher = () => {
     
         let response = window.confirm(
-          `Permanently remove "${teacher.title}" from the database?`
+          `Permanently remove "${teacher.name}" from the database?`
         )
         return response ? 
         fetch(`${FetchURL}teachers/${teacher.id}`,{

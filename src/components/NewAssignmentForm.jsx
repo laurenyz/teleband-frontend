@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField, Button, Input, InputLabel, DialogContent, Grid } from '@material-ui/core';
 import { FetchURL } from '../env/url'
 
-function NewAssignmentForm({ assignments, setAssignments, formType, setOpen }) {
+function NewAssignmentForm({ assignments, setAssignments, formType, setOpenAssignmentForm }) {
   const [title, setTitle] = React.useState("");
   const [instructions, setInstructions] = React.useState("");
   const [pdf, setPdf] = React.useState("");
@@ -30,10 +30,14 @@ function NewAssignmentForm({ assignments, setAssignments, formType, setOpen }) {
           body: formData
         }).then(resp=>resp.json())
         .then(json => {
-          const newAssignmentList = [...assignments, json.assignment]
-          setAssignments(newAssignmentList)
-          setOpen(false)
-          alert('Successfully created assignment.')
+          if(json.error){
+            alert(json.error)
+          }else{
+            const newAssignmentList = [...assignments, json.assignment]
+            setAssignments(newAssignmentList)
+            setOpenAssignmentForm(false)
+            alert('Successfully created assignment.')
+          }
         })
       }
   }
