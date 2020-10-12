@@ -8,14 +8,13 @@ function NewTeacherForm({ teachers, setTeachers, setOpenTeacherForm }) {
     const [email, setEmail] = useState("")
 
     const handleSubmit = (e) => {
-        console.log(password, name, email)
         e.preventDefault()
         fetch(`${FetchURL}teachers`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
               },
-            body: JSON.stringify({name:name, email:email, password:password})
+            body: JSON.stringify({ name, email, password })
           }).then(resp=>resp.json())
           .then(json => {
               if(json.error){
