@@ -7,24 +7,24 @@ import CloseIcon from '@material-ui/icons/Close';
 import EditIcon from '@material-ui/icons/Edit';
 import { FetchURL } from '../env/url'
 
-const AdminAssignmentCard = ({ assignment, assignments, setAssignments, handleClickEditAssignment }) => {
-    const handleDelete = () => {
+const AdminTeacherCard = ({ teacher, teachers, setTeachers, handleClickEditTeacher }) => {
+    const handleDeleteTeacher = () => {
     
         let response = window.confirm(
-          `Permanently remove "${assignment.title}" from the database?`
+          `Permanently remove "${teacher.title}" from the database?`
         )
         return response ? 
-        fetch(`${FetchURL}assignments/${assignment.id}`,{
+        fetch(`${FetchURL}teachers/${teacher.id}`,{
                  method: "DELETE"
              })
              .then(resp => resp.json())
              .then((json) => {
-                 if(json.error){
-                     alert(json.error)
-                 }else{
-                const newAssignments = assignments.filter(a => a.id !== assignment.id)
-                setAssignments(newAssignments)
-                 }
+                if(json.error){
+                    alert(json.error)
+                } else {
+                    const newTeachers = teachers.filter(a => a.id !== teacher.id)
+                    setTeachers(newTeachers)
+                }   
              }) : 
         null;
       }   
@@ -33,13 +33,13 @@ const AdminAssignmentCard = ({ assignment, assignments, setAssignments, handleCl
         <Card style={{backgroundColor: "#eee2dc"}}>
             <Grid container alignItems="center" justify="space-between" style={{padding: "10px"}}>
                 <Grid item>        
-                    <Typography>{assignment.title}</Typography> 
+                    <Typography>{teacher.name}</Typography> 
                 </Grid>
                 <Grid item>
-                    <IconButton aria-label="edit assignment" onClick={()=> handleClickEditAssignment(assignment)}>
+                    <IconButton aria-label="edit teacher" onClick={()=> handleClickEditTeacher(teacher)}>
                         <EditIcon />
                     </IconButton>  
-                    <IconButton aria-label="delete assignment" onClick = {handleDelete}>
+                    <IconButton aria-label="delete teacher" onClick = {handleDeleteTeacher}>
                         <CloseIcon />
                     </IconButton>  
                 </Grid>
@@ -48,4 +48,4 @@ const AdminAssignmentCard = ({ assignment, assignments, setAssignments, handleCl
     )
 }
 
-export default AdminAssignmentCard
+export default AdminTeacherCard

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import EditAssignmentForm from '../components/EditAssignmentForm'
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Grid, Typography } from '@material-ui/core'
 
-function EditAssignmentContainer({ activeAssignment, handleCloseEditForm, assignments, setAssignments }){
+function EditAssignmentContainer({ activeAssignment, handleCloseEditAssignmentForm, assignments, setAssignments }){
     const [formType, setFormType] = useState(activeAssignment.category)
 
     return(
@@ -21,7 +21,7 @@ function EditAssignmentContainer({ activeAssignment, handleCloseEditForm, assign
                 </FormControl>
             </Grid>
             <Grid item>
-                <EditAssignmentForm  activeAssignment={activeAssignment} handleCloseEditForm={handleCloseEditForm} formType={formType} assignments={assignments} setAssignments={setAssignments}/>
+                <EditAssignmentForm  activeAssignment={activeAssignment} handleCloseEditAssignmentForm={handleCloseEditAssignmentForm} formType={formType} assignments={assignments} setAssignments={setAssignments}/>
             </Grid>
         </Grid>
     )

@@ -2,7 +2,7 @@ import React from 'react'
 import { TextField, Button, Input, InputLabel, DialogContent, Grid, Typography } from '@material-ui/core';
 import { FetchURL } from '../env/url'
 
-function EditAssignmentForm({ activeAssignment, handleCloseEditForm, assignments, setAssignments, formType }) {
+function EditAssignmentForm({ activeAssignment, handleCloseEditAssignmentForm, assignments, setAssignments, formType }) {
   const [title, setTitle] = React.useState(activeAssignment.title);
   const [instructions, setInstructions] = React.useState(activeAssignment.instructions);
   const [pdf, setPdf] = React.useState(null);
@@ -38,7 +38,7 @@ function EditAssignmentForm({ activeAssignment, handleCloseEditForm, assignments
             }
           })
           setAssignments(newAssignmentList)
-          handleCloseEditForm()
+          handleCloseEditAssignmentForm()
         })
       }
   }
