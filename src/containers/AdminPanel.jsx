@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import NewAssignmentContainer from './NewAssignmentContainer'
 import EditAssignmentContainer from './EditAssignmentContainer'
 import NewTeacherForm from '../components/NewTeacherForm'
+import EditTeacherForm from '../components/EditTeacherForm'
 import AdminAssignmentCard from '../components/AdminAssignmentCard'
 import AdminTeacherCard from '../components/AdminTeacherCard'
 import { Paper, Typography, Grid, Dialog, Button } from '@material-ui/core'
@@ -12,8 +13,10 @@ const [assignments, setAssignments]=useState([])
 const [teachers, setTeachers]=useState([])
 const [openAssignmentForm, setOpenAssignmentForm]=useState(false) //new assignment modal
 const [openTeacherForm, setOpenTeacherForm]=useState(false)
-const [openAssignmentFormEdit, setOpenAssignmentFormEdit] = useState(false)
+const [openAssignmentFormEdit, setOpenAssignmentFormEdit]=useState(false)
+const [openEditTeacherForm, setOpenEditTeacherForm]=useState(false)
 const [activeAssignment, setActiveAssignment]=useState(null) //choose and assignment for editing
+const [activeTeacher, setActiveTeacher]=useState(null)
 
     useEffect(() => {
         fetch(`${FetchURL}assignments`)
@@ -38,10 +41,9 @@ const [activeAssignment, setActiveAssignment]=useState(null) //choose and assign
         setOpenAssignmentFormEdit(true)
     }
 
-    const handleClickEditTeacher=(a)=>{
-        // setActiveAssignment(a)
-        // setOpenAssignmentFormEdit(true)
-        console.log('editingteacher')
+    const handleClickEditTeacher=(t)=>{
+        setActiveTeacher(t)
+        setOpenEditTeacherForm(true)
     }
     
     return(
@@ -66,6 +68,13 @@ const [activeAssignment, setActiveAssignment]=useState(null) //choose and assign
                 aria-label="add a new teacher"
             >
                 <NewTeacherForm setOpenTeacherForm={setOpenTeacherForm} teachers={teachers} setTeachers={setTeachers} />
+            </Dialog>
+            <Dialog
+                open={openEditTeacherForm}
+                onClose={() => setOpenEditTeacherForm(false)}
+                aria-label="edit teacher"
+            >
+                <EditTeacherForm setOpenEditTeacherForm={setOpenEditTeacherForm} teachers={teachers} setTeachers={setTeachers} activeTeacher={activeTeacher} />
             </Dialog>
             <Grid item>
                 <Paper style={{padding:"20px"}}>
