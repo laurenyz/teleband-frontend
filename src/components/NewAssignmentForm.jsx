@@ -33,6 +33,7 @@ function NewAssignmentForm({ assignments, setAssignments, formType, setOpen }) {
           const newAssignmentList = [...assignments, json.assignment]
           setAssignments(newAssignmentList)
           setOpen(false)
+          alert('Successfully created assignment.')
         })
       }
   }

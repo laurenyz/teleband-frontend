@@ -8,7 +8,7 @@ import { FetchURL } from '../env/url'
 import ReactAudioPlayer from 'react-audio-player';
 import StarIcon from '@material-ui/icons/Star';
 
-function StudentAssignment(props) {
+function StudentAssignment({assignmentId, currentUser, currentUserType, studentAssignments, setStudentAssignments}) {
     const [assignment, setAssignment] = useState({})
     const [active, activeSet] = useState(false)
     const [mediaRecorder, mediaRecorderSet] = useState(null)
@@ -23,14 +23,14 @@ function StudentAssignment(props) {
     const [expression, setExpression] = useState(1)
 
     useEffect(() => {
-        fetch(`${FetchURL}assignments/${props.match.params.id}`)
+        fetch(`${FetchURL}assignments/${assignmentId}`)
             .then(resp => resp.json())
             .then(assign => {
                 setAssignment(assign)
                 setSampleAudio(new Audio(assign.playing_sample_url))
                 setAccompanimentAudio(new Audio(assign.accompaniment_url))
             })
-    }, [props.match.params.id])
+    }, [assignmentId])
 
     const prepareRecording = () => {
         navigator.mediaDevices.getUserMedia({ audio: true })
@@ -45,7 +45,6 @@ function StudentAssignment(props) {
         accompanimentAudio.play()
         activeSet(true)
         mediaRecorder.addEventListener('dataavailable', e => {
-            console.log("Current Blob", e.data)
             let tempBlob = new Blob([e.data], { type: 'audio' })
             audioUrlSet(URL.createObjectURL(tempBlob))
             audioBlobSet(tempBlob)
@@ -57,37 +56,72 @@ function StudentAssignment(props) {
         accompanimentAudio.pause()
         accompanimentAudio.currentTime = 0
         mediaRecorder.addEventListener('stop', () => {
-            console.log("stopping recording")
+            console.log("stopping recording") //what does the rest of this function/event listener do
         })
         activeSet(false)
     }
 
     const createFileFromBlob = () => {
-        console.log("URL", audioUrl)
-        console.log("AudioBlob", [audioBlob])
         let file = new File([audioBlob], 'audio1.ogg', { type: 'audio/ogg' })
-        console.log(file)
         return file
     }
 
     const postRecording = () => {
         let formData = new FormData()
-        formData.append("school_id", localStorage.getItem("jwt"))
+        formData.append("school_id", currentUser.school_id)
         formData.append("student_recording", createFileFromBlob())
 
-        console.log(formData)
-        fetch(`${FetchURL}student_assignments/${props.match.params.id}/submit_recording`, {
-            method: "POST",
+        fetch(`${FetchURL}student_assignments/${assignmentId}/submit_recording`, {
+            method: "PATCH",
             body: formData
         })
         .then(resp => resp.json())
         .then(json => {
-            console.log(json)
             if(json.error){
                 alert(json.message)
             } else {
-                console.log(json)}
+                const updatedAssignments = studentAssignments.map(a => {
+                    if(a.id===json.student_assignment.id){
+                        return {...json.student_assignment, assignment: a.assignment}
+                    }else{
+                        return a
+                    }
+                })
+                setStudentAssignments(updatedAssignments)
+                alert('Successfully submitted recording.')
+            }
             })
+    }
+
+    const handleSubmitResponseForm = (e) => {
+        e.preventDefault()
+        let formData = new FormData()
+        formData.append("school_id", currentUser.school_id)
+        formData.append("student_response", responseText)
+        formData.append("rhythm", rhythm)
+        formData.append("tone", tone)
+        formData.append("expression", expression)
+        
+        fetch(`${FetchURL}student_assignments/${assignmentId}/submit_response`, {
+            method: "PATCH",
+            body: formData
+        })
+        .then(resp => resp.json())
+        .then(json => {
+            if(json.error){
+                alert(json.message)
+            } else {
+                const updatedAssignments = studentAssignments.map(a => {
+                    if(a.id===json.student_assignment.id){
+                        return {...json.student_assignment, assignment: a.assignment}
+                    }else{
+                        return a
+                    }
+                })
+                setStudentAssignments(updatedAssignments)
+                alert('Successfully submitted response form.')
+            }
+        })
     }
 
     const handleSubmitStudentNotation = (e) => {
@@ -95,13 +129,30 @@ function StudentAssignment(props) {
         if(!studentNotationPdf){
             alert("Please select a file to upload.")
         }else{
-            console.log("submitting",studentNotationPdf)
+            let formData = new FormData()
+            formData.append("school_id", currentUser.school_id)
+            formData.append("student_notation", studentNotationPdf)
+            fetch(`${FetchURL}student_assignments/${assignmentId}/submit_notation`, {
+                method: "PATCH",
+                body: formData
+            })
+            .then(resp => resp.json())
+            .then(json => {
+                if(json.error){
+                    alert(json.message)
+                } else {
+                    const updatedAssignments = studentAssignments.map(a => {
+                        if(a.id===json.student_assignment.id){
+                            return {...json.student_assignment, assignment: a.assignment}
+                        }else{
+                            return a
+                        }
+                    })
+                    setStudentAssignments(updatedAssignments)
+                    alert('Successfully uploaded notation')
+                }
+            })
         }
-    }
-
-    const handleSubmitResponseForm = (e) => {
-        e.preventDefault()
-        console.log('submitting response form')
     }
 
     const adjustRatingforRange = (num) => {
@@ -113,13 +164,13 @@ function StudentAssignment(props) {
         }
         return score
     }
-    
+   
     return (
         <div style={{margin: "1em"}}>
             {
-            localStorage.getItem("jwt")
+            currentUser && currentUserType==="student"
             ?
-                <Grid container direction="column" spacing={1} style={{width: "100%"}}>
+            <Grid container direction="column" spacing={1} style={{width: "100%"}}>
                 <Grid item >
                     <Paper style={{padding:"1em"}}>
                         <Typography align="center" variant="h2">{`${assignment.title}-${assignment.category}`}</Typography>
@@ -133,10 +184,10 @@ function StudentAssignment(props) {
                 </Grid>
                 {
                     assignment.category==='response'?
-                    <Grid item noValidate autoComplete="off" onSubmit={handleSubmitResponseForm}>
+                    <Grid item>
                         <Paper style={{padding: "1em"}}>
                             <Button variant="contained" color="secondary" endIcon={<StarIcon />} onClick={()=>window.open(assignment.pdf_url)}>Rating Scale</Button>
-                            <form>
+                            <form onSubmit={handleSubmitResponseForm}>
                                 <Grid container direction="column" spacing={1}>
                                     <Grid item>
                                         <TextField
@@ -209,31 +260,28 @@ function StudentAssignment(props) {
                     </Grid>
                     : null
                 }
-                        
                 {
                     (assignment.category==='audio' || assignment.category==='creative') ?
-                    <>
-                        <Grid item>
-                            <Paper style={{padding: "1em"}}>
-                                <Grid container justify="space-around">
-                                    <Grid item>
-                                        <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />} onClick={() => sampleAudio.play()}>Recording</Button>
-                                    </Grid>
-                                    <Grid item>
-                                        <Button variant="contained" color="secondary" endIcon={<LibraryMusicIcon />} onClick={()=>window.open(assignment.pdf_url)}>Notation</Button>
-                                    </Grid>
-                                    <Grid item>
-                                        <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />} onClick={() => accompanimentAudio.play()}>Accompaniment</Button>
-                                    </Grid>
-                                    <Grid item>
-                                        <Button variant="contained" color="secondary" disabled={mediaRecorder?true:false} onClick={prepareRecording}>
-                                            Start Recording
-                                        </Button> 
-                                    </Grid>
+                    <Grid item>
+                        <Paper style={{padding: "1em"}}>
+                            <Grid container justify="space-around">
+                                <Grid item>
+                                    <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />} onClick={() => sampleAudio.play()}>Recording</Button>
                                 </Grid>
-                            </Paper>
-                        </Grid>
-                    </>
+                                <Grid item>
+                                    <Button variant="contained" color="secondary" endIcon={<LibraryMusicIcon />} onClick={()=>window.open(assignment.pdf_url)}>Notation</Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button variant="contained" color="secondary" endIcon={<PlayCircleFilledIcon />} onClick={() => accompanimentAudio.play()}>Accompaniment</Button>
+                                </Grid>
+                                <Grid item>
+                                    <Button variant="contained" color="secondary" disabled={mediaRecorder?true:false} onClick={prepareRecording}>
+                                        Start Recording
+                                    </Button> 
+                                </Grid>
+                            </Grid>
+                        </Paper>
+                    </Grid>
                     :
                     null
                 }          

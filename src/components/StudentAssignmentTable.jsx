@@ -15,7 +15,7 @@ function createData(assignment, submitted) {
   return { assignment, submitted};
 }
 
-function StudentAssignmentTable({currentUser}) {
+function StudentAssignmentTable({currentUser, studentAssignments}) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -23,9 +23,8 @@ function StudentAssignmentTable({currentUser}) {
       history.push(`/assignments/${assignmentId}`)
     }
     
-  const rows = currentUser.student_assignments.map(a => {
-    const submitted = a.student_audio !== ""
-    return createData(a.assignment, submitted)
+  const rows = studentAssignments.map(a => {
+    return createData(a.assignment, a.submitted)
   })
 
   return (

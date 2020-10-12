@@ -13,6 +13,7 @@ import Navbar from './components/Navbar'
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined)
   const [currentUserType, setCurrentUserType] = useState(undefined)
+  const [studentAssignments, setStudentAssignments] = useState([])
 
   useEffect(() => {
 
@@ -35,6 +36,7 @@ function App() {
         .then(student => {
           setCurrentUser(student)
           setCurrentUserType("student")
+          setStudentAssignments(student.student_assignments)
         })
     }
   }
@@ -63,12 +65,15 @@ function App() {
           return < Login setCurrentUser={setCurrentUser} setCurrentUserType={setCurrentUserType} />
         }} />
         <Route exact path="/student" render={(props) => {
-          return < StudentPage currentUser={currentUser} />
+          return < StudentPage currentUser={currentUser} studentAssignments={studentAssignments} />
         }} />
         <Route exact path="/teacher" render={(props) => {
           return < TeacherPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
         }} />
-        <Route path="/assignments/:id" component={StudentAssignment} />
+        <Route path="/assignments/:id" render={(props) => {
+          const assignmentId = props.match.params.id
+          return <StudentAssignment assignmentId={assignmentId} currentUser={currentUser} currentUserType={currentUserType} studentAssignments={studentAssignments} setStudentAssignments={setStudentAssignments}/>
+          }}  />
         <Route exact path="/admin-panel" component={AdminPanel} />
       </Switch>
     </BrowserRouter>
