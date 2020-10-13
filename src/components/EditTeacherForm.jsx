@@ -47,7 +47,7 @@ function EditTeacherForm({ teachers, setTeachers, setOpenEditTeacherForm, active
                         teachers?
                         <Typography align="center" variant="h4">Edit Teacher</Typography>
                         :
-                        <Typography align="center" variant="h4">Update Account</Typography>
+                        <Typography align="center" variant="h4">Edit Account</Typography>
                     }
                 </Grid>
                 <Grid item>
