@@ -5,6 +5,7 @@ import PublishIcon from '@material-ui/icons/Publish';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EditTeacherForm from '../components/EditTeacherForm'
+import NewStudentForm from '../components/NewStudentForm'
 import TeacherTable from './TeacherTable'
 import '../style/TeacherPage.css'
 import { FetchURL } from '../env/url'
@@ -12,6 +13,7 @@ import { FetchURL } from '../env/url'
 function TeacherPage({ currentUser, setCurrentUser }) {
     const [updateAssignment, updateAssignmentSet] = useState({})
     const [openEditTeacherForm, setOpenEditTeacherForm] = useState(false)
+    const [openNewStudentForm, setOpenNewStudentForm] = useState(false)
 
     const addAssignment = (data, student_assignment_ID) => {
         updateAssignment[student_assignment_ID] = data
@@ -47,6 +49,13 @@ function TeacherPage({ currentUser, setCurrentUser }) {
                     >
                     <EditTeacherForm setOpenEditTeacherForm={setOpenEditTeacherForm} activeTeacher={currentUser.teacher} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
                     </Dialog>
+                    <Dialog
+                        open={openNewStudentForm}
+                        onClose={() => setOpenNewStudentForm(false)}
+                        aria-label="edit teacher"
+                    >
+                    <NewStudentForm setOpenNewStudentForm={setOpenNewStudentForm} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+                    </Dialog>
                     <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px"}}>
                                     <Grid container direction = "row" justify="space-between" style={{padding: "10px"}}>
                                         <Grid item xs={12} sm={5}>
@@ -74,7 +83,7 @@ function TeacherPage({ currentUser, setCurrentUser }) {
                                                     <Button variant="contained" color="secondary" onClick={updateGrades}>Update Student Grades</Button>
                                                 </Grid>
                                                 <Grid item>
-                                                    <Button variant="contained" color="secondary" onClick={()=>alert('adding single student')} endIcon={<PersonAddIcon />}>Add Single Student</Button>
+                                                    <Button variant="contained" color="secondary" onClick={()=>setOpenNewStudentForm(true)} endIcon={<PersonAddIcon />}>Add Single Student</Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
