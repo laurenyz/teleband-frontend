@@ -8,8 +8,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import { FetchURL } from '../env/url'
 
 const AdminTeacherCard = ({ teacher, teachers, setTeachers, handleClickEditTeacher }) => {
+   
     const handleDeleteTeacher = () => {
-    
         let response = window.confirm(
           `Permanently remove "${teacher.name}" from the database?`
         )

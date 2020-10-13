@@ -24,10 +24,14 @@ function StudentPage({ currentUser, studentAssignments }) {
                             <StudentAssignmentTable currentUser={currentUser} studentAssignments={studentAssignments} />
                         </div > 
                         :<div>
-                            No Assignments Found
+                            <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px", padding:"20px"}}>
+                                <Typography align="center" variant="h4">No Assignments Found</Typography>
+                            </Paper>
                         </div> 
                     :<div>
-                        Loading Page current user is null
+                        <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px", padding:"20px"}}>
+                            <Typography align="center" variant="h4">Please log in.</Typography>
+                        </Paper>
                     </div>
                 }
         </div>

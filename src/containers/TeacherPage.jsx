@@ -1,4 +1,9 @@
 import React, { useState } from 'react'
+import { Button, Grid, Paper, Typography } from '@material-ui/core'
+import EditIcon from '@material-ui/icons/Edit';
+import PublishIcon from '@material-ui/icons/Publish';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import TeacherTable from './TeacherTable'
 import '../style/TeacherPage.css'
 import { FetchURL } from '../env/url'
@@ -28,24 +33,61 @@ function TeacherPage({ currentUser, setCurrentUser }) {
     }
 
     return (
-        <React.Fragment>
+        <div style={{margin: "1em"}}>
             {
                 currentUser ?
                     currentUser.teacher ?
-                        <React.Fragment>
-                            <div id="teacher-page">
-                                <div className="header">
-                                    <div>Logged in as {currentUser.teacher.name}</div>
-                                    <div><button onClick={updateGrades} className="update-btn">Update Student Grades</button>
-                                    </div>
-                                </div>
-                                <TeacherTable studentData={currentUser.studentData} updateAssignmentSet={updateAssignmentSet} addAssignment={addAssignment} />
-
-                            </div>
-                        </React.Fragment> : <div>Loading Page</div> :
-                    <div>Loading Page</div>
+                    <>
+                    <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px"}}>
+                                    <Grid container direction = "row" justify="space-between" style={{padding: "10px"}}>
+                                        <Grid item xs={12} sm={5}>
+                                            <Grid container direction="column" spacing={1}>
+                                                <Grid item>
+                                                    <Typography variant="h5" display="inline">Name: {currentUser.teacher.name}</Typography>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Typography variant="h5" display="inline">Email: {currentUser.teacher.email}</Typography>
+                                                </Grid>  
+                                                <Grid item>
+                                                    <Button variant="contained" color="secondary" onClick={()=>alert('editing teacher account')} endIcon={<EditIcon />}>Edit Account</Button>
+                                                </Grid>    
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs={12} sm={7}>
+                                            <Grid container justify="flex-end" spacing={1}>
+                                                <Grid item>
+                                                    <Button variant="contained" color="secondary" onClick={()=>alert('importing students')} endIcon={<PublishIcon />}>Upload Students</Button>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Button variant="contained" color="secondary" onClick={()=>alert('exporting grades')} endIcon={<GetAppIcon />}>Download Grades</Button>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Button variant="contained" color="secondary" onClick={updateGrades}>Update Student Grades</Button>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Button variant="contained" color="secondary" onClick={()=>alert('adding single student')} endIcon={<PersonAddIcon />}>Add Single Student</Button>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Paper>
+                        {/* <div id="teacher-page">
+                            <div className="header">
+                                filler
+                            </div> */}
+                            <TeacherTable studentData={currentUser.studentData} updateAssignmentSet={updateAssignmentSet} addAssignment={addAssignment} />
+                        {/* </div> */}
+                        </>
+                    :  
+                    <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px", padding:"20px"}}>
+                        <Typography align="center" variant="h4">Please log in.</Typography>
+                    </Paper>
+                :
+                <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px", padding:"20px"}}>
+                    <Typography align="center" variant="h4">Please log in.</Typography>
+                </Paper>
             }
-        </React.Fragment>
+        </div>
     )
 }
 
