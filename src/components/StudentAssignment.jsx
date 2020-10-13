@@ -251,8 +251,8 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item>
-                                        <Button fullWidth variant="contained" color="primary" type="submit">Submit</Button>
+                                    <Grid item style={{marginLeft:"auto"}}>
+                                        <Button variant="contained" color="primary" type="submit">Submit</Button>
                                     </Grid>
                                 </Grid>
                             </form>

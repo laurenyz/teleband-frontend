@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import NewAssignmentForm from '../components/NewAssignmentForm'
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Grid, Typography } from '@material-ui/core'
 
-function NewAssignmentContainer({assignments, setAssignments, setOpen}){
+function NewAssignmentContainer({assignments, setAssignments, setOpenAssignmentForm}){
     const [formType, setFormType] = useState('audio')
 
     return(
@@ -21,7 +21,7 @@ function NewAssignmentContainer({assignments, setAssignments, setOpen}){
                 </FormControl>
             </Grid>
             <Grid item>
-                <NewAssignmentForm setOpen={setOpen} formType={formType} assignments={assignments} setAssignments={setAssignments}/>
+                <NewAssignmentForm setOpenAssignmentForm={setOpenAssignmentForm} formType={formType} assignments={assignments} setAssignments={setAssignments}/>
             </Grid>
         </Grid>
     )
