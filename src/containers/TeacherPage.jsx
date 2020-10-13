@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
-import { Button, Grid, Paper, Typography } from '@material-ui/core'
+import { Button, Dialog, Grid, Paper, Typography } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit';
 import PublishIcon from '@material-ui/icons/Publish';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import EditTeacherForm from '../components/EditTeacherForm'
 import TeacherTable from './TeacherTable'
 import '../style/TeacherPage.css'
 import { FetchURL } from '../env/url'
 
 function TeacherPage({ currentUser, setCurrentUser }) {
     const [updateAssignment, updateAssignmentSet] = useState({})
+    const [openEditTeacherForm, setOpenEditTeacherForm] = useState(false)
 
     const addAssignment = (data, student_assignment_ID) => {
         updateAssignment[student_assignment_ID] = data
@@ -38,6 +40,13 @@ function TeacherPage({ currentUser, setCurrentUser }) {
                 currentUser ?
                     currentUser.teacher ?
                     <>
+                    <Dialog
+                        open={openEditTeacherForm}
+                        onClose={() => setOpenEditTeacherForm(false)}
+                        aria-label="edit teacher"
+                    >
+                    <EditTeacherForm setOpenEditTeacherForm={setOpenEditTeacherForm} activeTeacher={currentUser.teacher} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+                    </Dialog>
                     <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px"}}>
                                     <Grid container direction = "row" justify="space-between" style={{padding: "10px"}}>
                                         <Grid item xs={12} sm={5}>
@@ -49,7 +58,7 @@ function TeacherPage({ currentUser, setCurrentUser }) {
                                                     <Typography variant="h5" display="inline">Email: {currentUser.teacher.email}</Typography>
                                                 </Grid>  
                                                 <Grid item>
-                                                    <Button variant="contained" color="secondary" onClick={()=>alert('editing teacher account')} endIcon={<EditIcon />}>Edit Account</Button>
+                                                    <Button variant="contained" color="secondary" onClick={()=>setOpenEditTeacherForm(true)} endIcon={<EditIcon />}>Edit Account</Button>
                                                 </Grid>    
                                             </Grid>
                                         </Grid>

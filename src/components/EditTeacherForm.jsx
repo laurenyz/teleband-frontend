@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, DialogContent, Grid, TextField, Typography } from '@material-ui/core'
 import { FetchURL } from '../env/url'
 
-function EditTeacherForm({ teachers, setTeachers, setOpenEditTeacherForm, activeTeacher }) {
+function EditTeacherForm({ teachers, setTeachers, setOpenEditTeacherForm, activeTeacher, currentUser, setCurrentUser }) {
     const [name, setName] = useState(activeTeacher.name)
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState(activeTeacher.email)
@@ -20,16 +20,21 @@ function EditTeacherForm({ teachers, setTeachers, setOpenEditTeacherForm, active
               if(json.error){
                   alert(json.message)
               }else{
-                const newTeacherList = teachers.map(t =>{
-                    if(t.id === json.teacher.id){
-                        return json.teacher
-                    }else{
-                        return t
-                    }
-                })
-                setTeachers(newTeacherList)
-                setOpenEditTeacherForm(false)
-                alert(json.message)
+                  if(teachers){
+                    const newTeacherList = teachers.map(t =>{
+                        if(t.id === json.teacher.id){
+                            return json.teacher
+                        }else{
+                            return t
+                        }
+                    })
+                    setTeachers(newTeacherList)
+                    setOpenEditTeacherForm(false)
+                  }else{
+                    setCurrentUser({...currentUser, teacher: json.teacher})
+                    setOpenEditTeacherForm(false)
+                  }
+                  alert(json.message)
               }
           })
     }
@@ -38,7 +43,12 @@ function EditTeacherForm({ teachers, setTeachers, setOpenEditTeacherForm, active
         <DialogContent>
             <Grid container direction="column" alignItems="center" style={{padding: "2em"}}> 
                 <Grid item style={{marginBottom:"1em"}}>
-                    <Typography align="center" variant="h4">Edit Teacher</Typography>
+                    {
+                        teachers?
+                        <Typography align="center" variant="h4">Edit Teacher</Typography>
+                        :
+                        <Typography align="center" variant="h4">Update Account</Typography>
+                    }
                 </Grid>
                 <Grid item>
                 <form onSubmit={handleSubmit}>
