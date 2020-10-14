@@ -6,6 +6,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EditTeacherForm from '../components/EditTeacherForm'
 import NewStudentForm from '../components/NewStudentForm'
+import CSVStudentImportForm from '../components/CSVStudentImportForm'
 import TeacherTable from './TeacherTable'
 import '../style/TeacherPage.css'
 import { FetchURL } from '../env/url'
@@ -14,6 +15,7 @@ function TeacherPage({ currentUser, setCurrentUser }) {
     const [updateAssignment, updateAssignmentSet] = useState({})
     const [openEditTeacherForm, setOpenEditTeacherForm] = useState(false)
     const [openNewStudentForm, setOpenNewStudentForm] = useState(false)
+    const [openCSVStudentImportForm, setOpenCSVStudentImportForm] = useState(false)
 
     const addAssignment = (data, student_assignment_ID) => {
         updateAssignment[student_assignment_ID] = data
@@ -52,9 +54,16 @@ function TeacherPage({ currentUser, setCurrentUser }) {
                     <Dialog
                         open={openNewStudentForm}
                         onClose={() => setOpenNewStudentForm(false)}
-                        aria-label="edit teacher"
+                        aria-label="add student"
                     >
                     <NewStudentForm setOpenNewStudentForm={setOpenNewStudentForm} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+                    </Dialog>
+                    <Dialog
+                        open={openCSVStudentImportForm}
+                        onClose={() => setOpenCSVStudentImportForm(false)}
+                        aria-label="import student data"
+                    >
+                    <CSVStudentImportForm setOpenCSVStudentImportForm={setOpenCSVStudentImportForm} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
                     </Dialog>
                     <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px"}}>
                                     <Grid container direction = "row" justify="space-between" style={{padding: "10px"}}>
@@ -74,7 +83,7 @@ function TeacherPage({ currentUser, setCurrentUser }) {
                                         <Grid item xs={12} sm={7}>
                                             <Grid container justify="flex-end" spacing={1}>
                                                 <Grid item>
-                                                    <Button variant="contained" color="secondary" onClick={()=>alert('importing students')} endIcon={<PublishIcon />}>Upload Students</Button>
+                                                    <Button variant="contained" color="secondary" onClick={()=>setOpenCSVStudentImportForm(true)} endIcon={<PublishIcon />}>Upload Students</Button>
                                                 </Grid>
                                                 <Grid item>
                                                     <Button variant="contained" color="secondary" onClick={()=>alert('exporting grades')} endIcon={<GetAppIcon />}>Download Grades</Button>
