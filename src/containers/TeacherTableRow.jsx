@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TeacherTableAssignment from '../components/TeacherTableAssignment'
+import { Button, Grid } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
+import EditIcon from '@material-ui/icons/Edit';
 
 function TeacherTableRow({ studentData, addAssignment, assignmentOrder }) {
     let { student, assignments } = studentData
@@ -21,12 +24,17 @@ function TeacherTableRow({ studentData, addAssignment, assignmentOrder }) {
             <tr id="student-row">
                 <td >
                     <div className="student-col">
-                        <div>
-                            Name: {student.name}
-                        </div>
-                        <div>
-                            School ID: {student.school_id}
-                        </div>
+                        <Grid container direction="column" spacing={1}>
+                            <Grid item>
+                                <Typography>Name: {student.name}</Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography>School ID: {student.school_id}</Typography>
+                            </Grid>
+                            <Grid item>
+                                <Button variant="contained" color="secondary" onClick={()=>alert('editing student')} endIcon={<EditIcon />}>Edit Student</Button>  
+                            </Grid>
+                        </Grid>
                     </div>
                 </td>
 

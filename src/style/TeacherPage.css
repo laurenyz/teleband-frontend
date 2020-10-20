@@ -1,6 +1,6 @@
 /* Table styling */
 #teacher-table{
-    background-color: blueviolet;  
+    /* background-color: blueviolet;   */
     display: block;
     overflow-x: auto;
     white-space: nowrap;

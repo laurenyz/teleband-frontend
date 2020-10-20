@@ -1,6 +1,6 @@
 import React from 'react'
 import StudentAssignmentTable from '../components/StudentAssignmentTable'
-import '../style/StudentPage.css'
+// import '../style/StudentPage.css'
 import { Typography, Grid, Paper } from '@material-ui/core/'
 
 function StudentPage({ currentUser, studentAssignments }) {

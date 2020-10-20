@@ -7,7 +7,8 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EditTeacherForm from '../components/EditTeacherForm'
 import NewStudentForm from '../components/NewStudentForm'
 import CSVStudentImportForm from '../components/CSVStudentImportForm'
-import TeacherTable from './TeacherTable'
+// import TeacherTable from './TeacherTable'
+import TeacherTable from '../components/MUITeacherTable'
 import '../style/TeacherPage.css'
 import { FetchURL } from '../env/url'
 
@@ -98,12 +99,7 @@ function TeacherPage({ currentUser, setCurrentUser }) {
                                         </Grid>
                                     </Grid>
                                 </Paper>
-                        {/* <div id="teacher-page">
-                            <div className="header">
-                                filler
-                            </div> */}
                             <TeacherTable studentData={currentUser.studentData} updateAssignmentSet={updateAssignmentSet} addAssignment={addAssignment} />
-                        {/* </div> */}
                         </>
                     :  
                     <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px", padding:"20px"}}>
