@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import TeacherTableAssignment from '../components/TeacherTableAssignment'
 import { Button, Grid } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
@@ -9,18 +9,12 @@ function TeacherTableRow({ studentData, addAssignment, assignmentOrder }) {
     let revisedOrder = []
 
     for (let i = 0; i < assignmentOrder.length; i++) {
-        let current = assignments.find(object => object.id === assignmentOrder[i])
-
-        if (current) {
-            revisedOrder.push(current)
-        } else {
-            revisedOrder.push(undefined)
-        }
-
+        let currentAssignment = assignments.find(a => a.id === assignmentOrder[i].id)
+        revisedOrder.push(currentAssignment)
     }
-
+    
     return (
-        <React.Fragment>
+        <>
             <tr id="student-row">
                 <td >
                     <div className="student-col">
@@ -52,7 +46,7 @@ function TeacherTableRow({ studentData, addAssignment, assignmentOrder }) {
                 }
                 )}
             </tr>
-        </React.Fragment>
+        </>
     )
 }
 

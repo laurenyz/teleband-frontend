@@ -7,8 +7,8 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EditTeacherForm from '../components/EditTeacherForm'
 import NewStudentForm from '../components/NewStudentForm'
 import CSVStudentImportForm from '../components/CSVStudentImportForm'
-// import TeacherTable from './TeacherTable'
-import TeacherTable from '../components/MUITeacherTable'
+import TeacherTable from './TeacherTable'
+//import TeacherTable from '../components/MUITeacherTable'
 import '../style/TeacherPage.css'
 import { FetchURL } from '../env/url'
 

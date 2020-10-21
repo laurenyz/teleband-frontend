@@ -26,8 +26,17 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9),
 ];
 
-export default function BasicTable() {
+export default function BasicTable({studentData}) {
   const classes = useStyles();
+
+  const assignments = studentData[0].assignments.sort((a,b) => a.title > b.title ? 1: -1 ) //gets assignments of first student. All students will have same assignments
+
+  // studentData.forEach(student => {
+  //     student.assignments.sort((a, b) => a.id > b.id).forEach(assignment => assignments.includes(assignment.id) ? (null) : (assignments.push(assignment.id), assignmentTitles.push(assignment.title)))
+  // })
+
+  //allAssignments.sort((a, b) => a.id > b.id).forEach(assignment => assignments.includes(assignment.id) ? (null) : (assignments.push(assignment.id), assignmentTitles.push(assignment.title)))
+
 
 //   table tr th:first-child, table td:first-child{
 //     position: sticky;
@@ -35,34 +44,24 @@ export default function BasicTable() {
 //     z-index: 10;
 //   }
 
+  
+
+console.log(studentData, assignments)
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="student data table">
         <TableHead>
-          <TableRow>
-            <TableCell style={{position: "sticky", left: 0, zIndex: 10, backgroundColor:"#ffffff"}}>Student</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
-            <TableCell align="right">Calories</TableCell>
-            <TableCell align="right">Fat&nbsp;(g)</TableCell>
-            <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-            <TableCell align="right">Protein&nbsp;(g)</TableCell>
+          <TableRow style={{backgroundColor:"#123c69"}}>
+            <TableCell style={{position: "sticky", left: 0, zIndex: 10, color:"#ffffff", fontWeight:"bold"}}>Student</TableCell>
+            {assignments.map(a => {
+              return <TableCell style={{color:"#ffffff", fontWeight:"bold"}}>{a.title}</TableCell>
+            })}
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.name}>
-              <TableCell component="th" scope="row" style={{backgroundColor:"#ffffff"}}>
+              <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
               <TableCell align="right">{row.calories}</TableCell>

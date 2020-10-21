@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Slider, Grid } from '@material-ui/core/'
+import { Slider, Grid, Button, Typography, TextField } from '@material-ui/core/'
+import ReactAudioPlayer from 'react-audio-player';
 
 
 function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
     const [formFill, formFillSet] = useState(undefined)
     const [status, statusSet] = useState("INCOMPLETE")
-    const [rhythmState, rhythmStateSet] = useState(undefined)
-    const { student_assignment, title, id } = assignmentDetail
-    const { expression, rhythm, student_audio, student_id, submitted, tone } = student_assignment
+    //const [rhythmState, rhythmStateSet] = useState(undefined)
+    const { student_assignment, title, category } = assignmentDetail
+    const { expression, rhythm, tone, student_audio, student_id, submitted, student_notation_url, student_response, id } = student_assignment
 
     useEffect(() => {
         formFillSet(initalFormFill())
@@ -21,7 +22,7 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
         } else if (student_audio) {
             statusSet("COMPLETE")
         }
-    }, [formFill])
+    }, [formFill, student_audio])
 
     function initalFormFill() {
         let payload = {
@@ -46,18 +47,99 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
         formFillSet(tempForm)
     }
 
+    const assignmentView = () => {
+        switch(category){
+            case 'audio':
+                if(student_audio!==""){
+                    return (
+                        <ReactAudioPlayer
+                            src={student_audio}
+                            autoPlay={false}
+                            controls
+                        />
+                    )
+                } else {
+                    return (
+                        <Grid item>
+                                <Typography>NO AUDIO SUBMITTED</Typography>
+                        </Grid>
+                    )
+                }
+            case 'response':
+                if(student_response!==""){
+                    return(
+                        <TextField
+          id="outlined-multiline-static"
+          label="Response"
+          multiline
+          rows={4}
+          defaultValue={student_response}
+          variant="outlined"
+          InputProps={{
+            readOnly: true,
+          }}
+        />
+                    )
+                }else{
+                    return (
+                        <Grid item>
+                            <Typography>NO RESPONSE SUBMITTED</Typography>
+                        </Grid>
+                    )
+                }
+            case 'creative':
+                if(student_audio!=="" && student_notation_url!==""){
+                    return (
+                        <>
+                            <Grid item>
+                                <ReactAudioPlayer
+                                    src={student_audio}
+                                    autoPlay={false}
+                                    controls
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Button variant="contained" color="secondary" onClick={()=>window.open(student_notation_url)}>Notation Pdf</Button>
+                            </Grid>
+                        </>
+                    )
+                } else if(student_audio!==""){
+                    return(
+                        <>
+                            <Grid item>
+                                <ReactAudioPlayer
+                                    src={student_audio}
+                                    autoPlay={false}
+                                    controls
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Typography>NO NOTATION SUBMITTED</Typography>
+                            </Grid>
+                        </>
+                    )
+                } else {
+                    return (
+                        <Grid item>
+                                <Typography>NO AUDIO SUBMITTED</Typography>
+                        </Grid>
+                    )
+                }
+            default: return "No assignment available"
+        }   
+    }
+
     return (
         <div id="teacher-table-assignment">
-            {
-                student_audio ?
-                    <div className="audio-player">
-                        Audio Player Here
-                    </div> :
-                    <div className="audio-player">
-                        No Audio Available
-                    </div>
-            }
-            <div className={`status-box ${status}`}>
+            {/* {
+                <div className="audio-player">
+                    {assignmentView()}
+                </div> 
+            } */}
+            <Grid container direction="column" style={{paddingTop:"1em"}}>
+                {assignmentView()}
+            </Grid>
+            {/* <div className={`status-box ${status}`}>
                 {status}
             </div>
             <div className="slider-box">
@@ -115,7 +197,7 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
                             max={5} />
                     </Grid>
                 </Grid>
-            </div>
+            </div> */}
         </div>
     )
 }
