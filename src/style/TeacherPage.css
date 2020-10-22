@@ -45,8 +45,10 @@ table tr th{
     text-align: left;
     font-size: larger;
     padding: 10px;
-    width: 200px;
-    height: 150px;
+    /* padding-left: 10px; 
+    padding-right: 10px; */
+    min-width: 200px;
+    height: 170px;
 }
 
 

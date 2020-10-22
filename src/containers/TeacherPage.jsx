@@ -99,7 +99,7 @@ function TeacherPage({ currentUser, setCurrentUser }) {
                                         </Grid>
                                     </Grid>
                                 </Paper>
-                            <TeacherTable studentData={currentUser.studentData} updateAssignmentSet={updateAssignmentSet} addAssignment={addAssignment} />
+                            <TeacherTable studentData={currentUser.studentData} currentUser={currentUser} setCurrentUser={setCurrentUser} updateAssignmentSet={updateAssignmentSet} addAssignment={addAssignment} />
                         </>
                     :  
                     <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px", padding:"20px"}}>

@@ -1,40 +1,44 @@
 import React, { useState } from 'react'
 import { Button, DialogContent, Grid, TextField, Typography } from '@material-ui/core'
 import { FetchURL } from '../env/url'
-import { v4 as uuidv4 } from 'uuid';
 
-function EditStudentForm({ currentUser, setCurrentUser, setOpenEditStudentForm }) {
-    const [name, setName] = useState("")
-    const [grade, setGrade] = useState(9)
+function EditStudentForm({ currentUser, setCurrentUser, setOpenEditStudentForm, student }) {
+    const [name, setName] = useState(student.name)
+    const [grade, setGrade] = useState(student.grade)
     // const [classes, setClasses] = useState("") for future use when adding classes
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        const randomId = uuidv4().slice(0, 8)
-        fetch(`${FetchURL}students`, {
-            method: "POST",
+        fetch(`${FetchURL}students/${student.id}`, {
+            method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'
-              },
-            body: JSON.stringify({ school_id: randomId, name, grade, teacher_id: currentUser.teacher.id })
-          }).then(resp=>resp.json())
-          .then(json => {
-              if(json.error){
-                  alert(json.message)
-              }else{
-                const newStudentData = [...currentUser.studentData, json.studentData]
-                setCurrentUser({...currentUser, studentData: newStudentData})
-                setOpenEditStudentForm(false)
+            },
+            body: JSON.stringify({ name, grade })
+        }).then(resp=>resp.json())
+        .then(json => {
+            if(json.error){
                 alert(json.message)
-              }
-          })
+            }else{
+            const newStudentData = currentUser.studentData.map(s => {
+                if(s.student.id === json.studentData.student.id){
+                    return json.studentData
+                }else{
+                    return s
+                }
+            })
+            setCurrentUser({...currentUser, studentData: newStudentData})
+            setOpenEditStudentForm(false)
+            alert(json.message)
+            }
+        })
     }
 
     return(
         <DialogContent>
             <Grid container direction="column" alignItems="center" style={{padding: "2em"}}> 
                 <Grid item style={{marginBottom:"1em"}}>
-                    <Typography align="center" variant="h4">Add a Student</Typography>
+                    <Typography align="center" variant="h4">Edit Student</Typography>
                 </Grid>
                 <Grid item>
                 <form onSubmit={handleSubmit}>
