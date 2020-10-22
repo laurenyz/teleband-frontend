@@ -44,61 +44,61 @@ function TeacherPage({ currentUser, setCurrentUser }) {
             {
                 currentUser ?
                     currentUser.teacher ?
-                    <>
-                    <Dialog
-                        open={openEditTeacherForm}
-                        onClose={() => setOpenEditTeacherForm(false)}
-                        aria-label="edit teacher"
-                    >
-                    <EditTeacherForm setOpenEditTeacherForm={setOpenEditTeacherForm} activeTeacher={currentUser.teacher} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
-                    </Dialog>
-                    <Dialog
-                        open={openNewStudentForm}
-                        onClose={() => setOpenNewStudentForm(false)}
-                        aria-label="add student"
-                    >
-                    <NewStudentForm setOpenNewStudentForm={setOpenNewStudentForm} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
-                    </Dialog>
-                    <Dialog
-                        open={openCSVStudentImportForm}
-                        onClose={() => setOpenCSVStudentImportForm(false)}
-                        aria-label="import student data"
-                    >
-                    <CSVStudentImportForm setOpenCSVStudentImportForm={setOpenCSVStudentImportForm} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
-                    </Dialog>
-                    <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px"}}>
-                                    <Grid container direction = "row" justify="space-between" style={{padding: "10px"}}>
-                                        <Grid item xs={12} sm={5}>
-                                            <Grid container direction="column" spacing={1}>
-                                                <Grid item>
-                                                    <Typography variant="h5" display="inline">Name: {currentUser.teacher.name}</Typography>
-                                                </Grid>
-                                                <Grid item>
-                                                    <Typography variant="h5" display="inline">Email: {currentUser.teacher.email}</Typography>
-                                                </Grid>  
-                                                <Grid item>
-                                                    <Button variant="contained" color="secondary" onClick={()=>setOpenEditTeacherForm(true)} endIcon={<EditIcon />}>Edit Account</Button>
-                                                </Grid>    
+                        <>
+                            <Dialog
+                                open={openEditTeacherForm}
+                                onClose={() => setOpenEditTeacherForm(false)}
+                                aria-label="edit teacher"
+                            >
+                            <EditTeacherForm setOpenEditTeacherForm={setOpenEditTeacherForm} activeTeacher={currentUser.teacher} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+                            </Dialog>
+                            <Dialog
+                                open={openNewStudentForm}
+                                onClose={() => setOpenNewStudentForm(false)}
+                                aria-label="add student"
+                            >
+                            <NewStudentForm setOpenNewStudentForm={setOpenNewStudentForm} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+                            </Dialog>
+                            <Dialog
+                                open={openCSVStudentImportForm}
+                                onClose={() => setOpenCSVStudentImportForm(false)}
+                                aria-label="import student data"
+                            >
+                            <CSVStudentImportForm setOpenCSVStudentImportForm={setOpenCSVStudentImportForm} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+                            </Dialog>
+                            <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px"}}>
+                                <Grid container direction = "row" justify="space-between" style={{padding: "10px"}}>
+                                    <Grid item xs={12} sm={4}>
+                                        <Grid container direction="column" spacing={1}>
+                                            <Grid item>
+                                                <Typography variant="h5" display="inline">Name: {currentUser.teacher.name}</Typography>
                                             </Grid>
+                                            <Grid item>
+                                                <Typography variant="h5" display="inline">Email: {currentUser.teacher.email}</Typography>
+                                            </Grid>  
+                                            <Grid item>
+                                                <Button variant="contained" color="secondary" size="small" onClick={()=>setOpenEditTeacherForm(true)} endIcon={<EditIcon />}>Edit Account</Button>
+                                            </Grid>    
                                         </Grid>
-                                        <Grid item xs={12} sm={7}>
-                                            <Grid container justify="flex-end" spacing={1}>
-                                                <Grid item>
-                                                    <Button variant="contained" color="secondary" onClick={()=>setOpenCSVStudentImportForm(true)} endIcon={<PublishIcon />}>Upload Students</Button>
-                                                </Grid>
-                                                <Grid item>
-                                                    <Button variant="contained" color="secondary" onClick={()=>alert('exporting grades')} endIcon={<GetAppIcon />}>Download Grades</Button>
-                                                </Grid>
-                                                <Grid item>
-                                                    <Button variant="contained" color="secondary" onClick={updateGrades}>Update Student Grades</Button>
-                                                </Grid>
-                                                <Grid item>
-                                                    <Button variant="contained" color="secondary" onClick={()=>setOpenNewStudentForm(true)} endIcon={<PersonAddIcon />}>Add Single Student</Button>
-                                                </Grid>
+                                    </Grid>
+                                    <Grid item xs={12} sm={8}>
+                                        <Grid container justify="flex-end" spacing={1}>
+                                            <Grid item>
+                                                <Button variant="contained" color="secondary" size="small" onClick={()=>setOpenNewStudentForm(true)} endIcon={<PersonAddIcon />}>Add Single Student</Button>
+                                            </Grid>
+                                            <Grid item>
+                                                <Button variant="contained" color="secondary" size="small" onClick={()=>setOpenCSVStudentImportForm(true)} endIcon={<PublishIcon />}>Upload Students</Button>
+                                            </Grid>
+                                            <Grid item>
+                                                <Button variant="contained" color="secondary" size="small" onClick={()=>alert('exporting grades')} endIcon={<GetAppIcon />}>Download Grades</Button>
+                                            </Grid>
+                                            <Grid item>
+                                                <Button variant="contained" color="secondary" size="small" onClick={updateGrades}>Update Student Grades</Button>
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                </Paper>
+                                </Grid>
+                            </Paper>
                             <TeacherTable studentData={currentUser.studentData} currentUser={currentUser} setCurrentUser={setCurrentUser} updateAssignmentSet={updateAssignmentSet} addAssignment={addAssignment} />
                         </>
                     :  

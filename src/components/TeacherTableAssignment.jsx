@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Slider, Grid, Button, Typography, TextField } from '@material-ui/core/'
 import ReactAudioPlayer from 'react-audio-player';
+import { Slider, Grid, IconButton, Button, Typography, TextField } from '@material-ui/core/'
+import LockIcon from '@material-ui/icons/Lock';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 
 
 function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
@@ -8,7 +10,11 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
     const [status, statusSet] = useState("INCOMPLETE")
     //const [rhythmState, rhythmStateSet] = useState(undefined)
     const { student_assignment, title, category } = assignmentDetail
-    const { expression, rhythm, tone, student_audio, student_id, submitted, student_notation_url, student_response, id } = student_assignment
+    const { student_audio, student_id, submitted, student_notation_url, student_response, id } = student_assignment
+    const [rhythm, setRhythm] = useState(student_assignment.rhythm)
+    const [tone, setTone] = useState(student_assignment.tone)
+    const [expression, setExpression] = useState(student_assignment.expression)
+    const [locked, setLocked] = useState(student_assignment.graded)
 
     useEffect(() => {
         formFillSet(initalFormFill())
@@ -45,6 +51,16 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
             statusSet("GRADED")
         }
         formFillSet(tempForm)
+    }
+
+    const adjustRatingforRange = (num) => {
+        let score = parseInt(num);
+        if (score < 0) {
+            score = 0
+        } else if (score > 5) {
+            score = 5
+        }
+        return score
     }
 
     const assignmentView = () => {
@@ -131,73 +147,77 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
 
     return (
         <div id="teacher-table-assignment">
-            {/* {
-                <div className="audio-player">
-                    {assignmentView()}
-                </div> 
-            } */}
-            <Grid container direction="column" style={{paddingTop:"1em"}}>
-                {assignmentView()}
+            {submitted?
+            <Grid container direction="column">
+                <Grid item>
+                <Grid container justify="flex-end">
+                    <Grid item>
+                        {locked?
+                        <IconButton onClick={()=>setLocked(false)}>
+                            <LockIcon />
+                        </IconButton>
+                        :<IconButton onClick={()=>setLocked(true)}>
+                            <LockOpenIcon />
+                        </IconButton>
+                        }
+                    </Grid>
+                </Grid>
             </Grid>
-            {/* <div className={`status-box ${status}`}>
-                {status}
-            </div>
-            <div className="slider-box">
-                <Grid container spacing={2}>
+            {assignmentView()}
+            <Grid item>
+            <Grid container justify="space-around" style={{padding:"5px"}}>
                     <Grid item>
-                        <div className="label">
-                            RYTM
-                                    </div>
+                        <TextField
+                            disabled={locked}
+                            variant="outlined"
+                            margin="normal"
+                            id="assignment-rhythm"
+                            label="R"
+                            name="assignment-rhythm"
+                            autoComplete="assignment-rhythm"
+                            size="small"
+                            InputProps={{ inputProps: { min: 1, max: 5, step:1 } }}
+                            type = "number" 
+                            onChange = {(e)=>setRhythm(adjustRatingforRange(e.target.value))} 
+                            value = {rhythm}
+                        />
                     </Grid>
-                    <Grid item xs>
-                        <Slider
-                            defaultValue={rhythm}
-                            onChangeCommitted={(e, value) => handleSliderChange(value, "rhythm")}
-                            className="teacher-slider"
-                            disabled={submitted || !student_audio}
-                            step={1}
-                            marks
-                            min={1}
-                            max={5} />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2}>
-                    <Grid item >
-                        <div className="label">
-                            EXPR
-                                    </div>
-                    </Grid>
-                    <Grid item xs>
-                        <Slider
-                            defaultValue={expression}
-                            onChangeCommitted={(e, value) => handleSliderChange(value, "expression")}
-                            className="teacher-slider"
-                            disabled={submitted || !student_audio}
-                            step={1}
-                            marks
-                            min={1}
-                            max={5} />
-                    </Grid>
-                </Grid>
-                <Grid container spacing={2}>
                     <Grid item>
-                        <div className="label">
-                            TONE
-                                    </div>
+                        <TextField
+                            disabled={locked}
+                            variant="outlined"
+                            margin="normal"
+                            id="assignment-tone"
+                            label="T"
+                            name="assignment-tone"
+                            autoComplete="assignment-tone"
+                            size="small"
+                            InputProps={{ inputProps: { min: 1, max: 5, step:1 } }}
+                            type = "number" 
+                            onChange = {(e)=>setTone(adjustRatingforRange(e.target.value))} 
+                            value = {tone}
+                        />
                     </Grid>
-                    <Grid item xs>
-                        <Slider
-                            defaultValue={tone}
-                            onChangeCommitted={(e, value) => handleSliderChange(value, "tone")}
-                            className="teacher-slider"
-                            disabled={submitted || !student_audio}
-                            step={1}
-                            marks
-                            min={1}
-                            max={5} />
+                    <Grid item>
+                        <TextField
+                            disabled={locked}
+                            variant="outlined"
+                            margin="normal"
+                            id="assignment-expression"
+                            label="E"
+                            name="assignment-expression"
+                            autoComplete="assignment-expression"
+                            size="small"
+                            InputProps={{ inputProps: { min: 1, max: 5, step:1 } }}
+                            type = "number" 
+                            onChange = {(e)=>setExpression(adjustRatingforRange(e.target.value))} 
+                            value = {expression}
+                        />
                     </Grid>
                 </Grid>
-            </div> */}
+            </Grid>
+        </Grid>
+            :"Not Submitted"}
         </div>
     )
 }

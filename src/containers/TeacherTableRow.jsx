@@ -50,7 +50,20 @@ function TeacherTableRow({ studentData, addAssignment, assignmentOrder, currentU
             <tr>
                 <td>
                     <div className="student-col" >
-                        <Grid container direction="column" >
+                        <Grid container direction="column" style={{height: "100%"}}justify="space-between" >
+                            <Grid item>
+                                <Grid container direction="column" spacing={1}>
+                                    <Grid item>
+                                        <Typography variant="h6">Name: {student.name}</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography>Grade: {student.grade}</Typography>
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography style={{fontWeight:"bold"}}>ID: {student.school_id}</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
                             <Grid item>
                                 <Grid container justify="flex-end">
                                     <Grid item>
@@ -64,15 +77,6 @@ function TeacherTableRow({ studentData, addAssignment, assignmentOrder, currentU
                                         </IconButton>  
                                     </Grid>
                                 </Grid>
-                            </Grid>
-                            <Grid item>
-                                <Typography variant="h6">Name: {student.name}</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography>Grade: {student.grade}</Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography style={{fontWeight:"bold"}}>ID: {student.school_id}</Typography>
                             </Grid>
                         </Grid>
                     </div>
