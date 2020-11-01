@@ -93,7 +93,7 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
                 setStudentAssignments(updatedAssignments)
                 alert('Successfully submitted recording.')
             }
-            })
+        })
     }
 
     const handleSubmitResponseForm = (e) => {

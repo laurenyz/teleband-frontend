@@ -7,7 +7,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
-function TeacherTableRow({ studentData, addAssignment, assignmentOrder, currentUser, setCurrentUser }) {
+function TeacherTableRow({ studentData, assignmentOrder, currentUser, setCurrentUser }) {
     const [openEditStudentForm, setOpenEditStudentForm] = useState(false)
     const { student, assignments } = studentData
     const revisedOrder = []
@@ -90,7 +90,7 @@ function TeacherTableRow({ studentData, addAssignment, assignmentOrder, currentU
                     } else {
                         return (
                             <td key={i}>
-                                <TeacherTableAssignment assignmentDetail={assignment} addAssignment={addAssignment} />
+                                <TeacherTableAssignment assignmentDetail={assignment} currentUser={currentUser} setCurrentUser={setCurrentUser} />
                             </td>
                         )
                     }

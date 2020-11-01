@@ -10,34 +10,33 @@ import CSVStudentImportForm from '../components/CSVStudentImportForm'
 import TeacherTable from './TeacherTable'
 //import TeacherTable from '../components/MUITeacherTable'
 import '../style/TeacherPage.css'
-import { FetchURL } from '../env/url'
 
 function TeacherPage({ currentUser, setCurrentUser }) {
-    const [updateAssignment, updateAssignmentSet] = useState({})
+    //const [updateAssignment, updateAssignmentSet] = useState({})
     const [openEditTeacherForm, setOpenEditTeacherForm] = useState(false)
     const [openNewStudentForm, setOpenNewStudentForm] = useState(false)
     const [openCSVStudentImportForm, setOpenCSVStudentImportForm] = useState(false)
 
-    const addAssignment = (data, student_assignment_ID) => {
-        updateAssignment[student_assignment_ID] = data
-        updateAssignmentSet(updateAssignment)
-    }
+    // const addAssignment = (data, student_assignment_ID) => {
+    //     updateAssignment[student_assignment_ID] = data
+    //     updateAssignmentSet(updateAssignment)
+    // }
 
     // Update call made here
-    const updateGrades = () => {
-        console.log(updateAssignment)
-        fetch(`${FetchURL}teacher/updategrades`, {
-            method: "PATCH",
-            headers: {
-                "Authentication": localStorage.getItem('jwt'),
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ updateAssignment: updateAssignment })
-        }).then(resp => resp.json())
-            .then(teacher => {
-                setCurrentUser(teacher)
-            })
-    }
+    // const updateGrades = () => {
+    //     console.log(updateAssignment)
+    //     fetch(`${FetchURL}teacher/updategrades`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             "Authentication": localStorage.getItem('jwt'),
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ updateAssignment: updateAssignment })
+    //     }).then(resp => resp.json())
+    //         .then(teacher => {
+    //             setCurrentUser(teacher)
+    //         })
+    // }
 
     return (
         <div style={{margin: "1em"}}>
@@ -92,14 +91,11 @@ function TeacherPage({ currentUser, setCurrentUser }) {
                                             <Grid item>
                                                 <Button variant="contained" color="secondary" size="small" onClick={()=>alert('exporting grades')} endIcon={<GetAppIcon />}>Download Grades</Button>
                                             </Grid>
-                                            <Grid item>
-                                                <Button variant="contained" color="secondary" size="small" onClick={updateGrades}>Update Student Grades</Button>
-                                            </Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                             </Paper>
-                            <TeacherTable studentData={currentUser.studentData} currentUser={currentUser} setCurrentUser={setCurrentUser} updateAssignmentSet={updateAssignmentSet} addAssignment={addAssignment} />
+                            <TeacherTable studentData={currentUser.studentData} currentUser={currentUser} setCurrentUser={setCurrentUser} />
                         </>
                     :  
                     <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px", padding:"20px"}}>

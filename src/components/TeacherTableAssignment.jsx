@@ -1,68 +1,50 @@
-import React, { useState, useEffect } from 'react'
-import { Slider, Grid, IconButton, Button, Typography, TextField } from '@material-ui/core/'
+import React, { useState } from 'react'
+import { Grid, IconButton, Button, Typography, TextField } from '@material-ui/core/'
 import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import '../style/CustomAudioPlayer.css';
 import green from '@material-ui/core/colors/green';
-import yellow from '@material-ui/core/colors/yellow';
+import { FetchURL } from '../env/url'
 
 
-function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
-    const [formFill, formFillSet] = useState(undefined)
-    const [status, statusSet] = useState("INCOMPLETE")
-    //const [rhythmState, rhythmStateSet] = useState(undefined)
-    const { student_assignment, title, category } = assignmentDetail
-    const { student_audio, student_id, submitted, student_notation_url, student_response, id } = student_assignment
-   // const { student_id, submitted, student_notation_url, student_response, id } = student_assignment
+function TeacherTableAssignment({ assignmentDetail, currentUser, setCurrentUser }) {
+    const { student_assignment, category } = assignmentDetail
+    const { student_audio, submitted, student_notation_url, student_response } = student_assignment
     const [tone, setTone] = useState(student_assignment.tone)
     const [rhythm, setRhythm] = useState(student_assignment.rhythm)
     const [expression, setExpression] = useState(student_assignment.expression)
     const [locked, setLocked] = useState(student_assignment.graded)
 
-    // useEffect(() => {
-    //    setStudentAudio(student_assignment.student_audio)
-
-    //    // eslint-disable-next-line
-    // }, [])
-
-    // useEffect(() => {
-    //     formFillSet(initalFormFill())
-
-    //     // eslint-disable-next-line
-    // }, [assignmentDetail])
-
-    // useEffect(() => {
-    //     if (formFill && formFill["submitted"]) {
-    //         statusSet("SUBMITTED")
-    //     } else if (student_audio) {
-    //         statusSet("COMPLETE")
-    //     }
-    // }, [formFill, student_audio])
-
-    // function initalFormFill() {
-    //     let payload = {
-    //         "submitted": submitted ? true : false,
-    //         "expression": expression ? expression : null,
-    //         "rhythm": rhythm ? rhythm : null,
-    //         "tone": tone ? tone : null
-    //     }
-    //     return payload
-    // }
-
-    // const handleSliderChange = (value, type) => {
-    //     let tempForm = formFill
-    //     tempForm[type] = value
-
-    //     if (tempForm["rhythm"] === null || tempForm["expression"] === null || tempForm["tone"] === null) {
-    //         statusSet("GRADING")
-    //     } else {
-    //         addAssignment(tempForm, student_assignment.id)
-    //         statusSet("GRADED")
-    //     }
-    //     formFillSet(tempForm)
-    // }
+    const handleGraded = () => {
+        setLocked(true)
+        const payload = {expression, rhythm, tone}
+        fetch(`${FetchURL}student_assignments/${student_assignment.id}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify(payload)
+        })
+        .then(resp => resp.json())
+        .then(json => {
+            if(json.error){
+                alert(json.message)
+            } else {
+                const updatedAssignments = currentUser.studentData.map(data => {
+                    return data.assignments.map(a => {
+                        if(a.student_assignment.id===json.student_assignment.id){
+                            return {...a, student_assignment: json.student_assignment}
+                        }else{
+                            return a
+                        }
+                    } )
+                })
+                setCurrentUser({...currentUser, assignments: updatedAssignments})
+            }
+        })
+    }
 
     const adjustRatingforRange = (num) => {
         let score = parseInt(num);
@@ -92,7 +74,7 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
                 } else {
                     return (
                         <Grid item>
-                                <Typography>NO AUDIO SUBMITTED</Typography>
+                                <Typography align="center" style={{backgroundColor:"#edc7b7"}}>NO AUDIO SUBMITTED</Typography>
                         </Grid>
                     )
                 }
@@ -114,7 +96,7 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
                 }else{
                     return (
                         <Grid item>
-                            <Typography>NO RESPONSE SUBMITTED</Typography>
+                            <Typography align="center" style={{backgroundColor:"#edc7b7"}}>NO RESPONSE SUBMITTED</Typography>
                         </Grid>
                     )
                 }
@@ -153,14 +135,14 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
                                 />
                             </Grid>
                             <Grid item>
-                                <Typography>NO NOTATION SUBMITTED</Typography>
+                                <Typography align="center" style={{backgroundColor:"#edc7b7"}}>NO NOTATION SUBMITTED</Typography>
                             </Grid>
                         </>
                     )
                 } else {
                     return (
                         <Grid item>
-                                <Typography>NO AUDIO SUBMITTED</Typography>
+                                <Typography align="center" style={{backgroundColor:"#edc7b7"}}>NO AUDIO SUBMITTED</Typography>
                         </Grid>
                     )
                 }
@@ -175,13 +157,18 @@ function TeacherTableAssignment({ assignmentDetail, addAssignment }) {
                     <Grid item>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            {locked?
-                            <IconButton onClick={()=>setLocked(false)}>
-                                <LockIcon style={{ color: green[500] }}/>
-                            </IconButton>
-                            :<IconButton onClick={()=>setLocked(true)}>
-                                <LockOpenIcon style={{ color: yellow[500] }}/>
-                            </IconButton>
+                            {category==="response"?
+                                <IconButton disabled>
+                                    <LockIcon style={{ color: green[200] }}/>
+                                </IconButton>
+                            :
+                                locked?
+                                <IconButton onClick={()=>setLocked(false)}>
+                                    <LockIcon style={{ color: green[500] }}/>
+                                </IconButton>
+                                :<IconButton onClick={handleGraded}>
+                                    <LockOpenIcon style={{ color: "#bab2b5" }}/>
+                                </IconButton>
                             }
                         </Grid>
                     </Grid>
