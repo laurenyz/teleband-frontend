@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Button, IconButton, Grid, Input, InputLabel, Paper, TextField, Typography } from '@material-ui/core/'
 import MicIcon from '@material-ui/icons/Mic';
 import StopIcon from '@material-ui/icons/Stop';
-import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import { FetchURL } from '../env/url'
-import ReactAudioPlayer from 'react-audio-player';
 import StarIcon from '@material-ui/icons/Star';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
@@ -67,7 +65,7 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
     }
 
     const createFileFromBlob = () => {
-        let file = new File([audioBlob], 'audio1.ogg', { type: 'audio/ogg' })
+        let file = new File([audioBlob], 'audio1.wav', { type: 'audio/wav' })
         return file
     }
 

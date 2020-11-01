@@ -9,11 +9,11 @@
 
 #teacher-table th{
     background-color: rgb(39, 39, 39);
-    color: white
+    color: #fffafa;
 }
 
 #teacher-table td{
-    background-color: white;
+    background-color: #fffafa;
 }
 
 #teacher-table .not-assigned{
@@ -56,7 +56,7 @@ table tr th{
 
 /* Assignment Box Styling */
 #teacher-table-assignment{
-    height: 200px;
+    height: 230px;
     width: 310px;
     display: flex;
     flex-direction: column;
