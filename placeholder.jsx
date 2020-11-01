@@ -6,10 +6,10 @@ import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import { FetchURL } from '../env/url'
 import ReactAudioPlayer from 'react-audio-player';
-import StarIcon from '@material-ui/icons/Star';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import '../style/CustomAudioPlayer.css';
+import StarIcon from '@material-ui/icons/Star';
 
 function StudentAssignment({assignmentId, currentUser, currentUserType, studentAssignments, setStudentAssignments}) {
     const [assignment, setAssignment] = useState({})
@@ -19,7 +19,6 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
     const [audioUrl, audioUrlSet] = useState(null)
     const [sampleAudio, setSampleAudio] = useState(null)
     const [accompanimentAudio, setAccompanimentAudio] = useState(null)
-    const [accompanimentRecordingAudio, setAccompanimentRecordingAudio] = useState(null)
     const [studentNotationPdf, setStudentNotationPdf] = useState(null)
     const [responseText, setResponseText] = useState("")
     const [rhythm, setRhythm] = useState(1)
@@ -33,7 +32,6 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
                 setAssignment(assign)
                 setSampleAudio(assign.playing_sample_url)
                 setAccompanimentAudio(assign.accompaniment_url)
-                setAccompanimentRecordingAudio(new Audio(assign.accompaniment_url))
             })
     }, [assignmentId])
 
@@ -47,7 +45,7 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
 
     const startRecording = () => {
         mediaRecorder.start()
-        accompanimentRecordingAudio.play()
+        (new Audio(accompanimentAudio)).play()
         activeSet(true)
         mediaRecorder.addEventListener('dataavailable', e => {
             let tempBlob = new Blob([e.data], { type: 'audio' })
@@ -58,8 +56,8 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
 
     const stopRecording = () => {
         mediaRecorder.stop()
-        accompanimentRecordingAudio.pause()
-        accompanimentRecordingAudio.currentTime = 0
+        accompanimentAudio.pause()
+        accompanimentAudio.currentTime = 0
         mediaRecorder.addEventListener('stop', () => {
             console.log("stopping recording") //what does the rest of this function/event listener do
         })
@@ -95,7 +93,7 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
                 setStudentAssignments(updatedAssignments)
                 alert('Successfully submitted recording.')
             }
-            })
+        })
     }
 
     const handleSubmitResponseForm = (e) => {
@@ -185,17 +183,21 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
                     <Paper style={{padding:"1em"}}>
                         <Grid container direction="column" spacing={1}>
                             <Grid item>
-                                <Typography variant="h5" display="inline" style={{fontWeight:"bold"}}>INSTRUCTIONS: </Typography>
-                                <Typography align="justify" variant="h5" display="inline">{assignment.instructions}</Typography>
+                            <Typography variant="h5" display="inline" style={{fontWeight:"bold"}}>INSTRUCTIONS: </Typography>
+                        <Typography align="justify" variant="h5" display="inline">{assignment.instructions}</Typography>
                             </Grid>
                             {assignment.pdf_url!==""?
-                                <Grid item>
-                                    <Button variant="contained" color="secondary" endIcon={<LibraryMusicIcon />} onClick={()=>window.open(assignment.pdf_url)}>Notation</Button>
-                                </Grid>
-                            : 
-                                null
-                            }    
+                        <Grid item>
+                    <Button variant="contained" color="secondary" endIcon={<LibraryMusicIcon />} onClick={()=>window.open(assignment.pdf_url)}>Notation</Button>
                         </Grid>
+                            
+                        : 
+                            null
+                        }
+                            
+                        </Grid>
+                        
+                        
                     </Paper>
                 </Grid>
                 {
@@ -308,40 +310,11 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
                                     />
                                 </Paper>
                             </Grid>
-                            <Grid item xs={12} md={4}>
-                                <Paper style={{padding: "1em", height:"100%", textAlign:"center"}}>
-                                    {
-                                    mediaRecorder ?
-                                        active ?
-                                            <IconButton onClick={stopRecording}>
-                                                <StopIcon></StopIcon>
-                                            </IconButton> :
-                                            <IconButton onClick={startRecording}>
-                                                <MicIcon></MicIcon>
-                                            </IconButton>
-                                        :
-                                            <Button variant="contained" color="secondary" onClick={prepareRecording}>
-                                                Open Recorder
-                                            </Button> 
-                                    }  
-                                    {audioUrl ?
-                                        <AudioPlayer
-                                            autoPlay={false}
-                                            autoPlayAfterSrcChange={false}
-                                            layout="horizontal-reverse"
-                                            customAdditionalControls={[]}
-                                            showJumpControls={false}
-                                            customVolumeControls={[]}
-                                            src={audioUrl}
-                                        />
-                                    : 
-                                        null
-                                    }
-                                    {audioBlob ?
-                                        <Button variant="contained" color="secondary" onClick={postRecording}>Submit Recording</Button>
-                                    : 
-                                    null
-                                    }
+                            <Grid item xs={6} md={4}>
+                            <Paper style={{padding: "1em", height:"100%"}}>
+                                <Button variant="contained" color="secondary" disabled={mediaRecorder?true:false} onClick={prepareRecording}>
+                                    Start Recording
+                                </Button> 
                                 </Paper>
                             </Grid>
                         </Grid>
@@ -362,6 +335,33 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
                     </Grid>  
                     :null
                 }
+                {
+                    mediaRecorder ?
+                         active ?
+                            <IconButton onClick={stopRecording}>
+                                <StopIcon></StopIcon>
+                            </IconButton> :
+                            <IconButton onClick={startRecording}>
+                                <MicIcon></MicIcon>
+                            </IconButton>
+                        :null
+                }
+                {
+                    audioBlob ?
+                        <Button variant="contained" color="secondary" onClick={postRecording}>Submit Recording</Button>
+                    : null
+                }
+                {audioUrl ?
+                    <AudioPlayer
+                        autoPlay={false}
+                        autoPlayAfterSrcChange={false}
+                        layout="horizontal-reverse"
+                        customAdditionalControls={[]}
+                        showJumpControls={false}
+                        customVolumeControls={[]}
+                        src={audioUrl}
+                    />
+                    : null}
                 </Grid>
             :
             <Paper style={{padding:"1em"}}>

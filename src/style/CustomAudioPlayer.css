@@ -1,0 +1,55 @@
+/* .rhap_container {
+    outline: none;
+    background-color: #ac3b61;
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+.rhap_container svg{
+    color: #fffafa;
+}
+
+.rhap_progress-indicator{
+    background-color: #fffafa;
+    box-shadow: none;
+}
+
+.rhap_time{
+    color: #fffafa;
+}
+
+.rhap_horizontal-reverse .rhap_controls-section {
+    margin-right: 0px;
+}
+
+.rhap_controls-section {
+    flex: 0 auto;
+} */
+
+.rhap_container {
+    outline: none;
+    background-color:#fffafa;
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+.rhap_container svg{
+    color: #ac3b61;
+}
+
+.rhap_progress-indicator{
+    background-color: #ac3b61;
+    box-shadow: none;
+}
+
+/* .rhap_time{
+    color: #ac3b61;
+} */
+
+.rhap_horizontal-reverse .rhap_controls-section {
+    margin-right: 0px;
+}
+
+.rhap_controls-section {
+    flex: 0 auto;
+}
