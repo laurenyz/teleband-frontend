@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function Login(props) {
+function Login({setCurrentUser,setCurrentUserType,setStudentAssignments}) {
     // const { handleSubmit: handleSubmitStudent, register: registerStudent, errors: errorsStudent } = useForm();
     const { handleSubmit: handleSubmitStudent, register: registerStudent } = useForm();
     const { handleSubmit: handleSubmitTeacher, register: registerTeacher, errors: errorsTeacher } = useForm()
@@ -59,17 +59,17 @@ function Login(props) {
                     localStorage.setItem('jwt', json.school_id)
                 }
                 localStorage.setItem('type', type)
-                props.setCurrentUser(json)
-                props.setCurrentUserType(type)
+                setCurrentUser(json)
+                setCurrentUserType(type)
                 if(type==="teacher"){
                     history.push("/teacher")
                 }else{
+                    setStudentAssignments(json.student_assignments)
                     history.push("/student")
                 }
             }
         })
     }
-
     return (
             <Paper className={classes.paper} style={{margin:"1em auto"}} variant="outlined">
                 <Typography style={{marginBottom:".25em"}} align="center" variant="h2">Tele.band Login</Typography>

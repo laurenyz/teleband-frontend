@@ -7,6 +7,7 @@ import AdminAssignmentCard from '../components/AdminAssignmentCard'
 import AdminTeacherCard from '../components/AdminTeacherCard'
 import { Paper, Typography, Grid, Dialog, Button } from '@material-ui/core'
 import { FetchURL } from '../env/url'
+import { CSVLink } from 'react-csv'
 
 function AdminPanel(){
 const [assignments, setAssignments]=useState([])
@@ -46,6 +47,44 @@ const [activeTeacher, setActiveTeacher]=useState(null)
         setOpenEditTeacherForm(true)
     }
     
+    function csvData(){
+        // return sortFunction().map(lead => {
+        //     return {
+        //         "ID": lead.id_str,
+        //         "Detected Location": lead.detected_location.name,
+        //         "State": lead.state,
+        //         "Population": (lead.population===0? "N/A" : lead.population),
+        //         "Relevance": lead.relevance_score+"%",
+        //         "Text": lead.text,
+        //         "Keyword": lead.keyword,
+        //         "URL": lead.url,
+        //         "DataSource": lead.data_source, 
+        //         "PublishedDate": lead.published_date,
+        //         "ClosestClient": lead.nearest_client.name,
+        //         "ClientMunicipality": lead.nearest_client.municipality.name,
+        //         "ClientDistance": lead.distance_to_client_site+" mi",
+        //         "LeadSource": "AIT",
+        //         "Name": "Unknown",
+        //         "UpdatedOn": lead.updated_on
+        //     }
+        // })
+        // const assignmentOrder = currentUser.studentData[0].assignments.sort((a,b) => a.title.toLowerCase() > b.title.toLowerCase() ? 1: -1 )
+        
+        // currentUser.studentData.map(s=> {
+        //     for (let i = 0; i < assignmentOrder.length; i++) {
+        //         let currentAssignment = assignments.find(a => a.id === assignmentOrder[i].id)
+        //         revisedOrder.push(currentAssignment)
+        //     }
+        //     return({
+        //         "Name": s.student.name
+        //     })
+        // })
+
+        return(
+           [{"hi":"hi"}]
+        )
+    }
+
     return(
         <div style={{margin: "1em"}}>
             <Grid container direction="column" spacing={2} style={{marginTop: "1em"}}>
@@ -92,7 +131,11 @@ const [activeTeacher, setActiveTeacher]=useState(null)
                                 <Button variant="contained" color="secondary" onClick={()=>setOpenTeacherForm(true)}>Add Teacher</Button>
                             </Grid>
                             <Grid item>
-                                <Button variant="contained" color="secondary" onClick={()=>alert("Feature in Development")}>Export Student Grades</Button>
+                                <CSVLink data={csvData()} filename={"teleband_student_data.csv"} style={{textDecoration:"none"}}>
+                                    <Button variant="contained" color="secondary">
+                                        Export Student Grades
+                                    </Button>
+                                </CSVLink>
                             </Grid>
                         </Grid>
                     </Paper>

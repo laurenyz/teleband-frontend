@@ -61,13 +61,13 @@ function App() {
             return <Landing />
           }
         }} />
-        <Route exact path="/login" render={(props) => {
-          return < Login setCurrentUser={setCurrentUser} setCurrentUserType={setCurrentUserType} />
+        <Route exact path="/login" render={() => {
+          return < Login setCurrentUser={setCurrentUser} setCurrentUserType={setCurrentUserType} setStudentAssignments={setStudentAssignments}/>
         }} />
-        <Route exact path="/student" render={(props) => {
+        <Route exact path="/student" render={() => {
           return < StudentPage currentUser={currentUser} studentAssignments={studentAssignments} />
         }} />
-        <Route exact path="/teacher" render={(props) => {
+        <Route exact path="/teacher" render={() => {
           return < TeacherPage currentUser={currentUser} setCurrentUser={setCurrentUser} />
         }} />
         <Route path="/assignments/:id" render={(props) => {

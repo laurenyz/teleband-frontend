@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Dialog, Grid, Paper, Typography } from '@material-ui/core'
+import { CSVLink } from 'react-csv'
 import EditIcon from '@material-ui/icons/Edit';
 import PublishIcon from '@material-ui/icons/Publish';
 import GetAppIcon from '@material-ui/icons/GetApp';
@@ -16,6 +17,14 @@ function TeacherPage({ currentUser, setCurrentUser }) {
     const [openEditTeacherForm, setOpenEditTeacherForm] = useState(false)
     const [openNewStudentForm, setOpenNewStudentForm] = useState(false)
     const [openCSVStudentImportForm, setOpenCSVStudentImportForm] = useState(false)
+    let assignmentOrder=[]
+    let titles=[]
+
+    if(currentUser){
+        assignmentOrder = currentUser.studentData[0].assignments.sort((a,b) => a.title.toLowerCase() > b.title.toLowerCase() ? 1: -1)
+        titles = assignmentOrder.map(a =>a.title)
+    }
+    
 
     // const addAssignment = (data, student_assignment_ID) => {
     //     updateAssignment[student_assignment_ID] = data
@@ -38,6 +47,32 @@ function TeacherPage({ currentUser, setCurrentUser }) {
     //         })
     // }
 
+    const row = (singleStudentData) => {
+        const assignmentObject = {}
+        titles.forEach(t =>{
+            const found_assignment=singleStudentData.assignments.find(sa => 
+                sa.title===t
+            )
+            let value
+            if(found_assignment.student_assignment.graded){
+              value = `R:${found_assignment.student_assignment.rhythm} T:${found_assignment.student_assignment.tone} E:${found_assignment.student_assignment.expression}`
+            } else if(!found_assignment.student_assignment.submitted) {
+              value = "Not submitted"
+            } else {
+              value = "Not graded"
+            }
+            assignmentObject[t]= value
+        })
+        const nameObj = {"Name": singleStudentData.student.name}
+        return{...nameObj, ...assignmentObject}
+      }
+    function csvData(){
+        return(currentUser.studentData.map(s => row(s)))
+    }
+
+    if(currentUser){
+        console.log(currentUser.studentData)
+    }
     return (
         <div style={{margin: "1em"}}>
             {
@@ -89,7 +124,11 @@ function TeacherPage({ currentUser, setCurrentUser }) {
                                                 <Button variant="contained" color="secondary" size="small" onClick={()=>setOpenCSVStudentImportForm(true)} endIcon={<PublishIcon />}>Upload Students</Button>
                                             </Grid>
                                             <Grid item>
-                                                <Button variant="contained" color="secondary" size="small" onClick={()=>alert('exporting grades')} endIcon={<GetAppIcon />}>Download Grades</Button>
+                                                <CSVLink data={csvData()} filename={"teleband_grades.csv"} style={{textDecoration:"none"}}>
+                                                    <Button variant="contained" color="secondary" size="small" endIcon={<GetAppIcon />}>
+                                                        Download Grades
+                                                    </Button>
+                                                </CSVLink>
                                             </Grid>
                                         </Grid>
                                     </Grid>
