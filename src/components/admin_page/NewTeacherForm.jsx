@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, DialogContent, Grid, TextField, Typography } from '@material-ui/core'
-import { FetchURL } from '../env/url'
+import { FetchURL } from '../../env/url'
 
 function NewTeacherForm({ teachers, setTeachers, setOpenTeacherForm }) {
     const [name, setName] = useState("")

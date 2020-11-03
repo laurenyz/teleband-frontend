@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import TeacherTableAssignment from '../components/TeacherTableAssignment'
-import EditStudentForm from '../components/EditStudentForm'
-import { FetchURL } from '../env/url'
+import TeacherTableAssignment from './TeacherTableAssignment'
+import EditStudentForm from './EditStudentForm'
+import { FetchURL } from '../../env/url'
 import { Dialog, Grid, IconButton, Typography } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';

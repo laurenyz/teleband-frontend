@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, DialogContent, Grid, TextField, Typography } from '@material-ui/core'
-import { FetchURL } from '../env/url'
+import { FetchURL } from '../../env/url'
 import { v4 as uuidv4 } from 'uuid';
 
 function NewStudentForm({ currentUser, setCurrentUser, setOpenNewStudentForm }) {

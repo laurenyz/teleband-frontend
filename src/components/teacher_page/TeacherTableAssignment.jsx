@@ -4,9 +4,9 @@ import LockIcon from '@material-ui/icons/Lock';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
-import '../style/CustomAudioPlayer.css';
+import '../../style/CustomAudioPlayer.css';
 import green from '@material-ui/core/colors/green';
-import { FetchURL } from '../env/url'
+import { FetchURL } from '../../env/url'
 
 
 function TeacherTableAssignment({ assignmentDetail, currentUser, setCurrentUser }) {

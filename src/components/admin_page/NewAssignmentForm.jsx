@@ -1,6 +1,6 @@
 import React from 'react'
 import { TextField, Button, Input, InputLabel, DialogContent, Grid } from '@material-ui/core';
-import { FetchURL } from '../env/url'
+import { FetchURL } from '../../env/url'
 
 function NewAssignmentForm({ assignments, setAssignments, formType, setOpenAssignmentForm }) {
   const [title, setTitle] = React.useState("");

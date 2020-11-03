@@ -1,6 +1,6 @@
 import React from 'react'
 import { TextField, Button, Input, InputLabel, DialogContent, Grid, Typography } from '@material-ui/core';
-import { FetchURL } from '../env/url'
+import { FetchURL } from '../../env/url'
 
 function EditAssignmentForm({ activeAssignment, handleCloseEditAssignmentForm, assignments, setAssignments, formType }) {
   const [title, setTitle] = React.useState(activeAssignment.title);

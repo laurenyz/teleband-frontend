@@ -6,10 +6,9 @@ import PublishIcon from '@material-ui/icons/Publish';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EditTeacherForm from '../components/EditTeacherForm'
-import NewStudentForm from '../components/NewStudentForm'
-import CSVStudentImportForm from '../components/CSVStudentImportForm'
-import TeacherTable from './TeacherTable'
-//import TeacherTable from '../components/MUITeacherTable'
+import NewStudentForm from '../components/teacher_page/NewStudentForm'
+import CSVStudentImportForm from '../components/teacher_page/CSVStudentImportForm'
+import TeacherTable from '../components/teacher_page/TeacherTable'
 import '../style/TeacherPage.css'
 
 function TeacherPage({ currentUser, setCurrentUser }) {
@@ -70,9 +69,6 @@ function TeacherPage({ currentUser, setCurrentUser }) {
         return(currentUser.studentData.map(s => row(s)))
     }
 
-    if(currentUser){
-        console.log(currentUser.studentData)
-    }
     return (
         <div style={{margin: "1em"}}>
             {

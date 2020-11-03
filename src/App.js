@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Landing from './components/Landing'
-import StudentAssignment from './components/StudentAssignment'
-import StudentPage from './containers/StudentPage'
-import TeacherPage from './containers/TeacherPage'
-import AdminPanel from './containers/AdminPanel'
-import Login from './components/Login'
+import Landing from './pages/Landing'
+import StudentAssignment from './pages/StudentAssignment'
+import StudentPage from './pages/Student'
+import TeacherPage from './pages/Teacher'
+import Admin from './pages/Admin'
+import Login from './pages/Login'
 import { BrowserRouter, Redirect, Switch, Route } from 'react-router-dom'
 import { FetchURL } from './env/url'
 import Navbar from './components/Navbar'
@@ -74,7 +74,7 @@ function App() {
           const assignmentId = props.match.params.id
           return <StudentAssignment assignmentId={assignmentId} currentUser={currentUser} currentUserType={currentUserType} studentAssignments={studentAssignments} setStudentAssignments={setStudentAssignments}/>
           }}  />
-        <Route exact path="/admin-panel" component={AdminPanel} />
+        <Route exact path="/admin" component={Admin} />
       </Switch>
     </BrowserRouter>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, DialogContent, Grid, Input, InputLabel, Typography } from '@material-ui/core'
-import { FetchURL } from '../env/url'
+import { FetchURL } from '../../env/url'
 
 function CSVStudentImportForm ({ setOpenCSVStudentImportForm, currentUser, setCurrentUser }) {
     const [csv, setCsv] = useState("")

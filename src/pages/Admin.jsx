@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import NewAssignmentContainer from './NewAssignmentContainer'
-import EditAssignmentContainer from './EditAssignmentContainer'
-import NewTeacherForm from '../components/NewTeacherForm'
+import NewAssignmentContainer from '../components/admin_page/NewAssignmentContainer'
+import EditAssignmentContainer from '../components/admin_page/EditAssignmentContainer'
+import NewTeacherForm from '../components/admin_page/NewTeacherForm'
 import EditTeacherForm from '../components/EditTeacherForm'
-import AdminAssignmentCard from '../components/AdminAssignmentCard'
-import AdminTeacherCard from '../components/AdminTeacherCard'
+import AdminAssignmentCard from '../components/admin_page/AdminAssignmentCard'
+import AdminTeacherCard from '../components/admin_page/AdminTeacherCard'
 import { Paper, Typography, Grid, Dialog, Button } from '@material-ui/core'
 import { FetchURL } from '../env/url'
 import { CSVLink } from 'react-csv'
 
-function AdminPanel(){
+function Admin(){
 const [assignments, setAssignments]=useState([])
 const [teachers, setTeachers]=useState([])
 const [openAssignmentForm, setOpenAssignmentForm]=useState(false) //new assignment modal
@@ -161,4 +161,4 @@ const [activeTeacher, setActiveTeacher]=useState(null)
     )
 }
 
-export default AdminPanel
+export default Admin

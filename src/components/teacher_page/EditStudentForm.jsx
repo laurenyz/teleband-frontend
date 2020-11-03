@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, DialogContent, Grid, TextField, Typography } from '@material-ui/core'
-import { FetchURL } from '../env/url'
+import { FetchURL } from '../../env/url'
 
 function EditStudentForm({ currentUser, setCurrentUser, setOpenEditStudentForm, student }) {
     const [name, setName] = useState(student.name)
