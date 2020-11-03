@@ -32,16 +32,28 @@ function TeacherTableAssignment({ assignmentDetail, currentUser, setCurrentUser 
             if(json.error){
                 alert(json.message)
             } else {
-                const updatedAssignments = currentUser.studentData.map(data => {
-                    return data.assignments.map(a => {
-                        if(a.student_assignment.id===json.student_assignment.id){
-                            return {...a, student_assignment: json.student_assignment}
-                        }else{
-                            return a
-                        }
-                    } )
+                // const updatedAssignments = currentUser.studentData.map(data => {
+                //     return data.assignments.map(a => {
+                //         if(a.student_assignment.id===json.student_assignment.id){
+                //             return {...a, student_assignment: json.student_assignment}
+                //         }else{
+                //             return a
+                //         }
+                //     } )
+                // })
+                // setCurrentUser({...currentUser, assignments: updatedAssignments})
+                const updatedStudentData = currentUser.studentData.map(studentData => {
+                        const updatedAssignments = studentData.assignments.map(a=>{
+                            if(a.student_assignment.id===json.student_assignment.id){
+                                console.log("yay!", {...a, student_assignment: json.student_assignment})
+                                return {...a, student_assignment: json.student_assignment}
+                            }else{
+                                return a
+                            }
+                        })
+                        return {...studentData, assignments: updatedAssignments}
                 })
-                setCurrentUser({...currentUser, assignments: updatedAssignments})
+                setCurrentUser({...currentUser, studentData: updatedStudentData})
             }
         })
     }
