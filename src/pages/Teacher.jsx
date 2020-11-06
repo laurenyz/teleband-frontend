@@ -19,7 +19,7 @@ function TeacherPage({ currentUser, setCurrentUser }) {
     let assignmentOrder=[]
     let titles=[]
 
-    if(currentUser){
+    if(currentUser && currentUser.studentData.length>0){
         assignmentOrder = currentUser.studentData[0].assignments.sort((a,b) => a.title.toLowerCase() > b.title.toLowerCase() ? 1: -1)
         titles = assignmentOrder.map(a =>a.title)
     }
@@ -130,7 +130,12 @@ function TeacherPage({ currentUser, setCurrentUser }) {
                                     </Grid>
                                 </Grid>
                             </Paper>
-                            <TeacherTable studentData={currentUser.studentData} currentUser={currentUser} setCurrentUser={setCurrentUser} />
+                            {currentUser.studentData.length>0?
+                                <TeacherTable studentData={currentUser.studentData} currentUser={currentUser} setCurrentUser={setCurrentUser} />
+                            :
+                                null
+                            }
+                            
                         </>
                     :  
                     <Paper style={{width:"100%", marginLeft:"auto", marginBottom:"20px", marginTop: "20px", padding:"20px"}}>

@@ -1,1 +1,1 @@
-export const FetchURL = "http://localhost:3000/"
+export const FetchURL = process.env.REACT_APP_API_URL
