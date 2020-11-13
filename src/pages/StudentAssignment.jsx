@@ -38,7 +38,7 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
     const prepareRecording = () => {
         navigator.mediaDevices.getUserMedia({ audio: true })
             .then(stream => {
-                mediaRecorderSet(new MediaRecorder(stream, { type: 'audio/wav' }))
+                mediaRecorderSet(new MediaRecorder(stream, { mimeType: 'audio/webm' }))
             }
         )
     }
@@ -48,7 +48,7 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
         accompanimentRecordingAudio.play()
         activeSet(true)
         mediaRecorder.addEventListener('dataavailable', e => {
-            let tempBlob = new Blob([e.data], { type: 'audio' })
+            let tempBlob = new Blob([e.data], { mimeType: 'audio/webm' })
             audioUrlSet(URL.createObjectURL(tempBlob))
             audioBlobSet(tempBlob)
         })
@@ -65,7 +65,7 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
     }
 
     const createFileFromBlob = () => {
-        let file = new File([audioBlob], 'audio1.wav', { type: 'audio/wav' })
+        let file = new File([audioBlob], 'audio1.mp3', {mimeType: 'audio/webm'})
         return file
     }
 
@@ -73,6 +73,7 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
         let formData = new FormData()
         formData.append("school_id", currentUser.school_id)
         formData.append("student_recording", createFileFromBlob())
+        console.log(createFileFromBlob())
 
         fetch(`${FetchURL}student_assignments/${assignmentId}/submit_recording`, {
             method: "PATCH",
@@ -186,7 +187,7 @@ function StudentAssignment({assignmentId, currentUser, currentUserType, studentA
                                 <Typography variant="h5" display="inline" style={{fontWeight:"bold"}}>INSTRUCTIONS: </Typography>
                                 <Typography align="justify" variant="h5" display="inline">{assignment.instructions}</Typography>
                             </Grid>
-                            {assignment.pdf_url!==""?
+                            {assignment.pdf_url!=="" && assignment.category!=='response'?
                                 <Grid item>
                                     <Button variant="contained" color="secondary" endIcon={<LibraryMusicIcon />} onClick={()=>window.open(assignment.pdf_url)}>Notation</Button>
                                 </Grid>
